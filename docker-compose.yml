@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: "postgres:latest"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "trek-db"
+      POSTGRES_USER: "adirontech"
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
