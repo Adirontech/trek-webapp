@@ -17,3 +17,6 @@ Kiosks connected to the internet will be located at the top of the trailheads. T
 
 Remote kiosks will be scattered amongst the trails at junctions and popular areas. These will be equipped with Bluetooth pinging that will count passing by foot traffic of hikers whose Bluetooth is turned on. This data will be downloaded manually from trail managers and then uploaded to the database.
 
+## Docker Database Setup
+
+First, create a .env file in the root directory of your repository and add a line `DB_PASSWORD=<your_password_here>`, replacing `<your_password_here>` with your desired database password. Then, run the docker container by navigating to the directory in your terminal and executing `docker-compose up`. To connect to the running PostgreSQL container via pgAdmin4, create a new server and under the Connection tab set the Host name/address to `host.docker.internal`, Port to `5432`, Maintenance database to `postgres`, Username to `adirontech`, and Password to the one you specified in the .env file.
