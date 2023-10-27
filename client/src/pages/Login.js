@@ -27,7 +27,7 @@ class Login extends Component {
                 <div className="bg-black w-full">
                     <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
                         <div className=" flex flex-col items-center justify-center">
-                            <img className="w-52 py-5" alt="Image" src="circle_logo.png" /> 
+                            <img className="w-52 py-5" alt="Logo" src="circle_logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
                                 <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
                                 <form className="" onSubmit={this.submit}>
