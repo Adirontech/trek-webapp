@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS Users CASCADE;
 
 CREATE TABLE Users (
   id SERIAL PRIMARY KEY,
-  username TEXT,
-  password TEXT,
-  data_id INT,
+  username TEXT NOT NULL,
+  password TEXT NOT NULL,
+  data_id INT NOT NULL,
   FOREIGN KEY (data_id) REFERENCES UserData (id)
 );
