@@ -6,9 +6,9 @@ const userQueries = {
     createUserData: new QueryFile('./sql/userDataSQL/create.sql')
 };
 
-async function createUser({ username, password, first_name, last_name, address, city, state, zip, phone }) {
+async function createUser({ username, password, first_name, last_name, address = null, city = null, state = null, zip = null, phone }) {
     result = await db.one(userQueries.createUserData, [first_name, last_name, address, city, state, zip, phone]);
-    return db.one(userQueries.createUser, [username, password, result.id]);
+    return await db.one(userQueries.createUser, [username, password, result.id]);
 }
 
 module.exports = {

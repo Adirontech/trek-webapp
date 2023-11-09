@@ -4,3 +4,4 @@ VALUES (
     $2, -- Password
     $3  -- UserData ID
 )
+RETURNING id;
