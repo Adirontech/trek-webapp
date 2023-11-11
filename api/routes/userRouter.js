@@ -4,22 +4,27 @@ const userModel = require('../models/userModel');
 
 
 router.get('/:id', (req, res, next) => {
-
+    
 });
 
 router.post('/', async (req, res, next) => {
     try {
-        const {data} = req.body;
+        const createParams = ['username', 'password', 'first_name', 'last_name', 'phone'];
+        const signInParams = ['username', 'password'];
 
-        const requiredParams = ['username', 'password', 'first_name', 'last_name', 'phone'];
-        const missingRequiredParams = requiredParams.filter(param => !(param in req.body));
+        const missingCreateParams = createParams.filter(param => !(param in req.body));
+        const missingSignInParams = signInParams.filter(param => !(param in req.body));
 
-        if (missingRequiredParams.length > 0) {
-            throw new Error("Missing required user parameters: " + missingRequiredParams.join(', '));
+        if(missingCreateParams.length == 0){
+            user = await userModel.createUser(req.body);
+            res.status(200).json({ user_id: user.id, message: "User created successfully with id " + user.id + "." });
+        }else if (missingSignInParams.length == 0){
+            user = await userModel.signInUser(req.body);
+            res.status(200).json({ session_key: user.session_key, message: "User signed in succesfully"});
+        } else {
+            throw new Error("Missing required parameters to sign in: " + missingSignInParams.join(', ') + 
+                            ". Missing required parameters to create user: " + missingCreateParams.join(', '));
         }
-
-        user = await userModel.createUser(req.body);
-        res.status(200).json({ user_id: user.id, message: "User created successfully with id " + user.id + "." });
     } catch (error) {
         next(error);
     }
