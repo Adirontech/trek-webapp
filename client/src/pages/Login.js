@@ -4,6 +4,9 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordconf, setPasswordConf] = useState("");
+    const [firstname, setfirstName] = useState("");
+    const [lastname, setlastName] = useState("");
+    const [phone, setPhone] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
     const [errors, setErrors] = useState({});
             
@@ -11,6 +14,9 @@ const Login = () => {
     function changeForm(e) {
         setUsername("");
         setPassword("");
+        setfirstName("");
+        setlastName("");
+        setPhone("");
         setPasswordConf("");
         setCreateAccount(!createAccount);
         setErrors({});
@@ -26,6 +32,18 @@ const Login = () => {
         if(name === "password"){
             setPassword(value);
             errors["password"] = "";
+        }
+        if(name === "firstname"){
+            setfirstName(value);
+            errors["firstname"] = "";
+        }
+        if(name === "lastname"){
+            setlastName(value);
+            errors["lastname"] = "";
+        }
+        if(name === "phone"){
+            setPhone(value);
+            errors["phone"] = "";
         }
         if(name === "passwordconf"){
             setPasswordConf(value)
@@ -47,6 +65,18 @@ const Login = () => {
         if(!password){
             isValid = false;
             errors["password"] = "Please enter a password";
+        }
+        if(!firstname){
+            isValid = false;
+            errors["firstname"] = "Please enter a first name";
+        }
+        if(!lastname){
+            isValid = false;
+            errors["lastname"] = "Please enter a last name";
+        }
+        if(!phone){
+            isValid = false;
+            errors["phone"] = "Please enter a phone number";
         }
         if(!passwordconf){
             isValid = false;
@@ -83,6 +113,41 @@ const Login = () => {
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
                                 <h2 className="text-2xl font-semibold mb-4 text-center">Create Account</h2>
                                 <form className="" onSubmit={submit}>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">First Name</label>
+                                        <input
+                                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
+                                            type="text"
+                                            name="firstname"
+                                            value={firstname}
+                                            onChange={change}
+                                        />
+                                        <div className=" text-xs text-red-500">{errors.firstname}</div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">Last Name</label>
+                                        <input
+                                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
+                                            type="text"
+                                            name="lastname"
+                                            value={lastname}
+                                            onChange={change}
+                                        />
+                                        <div className=" text-xs text-red-500">{errors.lastname}</div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">Phone</label>
+                                        <input
+                                            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
+                                            type="tel"
+                                            name="phone"
+                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                            placeholder="XXX-XXX-XXXX"
+                                            value={phone}
+                                            onChange={change}
+                                        />
+                                        <div className=" text-xs text-red-500">{errors.phone}</div>
+                                    </div>
                                     <div className="mb-4">
                                         <label className="block text-gray-600 text-sm">Username</label>
                                         <input
