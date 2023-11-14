@@ -1,21 +1,21 @@
 import React, {useState, isValidElement} from "react";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
+    const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordconf, setPasswordConf] = useState("");
-    const [firstname, setfirstName] = useState("");
-    const [lastname, setlastName] = useState("");
+    const [passwordConf, setPasswordConf] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [phone, setPhone] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
     const [errors, setErrors] = useState({});
             
 
     function changeForm(e) {
-        setUsername("");
+        setUserName("");
         setPassword("");
-        setfirstName("");
-        setlastName("");
+        setFirstName("");
+        setLastName("");
         setPhone("");
         setPasswordConf("");
         setCreateAccount(!createAccount);
@@ -26,7 +26,7 @@ const Login = () => {
         const {name, value} = e.target;
         let errors = {};
         if(name === "username"){
-            setUsername(value);
+            setUserName(value);
             errors["username"] = "";
         }
         if(name === "password"){
@@ -34,11 +34,11 @@ const Login = () => {
             errors["password"] = "";
         }
         if(name === "firstname"){
-            setfirstName(value);
+            setFirstName(value);
             errors["firstname"] = "";
         }
         if(name === "lastname"){
-            setlastName(value);
+            setLastName(value);
             errors["lastname"] = "";
         }
         if(name === "phone"){
@@ -58,7 +58,7 @@ const Login = () => {
     function validate(){
         let isValid = true;
         let errors = {};
-        if(!username){
+        if(!userName){
             isValid = false;
             errors["username"] = "Please enter a username";
         }
@@ -66,11 +66,11 @@ const Login = () => {
             isValid = false;
             errors["password"] = "Please enter a password";
         }
-        if(!firstname){
+        if(!firstName){
             isValid = false;
             errors["firstname"] = "Please enter a first name";
         }
-        if(!lastname){
+        if(!lastName){
             isValid = false;
             errors["lastname"] = "Please enter a last name";
         }
@@ -78,11 +78,11 @@ const Login = () => {
             isValid = false;
             errors["phone"] = "Please enter a phone number";
         }
-        if(!passwordconf){
+        if(!passwordConf){
             isValid = false;
             errors["passwordconf"] = "Please confirm your password";
         }
-        if(password !== passwordconf){
+        if(password !== passwordConf){
             isValid = false;
             errors["match"] = "Passwords do not match";
         }
@@ -107,8 +107,8 @@ const Login = () => {
     if(createAccount){
         return(
                 <div className="bg-black w-full">
-                    <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
-                        <div className=" flex flex-col items-center justify-center">
+                    <div className=" flex items-center justify-center bg-black bg-login bg-scroll bg-cover w-screen  2xl:h-screen">
+                        <div className=" flex flex-col items-center justify-center pb-5">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
                                 <h2 className="text-2xl font-semibold mb-4 text-center">Create Account</h2>
@@ -119,7 +119,7 @@ const Login = () => {
                                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
                                             type="text"
                                             name="firstname"
-                                            value={firstname}
+                                            value={firstName}
                                             onChange={change}
                                         />
                                         <div className=" text-xs text-red-500">{errors.firstname}</div>
@@ -130,7 +130,7 @@ const Login = () => {
                                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
                                             type="text"
                                             name="lastname"
-                                            value={lastname}
+                                            value={lastName}
                                             onChange={change}
                                         />
                                         <div className=" text-xs text-red-500">{errors.lastname}</div>
@@ -154,7 +154,7 @@ const Login = () => {
                                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
                                             type="text"
                                             name="username"
-                                            value={username}
+                                            value={userName}
                                             onChange={change}
                                         />
                                         <div className=" text-xs text-red-500">{errors.username}</div>
@@ -177,7 +177,7 @@ const Login = () => {
                                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
                                             type="password"
                                             name="passwordconf"
-                                            value={passwordconf}
+                                            value={passwordConf}
                                             onChange={change}
                                         />
                                         <div className=" text-xs text-red-500">{errors.passwordconf}</div>
@@ -206,7 +206,7 @@ const Login = () => {
                                             className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-green-400"
                                             type="text"
                                             name="username"
-                                            value={username}
+                                            value={userName}
                                             onChange={change}
                                             
                                         />
