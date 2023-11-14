@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS Users CASCADE;
+DROP TABLE IF EXISTS UserSessions CASCADE;
 
 CREATE TABLE Users (
   id SERIAL PRIMARY KEY,
@@ -6,4 +7,12 @@ CREATE TABLE Users (
   password TEXT NOT NULL,
   data_id INT NOT NULL,
   FOREIGN KEY (data_id) REFERENCES UserData (id)
+);
+
+CREATE TABLE UserSessions (
+  id SERIAL PRIMARY KEY,
+  session_key VARCHAR (100) NOT NULL,
+  user_id INT NOT NULL,
+  exp_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP + interval '4 hours',
+  FOREIGN KEY (user_iD) REFERENCES Users (id)
 );
