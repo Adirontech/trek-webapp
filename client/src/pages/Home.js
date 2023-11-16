@@ -3,7 +3,7 @@ import Navbar from '../components/Navbar';
 
 const Home = () => {
     return (
-        <div className="h-screen bg-cover bg-center bg-fixed bg-no-repeat hero p-8">
+        <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
             <Navbar />
             <div className='flex flex-col items-center justify-center h-full'>
                 <div className='text-5xl text-white font-semibold'>
