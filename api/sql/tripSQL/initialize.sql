@@ -5,7 +5,6 @@ CREATE TABLE Trips (
     leader INT NOT NULL,
     date DATETIME NOT NULL,
     start INT NOT NULL,
-    destinations INT[] REFERENCES POI(id),
     purpose TEXT,
     duration INT,
     party_size INT,
