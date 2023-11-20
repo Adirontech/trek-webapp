@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
                             ". Missing required parameters to create user: " + missingCreateParams.join(', '));
         }
     } catch (error) {
-        next(error);
+        res.send({ message: error.message});
     }
 });
 
