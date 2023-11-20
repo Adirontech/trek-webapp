@@ -12,7 +12,9 @@ module.exports = {
     colors: {
       'white': '#ffffff',
       'green': '#378B35',
-      'black': '#000000'
+      'black': '#000000',
+      'red': '#FF0000',
+      'gray': '#d1d5db',
     }
   },
   plugins: [],
