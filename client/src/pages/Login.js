@@ -18,8 +18,11 @@ const Login = () => {
         password: ''
     });
             
-
-    const changeForm = (e) => {
+    /**
+     * Changes the form.
+     * Clears all entered data and errors.
+     */
+    const changeForm = () => {
         setCreateData({
             username: '',
             password: '',
@@ -36,6 +39,12 @@ const Login = () => {
         setErrors({});
     };
 
+    /**
+     * Sets entered data to createData or signInData depending on the 'createAccount' state value.
+     * Does not include passwordConf in createData as it is not sent in the request.
+     * The switch checks which errors need to be cleared and sets them.
+     * @param {*} e - event
+     */
     const change = (e) => {
         const {name, value} = e.target;
         let errors = {};
@@ -51,31 +60,41 @@ const Login = () => {
                 [name]: value,
             }));
         }
-        if( name === "username" ){
-            errors["userName"] = "";
-        }
-        if( name === "password" ){
-            errors["password"] = "";
-        }
-        if( name === "first_name" ){
-            errors["firstName"] = "";
-        }
-        if( name === "last_name" ){
-            errors["lastName"] = "";
-        }
-        if( name === "phone" ){
-            errors["phone"] = "";
-        }
-        if( name === "passwordConf" ){
-            setPasswordConf(value);
-            errors["passwordConf"] = "";
-            if( value === createData.password ){
-                errors["match"] = "";
-            }
+        switch (true) {
+            case name === "username":
+                errors["userName"] = "";
+                break;
+            case name === "password":
+                errors["password"] = "";
+                break;
+            case name === "first_name":
+                errors["firstName"] = "";
+                break;
+            case name === "last_name":
+                errors["lastName"] = "";
+                break;
+            case name === "phone":
+                errors["phone"] = "";
+                break;
+            case name === "passwordConf":
+                setPasswordConf(value);
+                errors["passwordConf"] = "";
+                if( value === createData.password ){
+                    errors["match"] = "";
+                }
+                break;
+            default:
+                break;
         }
         setErrors(errors);
     };
 
+    /**
+     * This is a validator for data creating an account.
+     * It checks to see if there is a value for all required fields and compares the password with the confirmation password.
+     * Updates errors and returns true or false.
+     * @returns Boolean
+     */
     const validateCreate = () => {
         let isValid = true;
         let errors = {};
@@ -111,6 +130,11 @@ const Login = () => {
         return isValid;
     };
 
+    /**
+     * This is a validator for signing in.
+     * It ensures there is a username and password entered, sets errors, and returns true or false
+     * @returns Boolean
+     */
     const validateSignIn = () => {
         let isValid = true;
         let errors = {};
@@ -126,6 +150,14 @@ const Login = () => {
         return isValid;
     };
 
+    /**
+     * This function creates a user and signs them in, redirecting them to the landing page.
+     * It first validates the data and makes a create API request. 
+     * Getting the user id from the create API response, it sets the userID in the browsers session data.
+     * Then makes a sign in API request which returns a sessionKey that is set in the browsers session data.
+     * Finally redirects the user to the landing page given all the requests were successful
+     * @param {} e - event
+     */
     async function create(e) {
         e.preventDefault();
         if( validateCreate() ){
@@ -163,6 +195,13 @@ const Login = () => {
         }
     };
 
+    /**
+     * This function signs in a user, stores a session key, and redirects the user to the landing page.
+     * It first validates the data and makes the sign in API request.
+     * If a session key is returned, it is stored and the user is redirected to the landing page.
+     * If not, it sets an error for an incorrect username or password.
+     * @param {*} e - event
+     */
     async function signIn(e) {
         let errors = {};
         e.preventDefault();
