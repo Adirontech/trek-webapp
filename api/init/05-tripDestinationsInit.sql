@@ -5,4 +5,4 @@ CREATE TABLE TripDestinations (
     destination INT,
     FOREIGN KEY (trip_id) REFERENCES Trips(id),
     FOREIGN KEY (destination) REFERENCES POIs(id)
-)
+);
