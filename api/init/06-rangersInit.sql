@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS Rangers CASCADE;
+
+CREATE TABLE Rangers (
+    id INT PRIMARY KEY,
+    FOREIGN KEY (id) REFERENCES Users(id)
+);
