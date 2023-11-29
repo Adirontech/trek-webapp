@@ -1,13 +1,4 @@
-DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS UserSessions CASCADE;
-
-CREATE TABLE Users (
-  id SERIAL PRIMARY KEY,
-  username TEXT NOT NULL,
-  password TEXT NOT NULL,
-  data_id INT NOT NULL,
-  FOREIGN KEY (data_id) REFERENCES UserData (id)
-);
 
 CREATE TABLE UserSessions (
   id SERIAL PRIMARY KEY,

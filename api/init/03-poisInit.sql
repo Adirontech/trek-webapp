@@ -6,4 +6,4 @@ CREATE TABLE POIs (
     id SERIAL PRIMARY KEY,
     name TEXT,
     type poi_type_enum
-)
+);
