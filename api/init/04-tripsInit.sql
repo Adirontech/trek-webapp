@@ -10,4 +10,4 @@ CREATE TABLE Trips (
     party_size INT,
     FOREIGN KEY (leader) REFERENCES Users(id),
     FOREIGN KEY (start) REFERENCES POIs(id)
-)
+);
