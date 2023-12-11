@@ -20,3 +20,7 @@ Remote kiosks will be scattered amongst the trails at junctions and popular area
 ## Docker Database Setup
 
 First, create a .env file in the root directory of your repository and add a line `DB_PASSWORD=<your_password_here>`, replacing `<your_password_here>` with your desired database password. Then, run the docker container by navigating to the directory in your terminal and executing `docker-compose up`. To connect to the running PostgreSQL container via pgAdmin4, create a new server and under the Connection tab set the Host name/address to `host.docker.internal`, Port to `5432`, Maintenance database to `postgres`, Username to `adirontech`, and Password to the one you specified in the .env file.
+
+## Running the Project
+
+Once the database docker container is running as shown above, the web client and API client must also be run in separate terminal processes. In a new terminal, navigate to the `client` directory and run `npm start`, and do the same in a separate terminal process in the `api` directory. The API process will default to running on port 5000, while the client process will default to port 3000.
