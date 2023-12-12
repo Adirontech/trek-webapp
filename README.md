@@ -24,3 +24,13 @@ First, create a .env file in the root directory of your repository and add a lin
 ## Running the Project
 
 Once the database docker container is running as shown above, the web client and API client must also be run in separate terminal processes. In a new terminal, navigate to the `client` directory and run `npm start`, and do the same in a separate terminal process in the `api` directory. The API process will default to running on port 5000, while the client process will default to port 3000.
+
+## Configuring the Project
+
+You will need to create a config file located in a newly created directory, located at `/config/config.js`, formatted as shown below. The values must be set to match the values in the `docker-compose.yml` for creating the Postgres database.
+
+```
+module.exports = {
+    databaseURL: "postgres://<username>:<password>@localhost:<port>/<database name>"
+};
+```
