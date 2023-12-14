@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS Trips CASCADE;
 CREATE TABLE Trips (
     id SERIAL PRIMARY KEY,
     leader INT NOT NULL,
-    date TIMESTAMP NOT NULL,
+    date DATE NOT NULL,
     start INT NOT NULL,
     purpose TEXT,
     duration INT,

@@ -4,11 +4,18 @@ const registrationModel = require('../models/registrationModel');
 
 router.post('/', async (req, res, next) => {
   try {
-    const { data } = req.body;
-    trip = await registrationModel.createRegistration(data);
-    res.status(200).json(trip); 
+    const createParams = ['leader', 'date', 'start', 'purpose', 'duration', 'party_size', 'session_key'];
+
+    const missingCreateParams = createParams.filter(param => !(param in req.body));
+    if(missingCreateParams.length == 0){
+      console.log(req.body);
+      trip = await registrationModel.createRegistration(req.body);
+      res.status(200).json({message: "Trip Created"});
+    }else{
+      throw new Error("Missing required parameters to create a trip: " + missingCreateParams.join(', '));
+    }
   } catch (error) {
-    next(error);
+    res.send({ message: error.message });
   }
 });
 
