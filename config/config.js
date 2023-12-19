@@ -1,3 +1,3 @@
 module.exports = {
-    databaseURL: "postgres://user:password@localhost:5432/dbName", //modify this url to match your local db replacing user, password, and dbName
+    databaseURL: "postgres://adirontech:test@localhost:5432/trek-db", //modify this url to match your local db replacing user, password, and dbName
 };
