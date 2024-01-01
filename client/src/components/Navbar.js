@@ -7,7 +7,7 @@ const Navbar = () => {
             <div className='text-center text-xl text-white flex-1 font-medium'>
                 <a className="mr-8" href="">Home</a>
                 <a className="mr-8" href="">About</a>
-                <a href="">Trip Registration</a>
+                <a href="http://localhost:3000/register">Trip Registration</a>
             </div>
             {/* profile - right */}
             <div className=''>
