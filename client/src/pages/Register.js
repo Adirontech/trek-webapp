@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Navbar from "../components/Navbar";
+import StateSelect from "../components/StateSelect";
 
 const Register = () => {
     const [errors, setErrors] = useState({});
@@ -20,12 +21,7 @@ const Register = () => {
         date: ''
     });
 
-    /**
-     * Sets entered data to createData or signInData depending on the 'createAccount' state value.
-     * Does not include passwordConf in createData as it is not sent in the request.
-     * The switch checks which errors need to be cleared and sets them.
-     * @param {*} e - event
-     */
+    
     const change = (e) => {
         const {name, value} = e.target;
         let errors = {};
@@ -79,13 +75,17 @@ const Register = () => {
         setErrors(errors);
     };
 
+    // const selectChange = (e) => {
+    //     console.log(e);
+    // }
+
     return (
         <div>
             <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
                 <Navbar />
-                <div className="flex flex-col items-center justify-center h-screen">
+                <div className="flex flex-col items-center justify-center mt-10">
                     <div className="w-700 bg-white p-4 rounded-lg shadow-md">
-                        <h1 className="ml-1 text-xl">User Registration</h1>
+                        <h1 className="ml-1 text-xl text-center">User Information</h1>
                         <div className="flex flex-col items-start justify-center">
                             <div className="flex flex-row justify-start my-2 w-full">
                                 <div className="flex flex-col ml-1 mr-3 w-3/6">
@@ -139,64 +139,7 @@ const Register = () => {
                                 </div>
                             </div>
                             <div className="flex flex-row justify-start my-2 w-full">
-                                <div className="flex flex-col ml-1 mr-4 w-1/5">
-                                    <div className="flex flex-row justify-between">
-                                        <label className="text-sm">State</label>
-                                    </div>
-                                    <select className="border border-gray rounded focus:outline-none">
-                                        <option value="" className="text-gray" disabled selected></option>
-                                        <option value="AL">Alabama</option>
-                                        <option value="AK">Alaska</option>
-                                        <option value="AZ">Arizona</option>
-                                        <option value="AR">Arkansas</option>
-                                        <option value="CA">California</option>
-                                        <option value="CO">Colorado</option>
-                                        <option value="CT">Connecticut</option>
-                                        <option value="DE">Delaware</option>
-                                        <option value="FL">Florida</option>
-                                        <option value="GA">Georgia</option>
-                                        <option value="HI">Hawaii</option>
-                                        <option value="ID">Idaho</option>
-                                        <option value="IL">Illinois</option>
-                                        <option value="IN">Indiana</option>
-                                        <option value="IA">Iowa</option>
-                                        <option value="KS">Kansas</option>
-                                        <option value="KY">Kentucky</option>
-                                        <option value="LA">Louisiana</option>
-                                        <option value="ME">Maine</option>
-                                        <option value="MD">Maryland</option>
-                                        <option value="MA">Massachusetts</option>
-                                        <option value="MI">Michigan</option>
-                                        <option value="MN">Minnesota</option>
-                                        <option value="MS">Mississippi</option>
-                                        <option value="MO">Missouri</option>
-                                        <option value="MT">Montana</option>
-                                        <option value="NE">Nebraska</option>
-                                        <option value="NV">Nevada</option>
-                                        <option value="NH">New Hampshire</option>
-                                        <option value="NJ">New Jersey</option>
-                                        <option value="NM">New Mexico</option>
-                                        <option value="NY">New York</option>
-                                        <option value="NC">North Carolina</option>
-                                        <option value="ND">North Dakota</option>
-                                        <option value="OH">Ohio</option>
-                                        <option value="OK">Oklahoma</option>
-                                        <option value="OR">Oregon</option>
-                                        <option value="PA">Pennsylvania</option>
-                                        <option value="RI">Rhode Island</option>
-                                        <option value="SC">South Carolina</option>
-                                        <option value="SD">South Dakota</option>
-                                        <option value="TN">Tennessee</option>
-                                        <option value="TX">Texas</option>
-                                        <option value="UT">Utah</option>
-                                        <option value="VT">Vermont</option>
-                                        <option value="VA">Virginia</option>
-                                        <option value="WA">Washington</option>
-                                        <option value="WV">West Virginia</option>
-                                        <option value="WI">Wisconsin</option>
-                                        <option value="WY">Wyoming</option>
-                                    </select>
-                                </div>
+                                <StateSelect handleChange={change}/>
                                 <div className="flex flex-col ml-4 mr-4 w-2/5">
                                     <div className="flex flex-row justify-between">
                                         <label className="text-sm">Zip Code</label>
@@ -215,7 +158,7 @@ const Register = () => {
                                         <div className="text-red">*</div>
                                     </div>
                                     <input
-                                        className="border border-gray rounded focus:outline-none focus:border-green-400"
+                                        className="border border-gray rounded focus:outline-none focus:border-green-400 relative bottom-1"
                                         name="phone"
                                         placeholder="XXX-XXX-XXXX"
                                         type="tel"
@@ -225,10 +168,10 @@ const Register = () => {
                                 </div>
                             </div>
                         </div>
-                        <h2 className="ml-2 text-xl">Trip Information</h2>
+                        <h2 className="ml-1 text-xl text-center">Trip Information</h2>
                             <div className="flex flex-col items-start justify-center">
                                 <div className="flex flex-row justify-start my-2 w-full">
-                                    <textarea className="border border-gray rounded focus:outline-none focus:border-green-400 ml-2 mr-2 w-full"/>
+                                    <textarea className="border border-gray rounded focus:outline-none focus:border-green-400 ml-1 mr-1 w-full"/>
                                 </div>
                                 <div className="flex flex-row justify-start my-2 w-full">
                                     <div className="flex flex-col ml-1 mr-3 w-2/5">
@@ -274,12 +217,12 @@ const Register = () => {
                                         />
                                     </div>               
                                     <div className="flex flex-col mr-4 m-1 w-2/6">
-                                        <div className="flex flex-row justify-between leading-normal">
+                                        <div className="flex flex-row justify-between leading-normal relative bottom-1">
                                                 <label className="text-sm">Start Date</label>
                                                 <div className="text-red">*</div>
                                         </div>
                                         <input
-                                            className="border border-gray rounded focus:outline-none focus:border-green-400"
+                                            className="border border-gray rounded focus:outline-none focus:border-green-400 relative bottom-1"
                                             type="date"
                                             placeholder="Date"
                                         />
