@@ -1,32 +1,60 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { RxDropdownMenu } from 'react-icons/rx';
+import { MultiSelect } from 'react-multi-select-component';
+import '../assets/stylesheets/POISelect.css'
 
 const POISelect = () => {
-    const [selected, setSelected] = useState({});
+    const [selected, setSelected] = useState([]);
 
-    const change = (e) => {
-        const {name, value} = e.target;
-        const points = this.props.options;
-        points.array.forEach(element => {
-            if(element )
-        });
-    }
+    const points = [
+        {
+        label: 'Group 1',
+        value: 'Option 1'
+        },
+        {
+        label: 'Group 1',
+        value: 'Option 2'
+        },
+        {
+        label: 'Group 1',
+        value: 'Option 3'
+        },
+        {
+        label: 'Group 2',
+        value: 'Option 4'
+        },
+        {
+        label: 'Group 2',
+        value: 'Option 5'
+        },
+        {
+        label: 'Group 2',
+        value: 'Option 6'
+        },
+        {
+        label: 'Group 2',
+        value: 'Option 7'
+        }
+    ]
 
 
-    const points = this.props.options;
+    // const points = this.props.options;
 
     return (
-        <div className="flex flex-col mr-1 ml-3 w-80">
+        <div className="flex flex-col md:mr-1 md:ml-3 w-full">
             <div className="flex flex-row justify-between">
                 <label className="text-sm">Points Of Interest</label>
                 <div className="text-red">*</div>
             </div>
-            <select onChange={change} multiple className="border border-gray rounded focus:outline-none focus:border-green-400">
-                <option value='' disabled selected></option>
-                {points.map((poi, index) => (
-                    <option key={index} value={poi.value}>{poi.name}</option>
-                ))}
-            </select>
+            <MultiSelect
+                options={points}
+                labelledBy="Points of Interest"
+                onChange={setSelected}
+                value={selected}
+                showCheckbox={true}
+                className="multiSelect"
+            />
         </div>
     )
 }
