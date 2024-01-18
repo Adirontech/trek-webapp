@@ -1,15 +1,15 @@
 import React from "react";
 import { useState } from "react";
 
-const StateSelect = () => {
+const StateSelect = (props) => {
 
     const change = (e) => {
         // const {name, value} = e.target;
-        this.props.handleChange(e);
+        props.handleChange(e);
     }
 
     return (
-        <div className="flex flex-col ml-1 mr-4 w-28"> {/*margins are set to work with register form. If needed they can be changed*/}
+        <div className="flex flex-col md:ml-1 md:mr-1 2xl:mr-4 w-28"> {/*margins are set to work with register form. If needed they can be changed*/}
             <div className="flex flex-row justify-between">
                 <label className="text-sm">State</label>
             </div>
