@@ -1,6 +1,8 @@
 import profileIcon from '../assets/images/profile-icon.png';
 
 const Navbar = () => {
+    const isResourcePlanner = false;
+
     return (
         <nav className="relative flex justify-between items-center">
             {/* main nav - centered */}
@@ -8,6 +10,8 @@ const Navbar = () => {
                 <a className="mx-4" href="">Home</a>
                 <a className="mx-4" href="">About</a>
                 <a className="mx-4" href="">Trip Registration</a>
+                {/* only show the resource planning page if the user is a resource planner */}
+                {isResourcePlanner && <a className="mx-4" href="">Resource Planning</a>}
             </div>
             {/* profile - right */}
             <div className="absolute right-0">
