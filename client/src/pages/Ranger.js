@@ -4,7 +4,7 @@ const Ranger = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/trips/all') // replace with your actual API endpoint
+        fetch('http://localhost:5000/trips/all')
             .then(response => response.json())
             .then(data => setData(data));
     }, []);
