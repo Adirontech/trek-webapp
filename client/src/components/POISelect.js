@@ -4,7 +4,7 @@ import { RxDropdownMenu } from 'react-icons/rx';
 import { MultiSelect } from 'react-multi-select-component';
 import '../assets/stylesheets/POISelect.css'
 
-const POISelect = () => {
+const POISelect = (props) => {
     const [selected, setSelected] = useState([]);
 
     const points = [
@@ -37,6 +37,15 @@ const POISelect = () => {
         value: 'Option 7'
         }
     ]
+
+    useEffect(() => {
+        // This code will run after each render when myState is updated
+        console.log('State updated:', selected);
+        props.handleChange(selected);
+        // return () => {
+        // // Cleanup code here, if needed
+        // };
+    }, [selected]);
 
 
     // const points = this.props.options;

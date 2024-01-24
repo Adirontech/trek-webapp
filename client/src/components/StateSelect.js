@@ -9,7 +9,7 @@ const StateSelect = (props) => {
     }
 
     return (
-        <div className="flex flex-col md:ml-1 md:mr-1 2xl:mr-4 w-28"> {/*margins are set to work with register form. If needed they can be changed*/}
+        <div className="flex flex-col md:ml-1 md:mr-1 2xl:mr-4 md:w-28 w-full"> {/*margins are set to work with register form. If needed they can be changed*/}
             <div className="flex flex-row justify-between">
                 <label className="text-sm">State</label>
             </div>
