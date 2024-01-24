@@ -24,10 +24,7 @@ const Register = () => {
     const [selected, setSelected] = useState({});
     
     const change = (e) => {
-        const {name, value, selectedOptions } = e.target;
-        console.log(name);
-        console.log(e);
-        console.log(value);
+        const {name, value} = e.target;
         let errors = {};
         if(name === "poi"){
             setSelected((json) => ({
@@ -74,7 +71,12 @@ const Register = () => {
                 break;
         }
         setErrors(errors);
+        console.log(registerData);
     };
+
+    const POIChange = (e) => {
+        console.log(e);
+    }
 
     const selectChange = (e) => {
         console.log(e);
@@ -168,7 +170,7 @@ const Register = () => {
                                 </div>
                             </div>
                         </div>
-                        <h2 className="ml-1 text-xl ml-auto mr-auto">Trip Information</h2>
+                        <h2 className="text-xl ml-auto mr-auto">Trip Information</h2>
                             <div className="flex flex-col items-start justify-center w-full">
                                 <div className="flex flex-row justify-start my-2 w-full">
                                     <textarea placeholder="Trip Notes" className="border border-gray rounded focus:outline-none focus:border-green-400 w-full"/>
@@ -185,7 +187,7 @@ const Register = () => {
                                         </select>
                                     </div>
                                     <div className="md:mr-3 md:w-3/5 w-full">
-                                        <POISelect/>
+                                        <POISelect handleChange={POIChange}/>
                                     </div>
                                 </div>
                                 <div className="flex md:flex-row flex-col justify-start md:my-2 w-full">
