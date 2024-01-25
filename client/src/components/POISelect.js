@@ -60,6 +60,7 @@ const POISelect = (props) => {
                 options={points}
                 labelledBy="Points of Interest"
                 onChange={setSelected}
+                hasSelectAll={false}
                 value={selected}
                 showCheckbox={true}
                 className="multiSelect"
