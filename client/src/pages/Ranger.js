@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+const config = require("../config/config");
+
 const Ranger = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:5000/trips/all') // replace with your actual API endpoint
+        fetch(config.apiURL + '/trips/all')
             .then(response => response.json())
             .then(data => setData(data));
     }, []);
