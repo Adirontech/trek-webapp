@@ -1,6 +1,16 @@
 import profileIcon from '../assets/images/profile-icon.png';
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
+    const navigateToLogin = () => {
+        navigate('/login');
+    }
+
     return (
         <nav className="flex justify-between items-center">
             {/* main nav - centered */}
@@ -11,7 +21,7 @@ const Navbar = () => {
             </div>
             {/* profile - right */}
             <div className=''>
-                <a href=""><img src={profileIcon} height={40} width={40}/></a>
+                <a href=""><img src={profileIcon} height={40} width={40} onClick ={navigateToLogin}/></a>
             </div>
         </nav>
     )
