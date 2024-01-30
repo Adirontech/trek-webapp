@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Ranger = () => {
+const LandAllocation = () => {
     const [data, setData] = useState(null);
 
     useEffect(() => {
@@ -12,11 +12,11 @@ const Ranger = () => {
     return (
         <div className="bg-gradient-to-b from-green-800 to-green-950 h-screen">
             <p>
-                Ranger view data:
+                Land Allocation view data:
             </p>
             {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
         </div>
     );
 }
 
-export default Ranger;
+export default LandAllocation;
