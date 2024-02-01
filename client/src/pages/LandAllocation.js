@@ -7,7 +7,7 @@ const LandAllocation = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/trips/all')
+        fetch('http://localhost:5000/trips/basic')
             .then(response => response.json())
             .then(data => setData(data));
     }, []);
@@ -45,7 +45,7 @@ const LandAllocation = () => {
     const { pageIndex, pageSize } = state;
 
     return (
-        <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+        <div className="min-h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
             <Navbar />
             <div className="bg-white p-6 rounded-lg shadow-md w-5/6 mx-auto mt-5">
                 <table {...getTableProps()} className="table-auto w-full">
@@ -58,8 +58,8 @@ const LandAllocation = () => {
                                         <span>
                                             {column.isSorted
                                                 ? column.isSortedDesc
-                                                    ? ' 🔽'
-                                                    : ' 🔼'
+                                                    ? ' ↑'
+                                                    : ' ↓'
                                                 : ''}
                                         </span>
                                     </th>
