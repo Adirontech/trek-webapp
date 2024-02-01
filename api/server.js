@@ -5,7 +5,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRouter');
 const trailRoutes = require('./routes/trailRouter');
-const registrationRoutes = require('./routes/registrationRouter');
 const tripsRoutes = require('./routes/tripsRouter');
 
 app.use(cors());
@@ -15,7 +14,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use('/user', userRoutes);
 app.use('/trail', trailRoutes);
-app.use('/register', registrationRoutes);
 app.use('/trips', tripsRoutes);
 
 
