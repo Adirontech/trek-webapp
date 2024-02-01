@@ -21,7 +21,8 @@ INNER JOIN
     POIs dest_poi ON d.destination = dest_poi.id
 GROUP BY
     t.id,
-    leader_name,
+    ud.first_name,
+    ud.last_name,
     t.date,
     start_poi.name,
     t.purpose,
