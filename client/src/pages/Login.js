@@ -1,7 +1,10 @@
 import React, {useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import MainContext from "../MainContext";
 
 const Login = () => {
+    const {isLandAllocationPlanner, setIsLandAllocationPlanner} = useContext(MainContext);
     const navigate = useNavigate();
     const [passwordConf, setPasswordConf] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
@@ -309,6 +312,18 @@ const Login = () => {
                                         />
                                         <div className=" text-xs text-red">{errors.passwordConf}</div>
                                         <div className=" text-xs text-red">{errors.match}</div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">Are you a land allocation planner?</label>
+                                        <input
+                                            className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
+                                            type="checkbox"
+                                            name="landPlanner"
+                                            value={isLandAllocationPlanner}
+                                            onChange={(e) => {
+                                                setIsLandAllocationPlanner(e.target.checked)
+                                            }}
+                                        />
                                     </div>
                                     <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>
