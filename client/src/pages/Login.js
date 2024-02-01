@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import MainContext from "../MainContext";
 
 const Login = () => {
+    const {isLandAllocationPlanner, setIsLandAllocationPlanner} = useContext(MainContext);
     const navigate = useNavigate();
     const [passwordConf, setPasswordConf] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
