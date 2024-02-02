@@ -1,10 +1,8 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useContext } from "react";
 import MainContext from "../MainContext";
 
 const Login = () => {
-    const {isLandAllocationPlanner, setIsLandAllocationPlanner} = useContext(MainContext);
     const navigate = useNavigate();
     const [passwordConf, setPasswordConf] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
@@ -20,6 +18,10 @@ const Login = () => {
         username: '',
         password: ''
     });
+    const {
+        isLandUsagePlanner, 
+        setIsLandUsagePlanner
+    } = useContext(MainContext);
             
     /**
      * Changes the form.
@@ -319,13 +321,13 @@ const Login = () => {
                                             className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
                                             type="checkbox"
                                             name="landPlanner"
-                                            value={isLandAllocationPlanner}
+                                            value={isLandUsagePlanner}
                                             onChange={(e) => {
-                                                setIsLandAllocationPlanner(e.target.checked)
+                                                setIsLandUsagePlanner(e.target.checked);
                                             }}
                                         />
                                     </div>
-                                    <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
+                                    <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit" onClick={() => {navigate('/')}}>Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>
                                 </form>
                             </div>

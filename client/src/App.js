@@ -5,12 +5,12 @@ import MainContext from "./MainContext";
 import { useState } from "react";
 
 const App = () => {
-    const [isLandAllocationPlanner, setIsLandAllocationPlanner] = useState(false);
+    const [isLandUsagePlanner, setIsLandUsagePlanner] = useState(false);
     
     return (
         <MainContext.Provider value={{
-            isLandAllocationPlanner,
-            setIsLandAllocationPlanner
+            isLandUsagePlanner,
+            setIsLandUsagePlanner
         }}>
             <BrowserRouter>
                 <Routes>

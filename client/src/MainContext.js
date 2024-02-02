@@ -1,8 +1,8 @@
-import {createContext} from "react";
+import { createContext } from "react";
 
 const MainContext = createContext({
-    isLandAllocationPlanner: "",
-    setIsLandAllocationPlanner: () => {}
+    isLandUsagePlanner: "",
+    setIsLandUsagePlanner: () => {}
 });
 
 export default MainContext;
