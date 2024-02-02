@@ -3,7 +3,7 @@ import profileIcon from '../assets/images/profile-icon.png';
 import MainContext from '../MainContext';
 
 const Navbar = () => {
-    const { isLandUsagePlanner } = useContext(MainContext);
+    const isLandAllocationPlanner = useContext(MainContext);
 
     return (
         <nav className="relative flex justify-between items-center">
@@ -12,8 +12,8 @@ const Navbar = () => {
                 <a className="mx-4" href="">Home</a>
                 <a className="mx-4" href="">About</a>
                 <a className="mx-4" href="">Trip Registration</a>
-                {/* only show the land usage planning page if the user is a land usage planner */}
-                {isLandUsagePlanner && <a className="mx-4" href="">Land Usage Planning</a>}
+                {/* only show the resource planning page if the user is a resource planner */}
+                {isLandAllocationPlanner && <a className="mx-4" href="">Land Allocation Planning</a>}
             </div>
             {/* profile - right */}
             <div className="absolute right-0">
