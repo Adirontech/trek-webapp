@@ -90,7 +90,8 @@ To connect to the running PostgreSQL container via pgAdmin4, open the PGAdmin4 e
 
 Once this is all set, the window should look like this:
 ![Server_Register_Reference_Image_01](./images/Server_Register_01.png)
-hit "Save" in the bottom-right corner of the window. Assuming everything has been set up correctly, no errors should appear, and you are connected to the database!
+
+Click "Save" in the bottom-right corner of the window. Assuming everything has been set up correctly, no errors should appear, and you are connected to the database!
 
 ### Step 4) Setup Web & API Clients
 
