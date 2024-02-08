@@ -1,15 +1,28 @@
 import '../assets/stylesheets/App.css';
 import Navbar from '../components/Navbar';
+import Login from './Login';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     
     const navigate = useNavigate();
 
-    const navigateToLogin = () => {
-        navigate('/login');
-    }
+    
 
+
+
+
+    const navigateToLogin = () => {
+        if(signIn){
+            alert("user is signed in! this would go to the registration page")
+        }
+        else{
+             navigate('/login');
+
+        }
+    }
+    
 
     return (
         <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
