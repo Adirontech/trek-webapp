@@ -9,49 +9,41 @@ const POISelect = (props) => {
 
     const points = [
         {
-        label: 'Group 1',
-        value: 'Option 1'
+        label: '1',
+        value: '1'
         },
         {
-        label: 'Group 1',
-        value: 'Option 2'
+        label: '2',
+        value: '2'
         },
         {
-        label: 'Group 1',
-        value: 'Option 3'
+        label: '3',
+        value: '3'
         },
         {
-        label: 'Group 2',
-        value: 'Option 4'
+        label: '4',
+        value: '4'
         },
         {
-        label: 'Group 2',
-        value: 'Option 5'
+        label: '5',
+        value: '5'
         },
         {
-        label: 'Group 2',
-        value: 'Option 6'
+        label: '6',
+        value: '6'
         },
         {
-        label: 'Group 2',
-        value: 'Option 7'
+        label: '7',
+        value: '7'
         }
     ]
 
     useEffect(() => {
-        // This code will run after each render when myState is updated
-        console.log('State updated:', selected);
         props.handleChange(selected);
-        // return () => {
-        // // Cleanup code here, if needed
-        // };
     }, [selected]);
 
-
-    // const points = this.props.options;
-
     return (
-        <div className="flex flex-col md:mr-1 md:ml-3 w-full">
+        <div className="flex flex-col w-full">
             <div className="flex flex-row justify-between">
                 <label className="text-sm">Points Of Interest</label>
                 <div className="text-red">*</div>

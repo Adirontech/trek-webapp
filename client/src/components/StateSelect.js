@@ -12,8 +12,9 @@ const StateSelect = (props) => {
         <div className="flex flex-col md:ml-1 md:mr-1 2xl:mr-4 md:w-28 w-full"> {/*margins are set to work with register form. If needed they can be changed*/}
             <div className="flex flex-row justify-between">
                 <label className="text-sm">State</label>
+                <div className="text-red">*</div>
             </div>
-            <select onChange={change} className="border border-gray rounded focus:outline-none">
+            <select value={props.value} name="state" onChange={change} className="border border-gray rounded focus:outline-none">
                 <option value="" className="text-gray" disabled selected></option>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
