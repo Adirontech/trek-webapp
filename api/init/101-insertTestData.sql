@@ -1,14 +1,3 @@
-INSERT INTO POIs (id, name, type)
-VALUES 
-    (1, 'Trailhead A', 'Trailhead'),
-    (2, 'Trailhead B', 'Trailhead'),
-    (3, 'Trailhead C', 'Trailhead'),
-    (4, 'Location 1', 'Trail Location'),
-    (5, 'Location 2', 'Trail Location'),
-    (6, 'Location 3', 'Trail Location'),
-    (7, 'Location 4', 'Trail Location'),
-    (8, 'Location 5', 'Trail Location');
-
 INSERT INTO UserData
     (id, first_name, last_name, phone)
 VALUES
@@ -24,8 +13,8 @@ VALUES
 INSERT INTO Trips
     (leader, date, start, purpose, duration, party_size)
 VALUES
-    (1, '01-01-2023 12:00:00', 1, 'Test Trip from A', 1, 2),
-    (2, '01-05-2023 12:00:00', 3, 'Test Trip from C', 2, 1);
+    (1, '01-01-2023 12:00:00', 1, 'Test Trip from Heart Lake', 1, 2),
+    (2, '01-05-2023 12:00:00', 3, 'Test Trip from Upper Works', 2, 1);
 
 INSERT INTO TripDestinations
     (trip_id, destination)
