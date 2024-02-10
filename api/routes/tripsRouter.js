@@ -9,9 +9,9 @@ router.get('/all', async (req, res) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const createParams = ['leader', 'date', 'start', 'purpose', 'duration', 'party_size', 'session_key'];
+    const requiredCreateParams = ['first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
 
-    const missingCreateParams = createParams.filter(param => !(param in req.body));
+    const missingCreateParams = requiredCreateParams.filter(param => !(param in req.body));
     if(missingCreateParams.length == 0){
       console.log(req.body);
       trip = await tripsModel.createTrip(req.body);
@@ -26,9 +26,9 @@ router.post('/', async (req, res, next) => {
 
 router.put('/', async (req, res, next) => {
     try {
-        const editParams = ['id', 'leader', 'date', 'start', 'purpose', 'duration', 'party_size', 'session_key'];
+        const requiredEditParams = ['id', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
 
-        const missingEditParams = editParams.filter(param => !(param in req.body));
+        const missingEditParams = requiredEditParams.filter(param => !(param in req.body));
         if(missingEditParams.length == 0){
             await tripsModel.editTrip(req.body);
             res.status(200).json({message: "Trip Updated"});

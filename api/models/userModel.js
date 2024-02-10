@@ -6,7 +6,13 @@ const userQueries = {
     createUser: new QueryFile('./sql/userSQL/create.sql'),
     createUserData: new QueryFile('./sql/userDataSQL/create.sql'),
     signInUser: new QueryFile('./sql/userSQL/signIn.sql'),
+    getUserInfo: new QueryFile('./sql/userDataSQL/get.sql')
 };
+
+async function getUserInfo({session_key}) {
+    result = await db.one(userQueries.getUserInfo, [session_key]);
+    return result;
+}
 
 async function createUser({username, password, first_name, last_name, address = null, city = null, state = null, zip = null, phone}) {
     const hashedPW = hashPW(password);
@@ -17,7 +23,8 @@ async function createUser({username, password, first_name, last_name, address = 
 async function signInUser({username, password}){
     const hashedPW = hashPW(password);
     const sessionKey = crypto.randomBytes(32).toString('hex');
-    return db.one(userQueries.signInUser, [username, hashedPW, sessionKey]);
+    const res = await db.one(userQueries.signInUser, [username, hashedPW, sessionKey]);
+    return res;
 }
 
 function hashPW(pw) {
@@ -28,5 +35,6 @@ function hashPW(pw) {
 
 module.exports = {
     createUser,
-    signInUser
+    signInUser,
+    getUserInfo
 };
