@@ -6,5 +6,6 @@ CREATE TABLE POIs (
     id SERIAL PRIMARY KEY,
     name TEXT,
     type poi_type_enum,
-    wilderness_area TEXT
+    wilderness_area INT NOT NULL,
+    FOREIGN KEY (wilderness_area) REFERENCES WildernessAreas(id)
 );
