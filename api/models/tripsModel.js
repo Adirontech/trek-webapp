@@ -12,12 +12,12 @@ async function getAllTrips() {
     return await db.any(tripQueries.getAllTrips);
 }
 
-async function createTrip({leader, date, start, purpose, duration, party_size, session_key}) {
-    return db.one(tripQueries.createTrip, [leader, date, start, purpose, duration, party_size, session_key]);
+async function createTrip({first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key}) {
+    return db.one(tripQueries.createTrip, [first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key]);
 }
 
-async function editTrip({id, leader, date, start, purpose, duration, party_size, session_key}) {
-    return db.one(tripQueries.editTrip, [id, leader, date, start, purpose, duration, party_size, session_key]);
+async function editTrip({id, first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key}) {
+    return db.one(tripQueries.editTrip, [id, first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key]);
 }
 
 module.exports = {
