@@ -145,26 +145,25 @@ const Register = () => {
     async function getUserInfo() {
         const key = sessionStorage.getItem('sessionKey');
         try{
-            const response = await fetch('http://172.27.48.1:5000/user?' + new URLSearchParams({
-                key: key,
-            }));
+            const response = await fetch(`http://localhost:5000/user/user-info?key=${encodeURIComponent(key)}`);
             if ( !response.ok ) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
             const data = await response.json();
             if(data){
+                let dataArray = String(data.data).replace(/^\(|\)$/g, '').replace(/"/g, '').split(',');
                 setRegisterData({
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    street: data.street,
-                    city: data.city,
-                    state: data.state,
-                    zip_code: data.zip,
+                    first_name: dataArray[1],
+                    last_name: dataArray[2],
+                    street: dataArray[3],
+                    city: dataArray[4],
+                    state: dataArray[5],
+                    zip_code: dataArray[6],
                     date: '',
                     start: '',
                     pois: '',
                     purpose: '',
-                    phone: data.phone,
+                    phone: dataArray[7],
                     duration: '',
                     party_size: '',
                     session_key: ''
@@ -321,6 +320,12 @@ const Register = () => {
                                         </div>
                                         <select name="start" value={registerData.start} onChange={change} className="border border-gray rounded focus:outline-none focus:border-green-400">
                                             <option value='' disabled selected></option>
+                                            <option value='2'>One</option>
+                                            <option value='2'>One</option>
+                                            <option value='2'>One</option>
+                                            <option value='2'>One</option>
+                                            <option value='2'>One</option>
+                                            <option value='2'>One</option>
                                             <option value='2'>One</option>
                                         </select>
                                     </div>
