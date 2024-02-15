@@ -3,11 +3,13 @@ const router = express.Router();
 const userModel = require('../models/userModel');
 
 
-router.get('/:key', async (req, res, next) => {
+router.get('/user-info', async (req, res, next) => {
     try{
-        if(req.params.key){
-            user = await userModel.getUserInfo(req.params.key);
-            res.status(200).json({ first_name: user.first_name, last_name: user.last_name, address: user.address, city: user.city, state: user.state, zip: user.zip, phone: user.phone});
+        if(req.query.key){
+            user = await userModel.getUserInfo(req.query.key);
+            res.status(200).json({ data: user.getuserdata });
+        }else{
+            res.send({message: 'no key'});
         }
     }catch (error){
         res.send({ message: error.message });
