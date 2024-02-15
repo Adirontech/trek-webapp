@@ -9,8 +9,8 @@ const userQueries = {
     getUserInfo: new QueryFile('./sql/userDataSQL/get.sql')
 };
 
-async function getUserInfo({session_key}) {
-    result = await db.one(userQueries.getUserInfo, [session_key]);
+async function getUserInfo(key) {
+    result = await db.one(userQueries.getUserInfo, [key]);
     return result;
 }
 

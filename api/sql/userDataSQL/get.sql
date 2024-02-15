@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION getUserData(
     p_sessionKey VARCHAR
 ) RETURNS TABLE(
-    id SERIAL,
+    id INT,
     first_name TEXT,
     last_name TEXT,
     address TEXT,
@@ -14,24 +14,27 @@ DECLARE
     v_user_id INT;
     v_data_id INT;
 BEGIN
-    SELECT user_id
+    SELECT us.user_id
     INTO v_user_id
-    FROM UserSessions
-    WHERE session_key = p_sessionKey;
+    FROM UserSessions us
+    WHERE us.session_key = p_sessionKey;
 
     IF FOUND THEN
-        SELECT data_id
+        SELECT u.data_id
         INTO v_data_id
-        FROM User
-        WHERE id = v_user_id;
+        FROM Users u
+        WHERE u.id = v_user_id;
 
-        RETURN QUERY
-        SELECT *
-        FROM UserData
-        WHERE data_id = v_data_id;
-
+        IF FOUND THEN
+            RETURN QUERY
+            SELECT *
+            FROM UserData ud
+            WHERE ud.id = v_data_id;
+        ELSE
+            RAISE EXCEPTION 'Could not find data associated with user';
+        END IF;
     ELSE
-        RAISE EXCEPTION 'User not found';
+        RAISE EXCEPTION 'User not logged in';
     END IF;
 END $$ LANGUAGE PLPGSQL;
 
