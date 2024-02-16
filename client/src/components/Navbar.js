@@ -3,6 +3,7 @@
  * This component renders a navigation bar with links to Home, About, and Trip Registration.
  * It also includes a profile icon on the right side.
  */
+import profileIcon from '../assets/images/profile-icon.png';
 
 const Navbar = () => {
     return (
