@@ -1,7 +1,7 @@
 /**
  * getAll.sql - SQL script for retrieving all trips with their associated destinations.
  * This script selects trip information including ID, leader ID, date, start location ID, purpose, duration, party size,
- * and an array of destinations for each trip from the Trips table, joining it with the TripDestinations table.
+ *   and an array of destinations for each trip from the Trips table, joining it with the TripDestinations table.
  * It groups the results by trip ID, leader ID, date, start location ID, purpose, duration, and party size.
  * The array_agg function is used to aggregate multiple destination values into an array for each trip.
  */
