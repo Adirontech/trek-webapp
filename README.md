@@ -10,14 +10,15 @@ The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react w
     - [Web Application](#web-application)
     - [Kiosk System](#kiosk-system)
   - [Project Setup](#project-setup)
-    - [Step 1) Project Prerequisites](#step-1-project-prerequisites)
-    - [Step 2) Clone \& Configure Project](#step-2-clone--configure-project)
-      - [Environment Variables Setup](#environment-variables-setup)
-      - [Configuring the Project](#configuring-the-project)
-    - [Step 3) Setup Docker Database](#step-3-setup-docker-database)
-    - [Step 4) Setup Web \& API Clients](#step-4-setup-web--api-clients)
-      - [Setup Web Client](#setup-web-client)
-      - [Setup API Client](#setup-api-client)
+    - [For Developers](#for-developers)
+      - [Step 1) Project Prerequisites](#step-1-project-prerequisites)
+      - [Step 2) Clone \& Configure Project](#step-2-clone--configure-project)
+        - [Environment Variables Setup](#environment-variables-setup)
+        - [Configuring the Project](#configuring-the-project)
+      - [Step 3) Setup Docker Database](#step-3-setup-docker-database)
+      - [Step 4) Setup Web \& API Clients](#step-4-setup-web--api-clients)
+        - [Setup Web Client](#setup-web-client)
+        - [Setup API Client](#setup-api-client)
 
 ## About
 
@@ -37,32 +38,42 @@ Remote kiosks will be scattered amongst the trails at junctions and popular area
 
 ## Project Setup
 
+### For Developers
+
 Follow the instructions below to set up the project on your local machine
 
-### Step 1) Project Prerequisites
+#### Step 1) Project Prerequisites
 
 Ensure the following is installed on your machine:
 
-- Node.js 
+- Git
+  - For instructions for all platforms (Windows, Linux, Mac, & from Source), use this link:
+    - https://github.com/git-guides/install-git
+  - If for some reason these instructions don't work, this link's instructions should also work:
+    - https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- Node.js
   - <https://nodejs.org/en/download/current>
 - Docker + Docker Desktop
   - <https://www.docker.com/get-started/>
+- An IDE (code editor) of your choice (VScode is a good recommendation)
 
 Once Docker Desktop is installed, launch it. On the left hand side, navigate to "Extensions", and once you find the Extensions Marketplace, search for `Open Source management tool for PostgreSQL`. Your window should look something like this:
 ![Extensions_Marketplace_Setup_Image_01](./images/Extensions_Marketplace_Setup_Image_01.png)
 Install this extension; once it is installed, "PGAdmin4" should be a selectable extension on the left-hand side of your Docker Desktop application.
 
-### Step 2) Clone & Configure Project
+#### Step 2) Clone & Configure Project
 
-Run `git clone` on this repository to your local machine
+On your machine, create a folder directory for the project to be stored in. Copy the path to that directory.
+
+Open a terminal and navigate to the path you copied. Once you have navigated there, run `git clone https://github.com/Adirontech/trek-webapp.git`. The project should be pulled from GitHub to your directory, stored in a single directory called `trek-webapp`.
 
 Once cloned, navigate into the `trek-webapp` directory, and complete the following steps:
 
-#### Environment Variables Setup
+##### Environment Variables Setup
 
 In the root of the project, create an `.env` file in the root directory of your repository and add a line `DB_PASSWORD=<your_password_here>`. This will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password.
 
-#### Configuring the Project
+##### Configuring the Project
 
 The TREK web application contains two config directories in the following locations:
 
@@ -73,7 +84,7 @@ Each of these directories contains a template file named `config.template.js`. I
 
 Remember that the template config files different / unique to each directory! Your config files will not look the same once you fill them out.
 
-### Step 3) Setup Docker Database
+#### Step 3) Setup Docker Database
 
 With your project is fully-configured, it is time to set up your Docker PostgreSQL Database. First, start a new terminal. In that terminal, navigate to the project directory (`trek-webapp`) in execute the command `docker-compose up`. Once you see a message with the LOG statement "database system is ready to acdept connections" in the terminal, your Database is now running.
 
@@ -93,14 +104,14 @@ Once this is all set, the window should look like this:
 
 Click "Save" in the bottom-right corner of the window. Assuming everything has been set up correctly, no errors should appear, and you are connected to the database!
 
-### Step 4) Setup Web & API Clients
+#### Step 4) Setup Web & API Clients
 
 Once the database docker container is running as shown above, the web client and API client must also be run in separate terminal processes:
 
-#### Setup Web Client
+##### Setup Web Client
 
 In a new terminal, navigate to the `client` directory and run `npm start`. The web client will start running.
 
-#### Setup API Client
+##### Setup API Client
 
 In a new terminal (this will be the third), navigate to the `api` directory and run `npm start`. The API process will default to running on port 5000, while the client process will default to port 3000.
