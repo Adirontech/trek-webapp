@@ -1,28 +1,39 @@
+/**
+ * index.js - Entry point for the React application, responsible for rendering components and setting up routing.
+ */
+
+// Import necessary dependencies
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import Login from './pages/Login';
-import Home from './pages/Home';
-import Ranger from './pages/Ranger';
-import Register from './pages/Register';
-import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import './index.css'; // Import CSS file for styling
+import Login from './pages/Login'; // Import Login component
+import Home from './pages/Home'; // Import Home component
+import Ranger from './pages/Ranger'; // Import Ranger component
+import Register from './pages/Register'; // Import Register component
+import reportWebVitals from './reportWebVitals'; // Import utility for measuring web vitals
+import { BrowserRouter, Routes, Route } from "react-router-dom"; // Import React Router components for routing
 
+// Create a root instance for rendering React components
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render the main application component
 root.render(
   <React.StrictMode>
+    {/* Wrap the application in StrictMode for enhanced error detection */}
     <BrowserRouter>
+      {/* Provide routing functionality using BrowserRouter */}
       <Routes>
-        <Route path='ranger' element={<Ranger/>} />
-        <Route path='login' element={<Login/>} />
-        <Route path='' element={<Home/>} />
-        <Route path='register' element={<Register />} />
+        {/* Define route configurations */}
+        <Route path='ranger' element={<Ranger/>} /> {/* Render Ranger component for '/ranger' route */}
+        <Route path='login' element={<Login/>} /> {/* Render Login component for '/login' route */}
+        <Route path='' element={<Home/>} /> {/* Render Home component for default route '/' */}
+        <Route path='register' element={<Register />} /> {/* Render Register component for '/register' route */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Measure performance in the application
+// To measure performance, pass a function to log results or send them to an analytics endpoint
+// Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
