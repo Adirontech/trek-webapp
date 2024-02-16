@@ -1,3 +1,14 @@
+/**
+ * get.sql - SQL script for retrieving user data based on session key.
+ * This script defines a PL/pgSQL function called getUserData, which returns user data
+ * such as first name, last name, address, city, state, zip code, and phone number,
+ * based on the provided session key.
+ * The function first checks if the session key is associated with a logged-in user.
+ * If so, it retrieves the user ID from the UserSessions table and then retrieves the data ID
+ * associated with that user from the Users table.
+ * Finally, it returns the user data from the UserData table corresponding to the retrieved data ID.
+ */
+
 CREATE OR REPLACE FUNCTION getUserData(
     p_sessionKey VARCHAR
 ) RETURNS TABLE(
