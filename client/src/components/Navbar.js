@@ -10,9 +10,9 @@ const Navbar = () => {
             {/* main nav - centered */}
             <div className='text-center text-xl text-white flex-1 font-medium'>
                 <a className="mx-4" href="./">Home</a>
-                <a className="mx-4" href="">Trip Registration</a>
+                <a className="mx-4" href="/register">Trip Registration</a>
                 {/* only show the land usage planning page if the user is a land usage planner */}
-                {isLandUsagePlanner && <a className="mx-4" href="">Land Usage Planning</a>}
+                {isLandUsagePlanner && <a className="mx-4" href="/ranger">Land Usage Planning</a>}
             </div>
             {/* profile - right */}
             <div className="absolute right-0">
