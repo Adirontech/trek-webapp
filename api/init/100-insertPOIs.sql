@@ -2,7 +2,7 @@ INSERT INTO WildernessAreas (id, name)
 VALUES
 (1, 'High Peaks'),
 (2, 'AMR'),
-(3, 'Five Ponds')
+(3, 'Five Ponds');
 
 INSERT INTO POIs (id, name, type, wilderness_area)
 VALUES 
@@ -42,18 +42,18 @@ VALUES
     (34, 'Phelps', 'Peak', 1),
     (35, 'TableTop', 'Peak', 1),
     (36, 'Nye', 'Peak', 1),
-    (36, 'Street', 'Peak', 1),
-    (37, 'Colden', 'Peak', 1),
-    (38, 'Avalanche Lake', 'Scenic', 1),
-    (39, 'Marcy Dam', 'Scenic', 1),
-    (40, 'Indian Falls', 'Scenic', 1),
-    (41, 'Johns Brook Lodge', 'Lodge', 1),
-    (42, 'Nippletop', 'Peak', 2),
-    (43, 'Dial', 'Peak', 2),
-    (44, 'Colvin', 'Peak', 2),
-    (45, 'Blake', 'Peak', 2),
-    (46, 'Big Shallow Pond', 'Leanto', 3),
-    (47, 'Little Shallow Pond', 'Leanto', 3),
-    (48, 'High Falls', 'Trailhead', 3),
-    (49, 'Dead Creek', 'Trailhead', 3),
-    (50, 'Cat Mountain', 'Peak', 3)
+    (37, 'Street', 'Peak', 1),
+    (38, 'Colden', 'Peak', 1),
+    (39, 'Avalanche Lake', 'Scenic', 1),
+    (40, 'Marcy Dam', 'Scenic', 1),
+    (41, 'Indian Falls', 'Scenic', 1),
+    (42, 'Johns Brook Lodge', 'Lodge', 1),
+    (43, 'Nippletop', 'Peak', 2),
+    (44, 'Dial', 'Peak', 2),
+    (45, 'Colvin', 'Peak', 2),
+    (46, 'Blake', 'Peak', 2),
+    (47, 'Big Shallow Pond', 'Leanto', 3),
+    (48, 'Little Shallow Pond', 'Leanto', 3),
+    (49, 'High Falls', 'Trailhead', 3),
+    (50, 'Dead Creek', 'Trailhead', 3),
+    (51, 'Cat Mountain', 'Peak', 3)
