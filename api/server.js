@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRouter');
 const trailRoutes = require('./routes/trailRouter');
 const tripsRoutes = require('./routes/tripsRouter');
+const poiRoutes = require('./routes/poiRouter');
 
 app.use(cors());
 app.use(morgan('dev'));
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use('/user', userRoutes);
 app.use('/trail', trailRoutes);
 app.use('/trips', tripsRoutes);
+app.use('/poi', poiRoutes);
 
 
 app.use((req, res, next) => {

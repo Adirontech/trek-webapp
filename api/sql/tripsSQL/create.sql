@@ -38,6 +38,10 @@ BEGIN
             );
         END LOOP;
 
+        INSERT INTO TripDestinations (trip_id, destination) VALUES(
+            v_trip_id, p_start
+        );
+
         RAISE NOTICE 'Trip Created';
     ELSE
         RAISE EXCEPTION 'Not authenticated';
