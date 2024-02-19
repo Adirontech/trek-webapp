@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, { useState, useContext} from "react";
 import { useNavigate } from 'react-router-dom';
+import MainContext from "../MainContext";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -11,12 +12,16 @@ const Login = () => {
         password: '',
         first_name: '',
         last_name: '',
-        phone: ''
+        phone: '',
+        is_ranger: false,
     });
     const [signInData, setSignInData] = useState({
         username: '',
         password: ''
     });
+    const {
+        setIsLandUsagePlanner
+    } = useContext(MainContext);
             
     /**
      * Changes the form.
@@ -28,7 +33,8 @@ const Login = () => {
             password: '',
             first_name: '',
             last_name: '',
-            phone: ''
+            phone: '',
+            is_ranger: false,
         });
         setSignInData({
             username: '',
@@ -46,7 +52,17 @@ const Login = () => {
      * @param {*} e - event
      */
     const change = (e) => {
-        const {name, value} = e.target;
+        const {name} = e.target;
+        let value;
+
+        // check if 'e' has the checked property, indicating it's a checkbox (land usage planner)
+        if (e.target.hasOwnProperty('checked')) {
+            value = e.target.checked;
+        }
+        else {
+            value = e.target.value;
+        }
+
         let errors = {};
         if ( createAccount && (name !== "passwordConf") ){
             setCreateData((json) => ({
@@ -173,7 +189,6 @@ const Login = () => {
                 }
                 const cData = await cResponse.json();
                 if( cData.user_id ) {
-                    sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -309,6 +324,19 @@ const Login = () => {
                                         />
                                         <div className=" text-xs text-red">{errors.passwordConf}</div>
                                         <div className=" text-xs text-red">{errors.match}</div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">Are you a land allocation planner?</label>
+                                        <input
+                                            className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
+                                            type="checkbox"
+                                            name="is_ranger"
+                                            value={createData.is_ranger}
+                                            onChange={(e) => {
+                                                setIsLandUsagePlanner(e.target.checked);
+                                                change(e);
+                                            }}
+                                        />
                                     </div>
                                     <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>
