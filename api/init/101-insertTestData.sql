@@ -1,5 +1,5 @@
 INSERT INTO UserData
-    (id, first_name, last_name, phone)
+    (id, first_name, last_name, phone, address, city, state, zip)
 VALUES
     (1, 'Alice', 'Tester', '555-555-5555', '1 sesime', 'lakewood', 'NY', '13456'),
     (2, 'Bob', 'Tester', '555-555-6666', '2 sesimee', 'buffalo', 'NY', '09090');

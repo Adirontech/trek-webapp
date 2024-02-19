@@ -1,6 +1,7 @@
 const db = require('../db');
 const crypto = require('crypto');
 const { QueryFile } = require('pg-promise');
+const rangerModel = require('../models/rangerModel');
 
 const userQueries = {
     createUser: new QueryFile('./sql/userSQL/create.sql'),
@@ -14,9 +15,13 @@ async function getUserInfo(key) {
     return result;
 }
 
-async function createUser({username, password, first_name, last_name, address = null, city = null, state = null, zip = null, phone}) {
+async function createUser({username, password, first_name, last_name, address = null, city = null, state = null, zip = null, phone, is_ranger}) {
     const hashedPW = hashPW(password);
     result = await db.one(userQueries.createUserData, [first_name, last_name, address, city, state, zip, phone]);
+    console.log(result);
+    if (is_ranger) {
+        rangerModel.createRanger(result);
+    }
     return db.one(userQueries.createUser, [username, hashedPW, result.id]);
 }
 

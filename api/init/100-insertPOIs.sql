@@ -2,7 +2,7 @@ INSERT INTO WildernessAreas (id, name)
 VALUES
 (1, 'High Peaks'),
 (2, 'AMR'),
-(3, 'Five Ponds');
+(3, 'Five Ponds')
 
 INSERT INTO POIs (id, name, type, wilderness_area)
 VALUES 
@@ -56,4 +56,4 @@ VALUES
     (48, 'Little Shallow Pond', 'Leanto', 3),
     (49, 'High Falls', 'Trailhead', 3),
     (50, 'Dead Creek', 'Trailhead', 3),
-    (51, 'Cat Mountain', 'Peak', 3)
+    (51, 'Cat Mountain', 'Peak', 3);

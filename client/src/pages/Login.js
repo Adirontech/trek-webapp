@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import MainContext from "../MainContext";
 
 const Login = () => {
-    const {isLandAllocationPlanner, setIsLandAllocationPlanner} = useContext(MainContext);
     const navigate = useNavigate();
     const [passwordConf, setPasswordConf] = useState("");
     const [createAccount, setCreateAccount] = useState(false);
@@ -13,14 +12,14 @@ const Login = () => {
         password: '',
         first_name: '',
         last_name: '',
-        phone: ''
+        phone: '',
+        is_ranger: false,
     });
     const [signInData, setSignInData] = useState({
         username: '',
         password: ''
     });
     const {
-        isLandUsagePlanner, 
         setIsLandUsagePlanner
     } = useContext(MainContext);
             
@@ -34,7 +33,8 @@ const Login = () => {
             password: '',
             first_name: '',
             last_name: '',
-            phone: ''
+            phone: '',
+            is_ranger: false,
         });
         setSignInData({
             username: '',
@@ -179,7 +179,6 @@ const Login = () => {
                 }
                 const cData = await cResponse.json();
                 if( cData.user_id ) {
-                    sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -321,10 +320,11 @@ const Login = () => {
                                         <input
                                             className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
                                             type="checkbox"
-                                            name="landPlanner"
-                                            value={isLandUsagePlanner}
+                                            name="is_ranger"
+                                            value={createData.is_ranger}
                                             onChange={(e) => {
                                                 setIsLandUsagePlanner(e.target.checked);
+                                                change(e);
                                             }}
                                         />
                                     </div>
