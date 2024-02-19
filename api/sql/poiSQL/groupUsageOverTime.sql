@@ -1,3 +1,7 @@
+/**
+Gets total trip destinations (times visited) for a given string of poi_ids during 
+a specified time period
+*/
 SELECT p.id AS poi_id, COUNT(td.trip_id) AS count
 FROM POIs p
 JOIN TripDestinations td ON p.id = td.destination
