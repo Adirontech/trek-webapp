@@ -1,7 +1,16 @@
+/**
+ * poiRouter.js - Router for handling poi-related routes.
+ * This router handles routes for retrieving poi data
+ */
+
+// Import required modules
 const express = require('express');
 const router = express.Router();
 const poiModel = require('../models/poiModel');
 
+/**
+ * Route to retrieve poi(s) usage over time
+ */
 router.get('/usage', async (req, res) => {
     try{
         if(req.query.pois && req.query.from && req.query.to){
@@ -11,7 +20,7 @@ router.get('/usage', async (req, res) => {
             res.send({ message: 'Not all requied query parameters (pois, from, to) were provided'});
         }
     }catch(error){
-        res.send({ message: error.message });
+        res.status(500).send({ message: error.message });
     }
 });
 
