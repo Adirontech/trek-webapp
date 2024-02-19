@@ -14,8 +14,8 @@ const poiQueries = {
 };
 
 /**
- * 
- * @param {string} pois the points of interest
+ * Gets the number of times each POI was visited during a given time period
+ * @param {string} pois the points of interest ids. comma separated
  * @param {string} from the date to start getting data
  * @param {string} to the date to stop getting data
  * @returns  {Promise<Object>} usage data
