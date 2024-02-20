@@ -10,7 +10,8 @@ const path = require('path');
 
 // Derine queries for pois
 const poiQueries = {
-    getGroupUsage: new QueryFile(path.join(__dirname, './sql/poiSQL/groupUsageOverTime.sql')),
+    getGroupUsage: new QueryFile(path.join(__dirname, '../sql/poiSQL/groupUsageOverTime.sql')),
+    getDailyUsage: new QueryFile(path.join(__dirname, '../sql/poiSQL/dailyUsage.sql'))
 };
 
 /**
@@ -24,7 +25,19 @@ async function getGroupUsage(pois, from, to){
     return await db.any(poiQueries.getGroupUsage, [pois, from, to]);
 };
 
+/**
+ * Gets the number of times a POI was visited on a given day and the amount of visitors for that day
+ * @param {string} poi the point of interest id 
+ * @param {string} date the date to get data for
+ * @returns {Promise<Object>} daily usage data
+ */
+async function getDailyUsage(poi, date){
+    var result = await db.oneOrNone(poiQueries.getDailyUsage, [poi, date]);
+    console.log(result);
+    return result;
+}
 
 module.exports = {
-    getGroupUsage
+    getGroupUsage,
+    getDailyUsage
 };
