@@ -18,11 +18,11 @@ const userQueries = {
 };
 
 /**
- * Retrieves user information based on a key.
- * @param {string} key - The key used to retrieve user information.
+ * Retrieves user information based on a given session key.
+ * @param {string} key - The Session key used to retrieve user information.
  * @returns {Promise<Object>} The user information.
  */
-async function getUserInfo(key) {
+async function getUserInfo(key) { // the 'key' variable refers to a session key
     const result = await db.one(userQueries.getUserInfo, [key]);
     return result;
 }
