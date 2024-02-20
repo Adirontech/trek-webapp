@@ -24,5 +24,24 @@ router.get('/usage', async (req, res) => {
     }
 });
 
+/**
+ * Route to retrieve poi usage on a certain day
+ */
+router.get('/daily', async (req, res) => {
+    try {
+        if (req.query.poi && req.query.date) {
+            const usage = await poiModel.getDailyUsage(req.query.poi, req.query.date);
+            res.status(200).json(usage);
+        }
+        else {
+            res.send({ message: 'Not all requied query parameters (poi, date) were provided' });
+        
+        }
+    }
+    catch (error) {
+        res.status(500).send({ message: error.message });
+    }
+});
+
 
 module.exports = router;
