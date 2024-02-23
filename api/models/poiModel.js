@@ -10,7 +10,9 @@ const path = require('path');
 
 // Derine queries for pois
 const poiQueries = {
-    getGroupUsage: new QueryFile(path.join(__dirname, './sql/poiSQL/groupUsageOverTime.sql')),
+    getGroupUsage: new QueryFile(path.join(__dirname, '../sql/poiSQL/groupUsage.sql')),
+    getAll: new QueryFile(path.join(__dirname, '../sql/poiSQL/getAll.sql')),
+    getTrailheads: new QueryFile(path.join(__dirname, '../sql/poiSQL/getTrailheads.sql')),
 };
 
 /**
@@ -24,7 +26,24 @@ async function getGroupUsage(pois, from, to){
     return await db.any(poiQueries.getGroupUsage, [pois, from, to]);
 };
 
+/**
+ * Gets all POIs
+ * @returns {PromiseObject} pois
+ */
+async function getAll(){
+    return await db.any(poiQueries.getAll);
+};
+
+/**
+ * Gets all trailheads (Starting Points)
+ * @returns {PromiseObject} trailheads
+ */
+async function getTrailheads(){
+    return await db.any(poiQueries.getTrailheads);
+};
 
 module.exports = {
-    getGroupUsage
+    getGroupUsage,
+    getAll,
+    getTrailheads
 };
