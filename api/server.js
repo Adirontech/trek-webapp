@@ -11,6 +11,7 @@
  const userRoutes = require('./routes/userRouter'); // Importing user routes
  const trailRoutes = require('./routes/trailRouter'); // Importing trail routes
  const tripsRoutes = require('./routes/tripsRouter'); // Importing trips routes
+ const poiRoutes = require('./routes/poiRouter'); // Importing poi routes
  
  app.use(cors()); // Enabling CORS for all routes
  app.use(morgan('dev')); // Logging HTTP requests in the console with 'dev' format
@@ -23,6 +24,8 @@
  app.use('/trail', trailRoutes);
  // Middleware for handling trips-related routes
  app.use('/trips', tripsRoutes);
+ // Middleware for handling poi-related routes
+ app.use('/poi', poiRoutes);
  
  // Middleware for handling 404 errors (route not found)
  app.use((req, res, next) => {
