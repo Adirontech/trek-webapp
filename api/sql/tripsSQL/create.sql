@@ -1,3 +1,11 @@
+/**
+ * create.sql - SQL script for creating a function to create a trip in the database.
+ * This script defines a PL/pgSQL function called create_trip, which inserts a new trip record into the Trips table.
+ * The function takes parameters for leader ID, date, start location ID, purpose, duration, party size, and session key for authentication.
+ * It checks if the provided session key is valid by querying the UserSessions table.
+ * If authenticated, it inserts the trip details into the Trips table.
+ */
+
 CREATE OR REPLACE FUNCTION create_trip(
     p_first_name VARCHAR,
     p_last_name VARCHAR,
@@ -25,6 +33,7 @@ BEGIN
     FROM UserSessions
     WHERE session_key = p_session_key;
 
+    -- Checking if a session key was found
     IF FOUND THEN
         INSERT INTO Trips (creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size) VALUES(
             v_creator_id, p_first_name, p_last_name, p_street, p_city, p_state, p_zip_code, p_date, p_start, p_purpose, p_phone, p_duration, p_party_size
@@ -44,6 +53,7 @@ BEGIN
 
         RAISE NOTICE 'Trip Created';
     ELSE
+        -- Throwing an exception if not authenticated
         RAISE EXCEPTION 'Not authenticated';
     END IF;
 END $$ LANGUAGE PLPGSQL;
