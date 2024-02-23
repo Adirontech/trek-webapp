@@ -10,10 +10,10 @@ const path = require('path');
 
 // Define queries for trip operations
 const tripQueries = {
-    getAllTrips: new QueryFile(path.join(__dirname, './sql/tripsSQL/getAll.sql')),
-    getTrips: new QueryFile(path.join(__dirname, './sql/tripsSQL/get.sql')),
-    createTrip: new QueryFile(path.join(__dirname, './sql/tripsSQL/create.sql')),
-    editTrip: new QueryFile(path.join(__dirname, './sql/tripsSQL/edit.sql'))
+    getAllTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getAll.sql')),
+    getTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/get.sql')),
+    createTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/create.sql')),
+    editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql'))
 };
 
 /**
