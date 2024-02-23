@@ -11,10 +11,10 @@ const path = require('path');
 
 // Define queries for user operations
 const userQueries = {
-    createUser: new QueryFile(path.join(__dirname, './sql/userSQL/create.sql')),
-    createUserData: new QueryFile(path.join(__dirname, './sql/userDataSQL/create.sql')),
-    signInUser: new QueryFile(path.join(__dirname, './sql/userSQL/signIn.sql')),
-    getUserInfo: new QueryFile(path.join(__dirname, './sql/userDataSQL/get.sql'))
+    createUser: new QueryFile(path.join(__dirname, '../sql/userSQL/create.sql')),
+    createUserData: new QueryFile(path.join(__dirname, '../sql/userDataSQL/create.sql')),
+    signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
+    getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql'))
 };
 
 /**
