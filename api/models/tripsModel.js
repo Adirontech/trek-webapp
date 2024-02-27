@@ -17,6 +17,10 @@ const tripQueries = {
     editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql'))
 };
 
+async function getUsageBasic() {
+    return await db.any(tripQueries.getUsageBasic);
+}
+
 async function getAllTrips() {
     return await db.any(tripQueries.getAllTrips);
 }
