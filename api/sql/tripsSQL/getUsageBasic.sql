@@ -10,7 +10,7 @@ SELECT
 FROM
     Trips t
 INNER JOIN
-    Users u ON t.leader = u.id
+    Users u ON t.creator = u.id
 INNER JOIN
     UserData ud ON u.data_id = ud.id
 INNER JOIN
