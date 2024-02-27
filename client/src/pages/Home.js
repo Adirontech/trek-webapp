@@ -13,7 +13,10 @@ const Home = () => {
 
 
     const navigateToLogin = () => {
-        if(sessionStorage.getItem('sessionKey')){
+
+        const findSessionKey = sessionStorage.getItem('sessionKey');
+
+        if(findSessionKey){
             alert("user is signed in! this would go to the registration page")
         }
         else{
