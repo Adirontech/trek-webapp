@@ -1,42 +1,62 @@
+/**
+ * tripsRouter.js - Router for handling trip-related routes.
+ * This router handles routes for retrieving all trips, creating new trips, and editing existing trips.
+ */
+
+// Import required modules
 const express = require('express');
-const router = express.Router();
 const tripsModel = require('../models/tripsModel');
 
+// Create router instance
+const router = express.Router();
+
+/**
+ * Route to retrieve all trips.
+ */
 router.get('/all', async (req, res) => {
-    const trips = await tripsModel.getAllTrips();
-    res.status(200).json(trips);
-});
-
-router.post('/', async (req, res, next) => {
-  try {
-    const createParams = ['leader', 'date', 'start', 'purpose', 'duration', 'party_size', 'session_key'];
-
-    const missingCreateParams = createParams.filter(param => !(param in req.body));
-    if(missingCreateParams.length == 0){
-      console.log(req.body);
-      trip = await tripsModel.createTrip(req.body);
-      res.status(200).json({message: "Trip Created"});
-    }else{
-      throw new Error("Missing required parameters to create a trip: " + missingCreateParams.join(', '));
+    try {
+        const trips = await tripsModel.getAllTrips();
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
-  } catch (error) {
-        res.send({ message: error.message });
-  }
 });
 
+/**
+ * Route to create a new trip.
+ */
+router.post('/', async (req, res, next) => {
+    try {
+        const requiredCreateParams = ['first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
+
+        const missingCreateParams = requiredCreateParams.filter(param => !(param in req.body));
+        if (missingCreateParams.length === 0) {
+            const trip = await tripsModel.createTrip(req.body);
+            res.status(200).json({ message: "Trip Created", trip });
+        } else {
+            throw new Error("Missing required parameters to create a trip: " + missingCreateParams.join(', '));
+        }
+    } catch (error) {
+        next(error);
+    }
+});
+
+/**
+ * Route to edit an existing trip.
+ */
 router.put('/', async (req, res, next) => {
     try {
-        const editParams = ['id', 'leader', 'date', 'start', 'purpose', 'duration', 'party_size', 'session_key'];
+        const requiredEditParams = ['id', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
 
-        const missingEditParams = editParams.filter(param => !(param in req.body));
-        if(missingEditParams.length == 0){
+        const missingEditParams = requiredEditParams.filter(param => !(param in req.body));
+        if (missingEditParams.length === 0) {
             await tripsModel.editTrip(req.body);
-            res.status(200).json({message: "Trip Updated"});
-        }else{
+            res.status(200).json({ message: "Trip Updated" });
+        } else {
             throw new Error("Missing required parameters to edit a trip: " + missingEditParams.join(', '));
         }
     } catch (error) {
-        res.send({ message: error.message });
+        next(error);
     }
 });
 
