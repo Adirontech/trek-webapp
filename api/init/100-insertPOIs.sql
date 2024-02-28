@@ -56,4 +56,4 @@ VALUES
     (48, 'Little Shallow Pond', 'Leanto', 3),
     (49, 'High Falls', 'Trailhead', 3),
     (50, 'Dead Creek', 'Trailhead', 3),
-    (51, 'Cat Mountain', 'Peak', 3)
+    (51, 'Cat Mountain', 'Peak', 3);
