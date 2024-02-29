@@ -8,7 +8,7 @@
 
 SELECT
     t.id, -- Trip ID
-    t.leader, -- Leader ID for the trip
+    t.creator, -- Leader ID for the trip
     t.date, -- Date of the trip
     t.start, -- Start location ID for the trip
     t.purpose, -- Purpose of the trip
