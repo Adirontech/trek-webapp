@@ -1,3 +1,11 @@
+/**
+ * edit.sql - SQL script for creating a function to edit a trip in the database.
+ * This script defines a PL/pgSQL function called edit_trip, which updates an existing trip record in the Trips table.
+ * The function takes parameters for trip ID, leader ID, date, start location ID, purpose, duration, party size, and session key for authentication.
+ * It checks if the provided session key is valid by querying the UserSessions table.
+ * If authenticated, it updates the trip details in the Trips table based on the provided trip ID.
+ */
+
 CREATE OR REPLACE FUNCTION edit_trip(
     p_id INT,
     p_first_name VARCHAR,
@@ -25,7 +33,9 @@ BEGIN
     FROM UserSessions
     WHERE session_key = p_session_key;
 
+    -- Checking if a session key was found
     IF FOUND THEN
+        -- Updating the trip details in the Trips table based on the provided trip ID
         UPDATE Trips
         SET creator = v_creator_id,
             first_name = p_first_name,
@@ -54,6 +64,7 @@ BEGIN
 
         RAISE NOTICE 'Trip Updated';
     ELSE
+        -- Throwing an exception if not authenticated
         RAISE EXCEPTION 'Not authenticated';
     END IF;
 END $$ LANGUAGE PLPGSQL;

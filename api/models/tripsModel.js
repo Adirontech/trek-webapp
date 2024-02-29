@@ -1,23 +1,53 @@
+/**
+ * tripsModel.js - Module for handling trip-related operations.
+ * This module provides functions for retrieving, creating, and editing trips.
+ */
+
+// Import required modules
 const db = require('../db');
 const { QueryFile } = require('pg-promise');
+const path = require('path');
 
+// Define queries for trip operations
 const tripQueries = {
-    getAllTrips: new QueryFile('./sql/tripsSQL/getAll.sql'),
-    getTrips: new QueryFile('./sql/tripsSQL/get.sql'),
-    createTrip: new QueryFile('./sql/tripsSQL/create.sql'),
-    editTrip: new QueryFile('./sql/tripsSQL/edit.sql')
+    getAllTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getAll.sql')),
+    getTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/get.sql')),
+    createTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/create.sql')),
+    editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql'))
 };
 
+/**
+ * Retrieves all trips from the database.
+ * @returns {Promise<Array>} An array containing all trip records.
+ */
 async function getAllTrips() {
     return await db.any(tripQueries.getAllTrips);
 }
 
-async function createTrip({first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key}) {
-    return db.one(tripQueries.createTrip, [first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key]);
+/**
+ * Creates a new trip in the database.
+ * @param {Object} tripData - Object containing trip data.
+ * @returns {Promise<Object>} The newly created trip.
+ */
+async function createTrip(tripData) {
+    return db.one(tripQueries.createTrip, [
+        tripData.first_name, tripData.last_name, tripData.street, tripData.city, tripData.state,
+        tripData.zip_code, tripData.date, tripData.start, tripData.pois, tripData.purpose,
+        tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
+    ]);
 }
 
-async function editTrip({id, first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key}) {
-    return db.one(tripQueries.editTrip, [id, first_name, last_name, street, city, state, zip_code, date, start, pois, purpose, phone, duration, party_size, session_key]);
+/**
+ * Edits an existing trip in the database.
+ * @param {Object} tripData - Object containing trip data to be edited.
+ * @returns {Promise<Object>} The edited trip.
+ */
+async function editTrip(tripData) {
+    return db.one(tripQueries.editTrip, [
+        tripData.id, tripData.first_name, tripData.last_name, tripData.street, tripData.city,
+        tripData.state, tripData.zip_code, tripData.date, tripData.start, tripData.pois,
+        tripData.purpose, tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
+    ]);
 }
 
 module.exports = {

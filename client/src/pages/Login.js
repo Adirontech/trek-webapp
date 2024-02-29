@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import MainContext from "../MainContext";
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [passwordConf, setPasswordConf] = useState("");
-    const [createAccount, setCreateAccount] = useState(false);
-    const [errors, setErrors] = useState({});
-    const [createData, setCreateData] = useState({
+    const navigate = useNavigate(); // Hook for navigating to different routes
+    const [passwordConf, setPasswordConf] = useState(""); // State variable for password confirmation
+    const [createAccount, setCreateAccount] = useState(false); // State variable for toggling between login and create account
+    const [errors, setErrors] = useState({}); // State variable for form errors
+    const [createData, setCreateData] = useState({ // State variable for create account form data
         username: '',
         password: '',
         first_name: '',
@@ -15,7 +15,7 @@ const Login = () => {
         phone: '',
         is_ranger: false,
     });
-    const [signInData, setSignInData] = useState({
+    const [signInData, setSignInData] = useState({ // State variable for login form data
         username: '',
         password: ''
     });
@@ -23,10 +23,10 @@ const Login = () => {
         setIsLandUsagePlanner
     } = useContext(MainContext);
             
-    /**
-     * Changes the form.
-     * Clears all entered data and errors.
-     */
+     /**
+      * Function to switch between login and create account forms.
+      * Clears all entered data and errors.
+      */
     const changeForm = () => {
         setCreateData({
             username: '',
@@ -46,10 +46,9 @@ const Login = () => {
     };
 
     /**
-     * Sets entered data to createData or signInData depending on the 'createAccount' state value.
-     * Does not include passwordConf in createData as it is not sent in the request.
-     * The switch checks which errors need to be cleared and sets them.
-     * @param {*} e - event
+     * Function to handle changes in form input fields.
+     * Updates form data and clears relevant errors.
+     * @param {*} e - Event object
      */
     const change = (e) => {
         const {name} = e.target;
@@ -64,7 +63,8 @@ const Login = () => {
         }
 
         let errors = {};
-        if ( createAccount && (name !== "passwordConf") ){
+        // Sets entered data to createData or signInData depending on the 'createAccount' state value.
+        if ( createAccount && (name !== "passwordConf") ){ // 'passwordConf' is not included in createData because it is not sent in the request.
             setCreateData((json) => ({
                 ...json,
                 [name]: value,
@@ -76,7 +76,9 @@ const Login = () => {
                 [name]: value,
             }));
         }
+        // The switch checks which relevant errors need to be cleared based on the input field, and then set them to be clear/empty.
         switch (true) {
+            // Clearing relevant errors based on the input field
             case name === "username":
                 errors["userName"] = "";
                 break;
@@ -105,12 +107,12 @@ const Login = () => {
         setErrors(errors);
     };
 
-    /**
-     * This is a validator for data creating an account.
-     * It checks to see if there is a value for all required fields and compares the password with the confirmation password.
-     * Updates errors and returns true or false.
-     * @returns Boolean
-     */
+     /**
+      * Function to validate create account form data.
+      * Checks if all required fields are filled and passwords (given PW & confirmation PW) match.
+      * Updates errors and returns true or false.
+      * @returns {boolean} - Indicates if form data is valid or not.
+      */
     const validateCreate = () => {
         let isValid = true;
         let errors = {};
@@ -146,11 +148,12 @@ const Login = () => {
         return isValid;
     };
 
-    /**
-     * This is a validator for signing in.
-     * It ensures there is a username and password entered, sets errors, and returns true or false
-     * @returns Boolean
-     */
+     /**
+      * Function to validate login form data.
+      * Checks if username and password are entered.
+      * Updates errors and returns true or false.
+      * @returns {boolean} - Indicates if form data is valid or not.
+      */
     const validateSignIn = () => {
         let isValid = true;
         let errors = {};
@@ -166,18 +169,17 @@ const Login = () => {
         return isValid;
     };
 
-    /**
-     * This function creates a user and signs them in, redirecting them to the landing page.
-     * It first validates the data and makes a create API request. 
-     * Getting the user id from the create API response, it sets the userID in the browsers session data.
-     * Then makes a sign in API request which returns a sessionKey that is set in the browsers session data.
-     * Finally redirects the user to the landing page given all the requests were successful
-     * @param {} e - event
-     */
+     /**
+      * Function to create a new user and sign them in.
+      * Validates form data and makes API requests.
+      * Sets user ID and session key in session storage.
+      * Redirects user to landing page if requests are successful.
+      * @param {*} e - Event object
+      */
     async function create(e) {
         e.preventDefault();
-        if( validateCreate() ){
-            try{
+        if( validateCreate() ){ // First, validate the data  
+            try{ // If the create data is validated, build & submit a create API request.
                 const cOptions = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -187,8 +189,9 @@ const Login = () => {
                 if ( !cResponse.ok ) {
                     throw new Error(`HTTP error! Status: ${cResponse.status}`);
                 }
-                const cData = await cResponse.json();
-                if( cData.user_id ) {
+                const cData = await cResponse.json(); // Await the create API response; a user ID should be returned
+                if( cData.user_id ) { // If a user is created & a user ID is returned, set the userID in the browsers session data.
+                    sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -198,10 +201,10 @@ const Login = () => {
                     if ( !sResponse.ok ) {
                         throw new Error(`HTTP error! Status: ${sResponse.status}`);
                     }
-                    const sData = await sResponse.json();
-                    if( sData.session_key ) {
+                    const sData = await sResponse.json(); // Await API response for setting the userID
+                    if( sData.session_key ) { // Then makes a sign in API request which returns a sessionKey that is set in the browsers session data.
                         sessionStorage.setItem('sessionKey', sData.session_key);
-                        navigate('/');
+                        navigate('/'); // Since all requests have been successful, redirect new user to the landing page.
                     }
                 }
             } catch (error) {
@@ -210,18 +213,18 @@ const Login = () => {
         }
     };
 
-    /**
-     * This function signs in a user, stores a session key, and redirects the user to the landing page.
-     * It first validates the data and makes the sign in API request.
-     * If a session key is returned, it is stored and the user is redirected to the landing page.
-     * If not, it sets an error for an incorrect username or password.
-     * @param {*} e - event
-     */
+     /**
+      * Function to sign in a user.
+      * Validates form data and makes API requests.
+      * Sets session key in session storage.
+      * Redirects user to landing page if request is successful.
+      * @param {*} e - Event object
+      */
     async function signIn(e) {
         let errors = {};
         e.preventDefault();
-        if( validateSignIn() ){
-            try{
+        if( validateSignIn() ){ // First, validate the form data
+            try{ // If form data is valid, build & submit a sign-in API request
                 const options = {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -232,22 +235,24 @@ const Login = () => {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
                 const data = await response.json();
-                if( data.session_key ){
+                if( data.session_key ){ //If a session key is returned, store it and redirect the user to the landing page.
                     sessionStorage.setItem('sessionKey', data.session_key);
                     navigate('/');
-                }else{
+                }else{ // If session key is not returned, set an error for an incorrect username or password.
                     errors["userNotFound"] = "Incorrect username or password";
                     setErrors(errors);
                 }
-            } catch ( error ) {
+            } catch ( error ) { // Catch and log any errors that are set/created
                 console.log('Error:', error);
             }
         }
     };
 
+    // Conditional rendering based on createAccount state
     if(createAccount){
         return(
                 <div className="bg-black w-full">
+                {/* Create account form */}
                     <div className=" flex items-center justify-center bg-black bg-login bg-scroll bg-cover w-screen  2xl:h-screen">
                         <div className=" flex flex-col items-center justify-center pb-5">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
@@ -349,6 +354,7 @@ const Login = () => {
     }else {
         return(
                 <div className="bg-black w-full">
+                {/* Login form */}
                     <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
                         <div className=" flex flex-col items-center justify-center">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
