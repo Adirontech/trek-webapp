@@ -9,5 +9,11 @@ cd "$parent_path"
 # Change directory to the parent directory
 cd ..
 
+# Tear Down Old Docker Container & cached data (if applicable)
+docker-compose down -v
+
+# Rebuild docker container with no cache
+docker-compose build --no-cache
+
 # Start docker-compose
 docker-compose up
