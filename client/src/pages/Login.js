@@ -187,10 +187,11 @@ const Login = () => {
                 };
                 const cResponse = await fetch('http://localhost:5000/user/', cOptions);
                 if ( !cResponse.ok ) {
-                    throw new Error(`HTTP error! Status: ${cResponse.status}`);
+                    throw new Error(`HTTP error (1)! Status: ${cResponse.status}`);
                 }
                 const cData = await cResponse.json(); // Await the create API response; a user ID should be returned
                 if( cData.user_id ) { // If a user is created & a user ID is returned, set the userID in the browsers session data.
+                    console.log(cData.user_id);
                     sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
@@ -199,7 +200,7 @@ const Login = () => {
                     };
                     const sResponse = await fetch('http://localhost:5000/user/', sOptions);
                     if ( !sResponse.ok ) {
-                        throw new Error(`HTTP error! Status: ${sResponse.status}`);
+                        throw new Error(`HTTP error (2)! Status: ${sResponse.status}`);
                     }
                     const sData = await sResponse.json(); // Await API response for setting the userID
                     if( sData.session_key ) { // Then makes a sign in API request which returns a sessionKey that is set in the browsers session data.

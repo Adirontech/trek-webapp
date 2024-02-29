@@ -40,7 +40,6 @@ async function createUser(userData) {
         userData.zip, userData.phone
     ]);
     const userResult = await db.one(userQueries.createUser, [userData.username, hashedPW, result.id]);
-    
     if (userData.is_ranger) {
         await rangerModel.createRanger(userResult.id);
     }
