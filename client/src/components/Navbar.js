@@ -16,7 +16,7 @@ const Navbar = () => {
             </div>
             {/* profile - right */}
             <div className=''>
-                <a href=""><img src={profileIcon} height={40} width={40}/></a>
+                <a href="http://localhost:3000/profile"><img src={profileIcon} height={40} width={40}/></a>
             </div>
         </nav>
     )
