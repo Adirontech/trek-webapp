@@ -6,7 +6,7 @@ const rangerQueries = {
 };
 
 async function createRanger(id) {
-    result = await db.one(rangerQueries.createRanger, [id]);
+    const result = await db.none(rangerQueries.createRanger, [id]);
     return result;
 }
 
