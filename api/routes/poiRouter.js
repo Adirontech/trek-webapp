@@ -36,6 +36,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
  * Route to retrieve poi usage on a certain day
  */
 router.get('/daily', async (req, res) => {
@@ -62,6 +63,8 @@ router.get('/trailhead', async (req, res) => {
         const trailheads = await poiModel.getTrailheads();
         res.status(200).json(trailheads);
     }catch(error){
-
+        res.status(500).send({ message: error.message });
+    }
+});
 
 module.exports = router;
