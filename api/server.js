@@ -44,7 +44,7 @@
      });
  });
  
- const PORT = process.env.PORT || 5001; // Setting the port number for the server
+ const PORT = process.env.PORT || 5000; // Setting the port number for the server
  
  // Starting the server and listening on the specified port
  app.listen(PORT, () => {
