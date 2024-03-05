@@ -25,6 +25,17 @@ router.get('/usage', async (req, res) => {
 });
 
 /**
+ * Route to retrieve POIs
+ */
+router.get('/', async (req, res) => {
+    try{
+        const pois = await poiModel.getAll();
+        res.status(200).json(pois);
+    }catch(error){
+        res.status(500).send({ message: error.message });
+    }
+});
+
  * Route to retrieve poi usage on a certain day
  */
 router.get('/daily', async (req, res) => {
@@ -42,6 +53,15 @@ router.get('/daily', async (req, res) => {
         res.status(500).send({ message: error.message });
     }
 });
+
+/**
+ * Route to retrieve Trailheads (Starting Points)
+ */
+router.get('/trailhead', async (req, res) => {
+    try{
+        const trailheads = await poiModel.getTrailheads();
+        res.status(200).json(trailheads);
+    }catch(error){
 
 
 module.exports = router;
