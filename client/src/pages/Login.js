@@ -223,7 +223,7 @@ const Login = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(signInData)
                 };
-                const response = await fetch('http://localhost:5001/user/', options);
+                const response = await fetch('http://localhost:5000/user/', options);
                 if ( !response.ok ) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
