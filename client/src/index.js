@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css'; // Import CSS file for styling
 import Login from './pages/Login'; // Import Login component
 import Home from './pages/Home'; // Import Home component
-import Ranger from './pages/Ranger'; // Import Ranger component
+import LandUsagePlanning from './pages/LandUsagePlanning'; // Import LandUsagePlanning component
 import Register from './pages/Register'; // Import Register component
 import reportWebVitals from './reportWebVitals'; // Import utility for measuring web vitals
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Import React Router components for routing
@@ -24,7 +24,7 @@ root.render(
       {/* Provide routing functionality using BrowserRouter */}
       <Routes>
         {/* Define route configurations */}
-        <Route path='ranger' element={<Ranger/>} /> {/* Render Ranger component for '/ranger' route */}
+        <Route path='landUsagePlanning' element={<LandUsagePlanning/>} /> {/* Render LandUsagePlanning component for '/landUsagePlanning' route */}
         <Route path='login' element={<Login/>} /> {/* Render Login component for '/login' route */}
         <Route path='' element={<Home/>} /> {/* Render Home component for default route '/' */}
         <Route path='register' element={<Register />} /> {/* Render Register component for '/register' route */}
