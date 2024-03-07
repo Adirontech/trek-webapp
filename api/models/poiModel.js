@@ -43,8 +43,7 @@ async function getTrailheads(){
     return await db.any(poiQueries.getTrailheads);
 };
 
-/**
- * Gets the number of times a POI was visited on a given day and the amount of visitors for that day
+ /* Gets the number of times a POI was visited on a given day and the amount of visitors for that day
  * @param {string} poi the point of interest id 
  * @param {string} date the date to get data for
  * @returns {Promise<Object>} daily usage data
