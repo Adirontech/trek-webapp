@@ -38,6 +38,9 @@
          party_size: '',
          session_key: ''
      });
+     const [pois, setPois] = useState([]);
+     const [trailHeads, setTrailHeads] = useState([]);
+     const [showTrailHeads, setShownTrailHeads] = useState([]);
  
      // Effect hook to fetch user info and update session key
      useEffect(() => {
@@ -51,6 +54,7 @@
          if(isFirstRender){
              setIsFirstRender(false);
              getUserInfo();
+             getPois();
          }
      }, [registerData.session_key]);
      
@@ -78,15 +82,27 @@
      // Function to handle changes in selected POIs
      const POIChange = (e) => {
          let points = '';
+         let areas = []; // the area(s) the POI(s) in
          let i = 0;
+         let newTrailHeads = []; // resetting shownTrailHeads to those in the same wilderness area as POI(s)
          e.forEach(element => {
              if(i === 0){
                  points = element.value;
+                areas.push(element.area);
              }else{
-                 points = points + ',' + element.value;
+                points = points + ',' + element.value;
+                areas.push(element.area);
              }
              i++;
          });
+         trailHeads.forEach(t => {
+            if(areas.includes(t.area)){
+                newTrailHeads.push(t);
+            }
+         });
+         if(newTrailHeads.length > 0){
+            setShownTrailHeads(newTrailHeads);
+         }
          setRegisterData((json) => ({
              ...json,
              "pois": points
@@ -157,6 +173,41 @@
          } catch ( error ) {
              console.log('Error:', error);
          }
+     };
+
+     //Function to retrieve POIs
+     async function getPois() {
+        try {
+            const response = await fetch('http://localhost:5000/poi');
+            if (!response.ok){
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const pois = await response.json();
+            if(pois){
+                let poiOptions = [];
+                let trailHeads = [];
+                pois.forEach(p => { // converts pois json to format acceptable by POISelect
+                    if(p.type !== 'Trailhead'){
+                        poiOptions.push({
+                            label: p.name,
+                            value: p.id,
+                            area: p.wilderness_area
+                        });
+                    }else{
+                        trailHeads.push({
+                            label: p.name,
+                            value: p.id,
+                            area: p.wilderness_area
+                        });
+                    }
+                });
+                setPois(poiOptions);
+                setTrailHeads(trailHeads);
+                setShownTrailHeads(trailHeads);
+            }
+        } catch( error ){
+            console.log('Error: ', error);
+        }
      };
  
      // Function to register trip
@@ -304,7 +355,7 @@
                                  <div className="flex flex-row justify-start my-2 w-full">
                                      <div key={poiKey} className=" md:w-3/5 w-full md:mr-4">
                                          {/* POI selection component */}
-                                         <POISelect handleChange={POIChange}/>
+                                         <POISelect pois={pois} handleChange={POIChange}/>
                                      </div>
                                      <div className="flex flex-col md:w-2/5 w-full">
                                          <div className="flex flex-row justify-between">
@@ -314,13 +365,9 @@
                                          {/* Starting point selection dropdown */}
                                          <select name="start" value={registerData.start} onChange={change} className="border border-gray rounded focus:outline-none focus:border-green-400">
                                              <option value='' disabled selected></option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
-                                             <option value='2'>One</option>
+                                             {showTrailHeads.map((th, index) => (
+                                                <option key={index} value={th.value}>{th.label}</option>
+                                             ))}
                                          </select>
                                      </div>
                                  </div>
