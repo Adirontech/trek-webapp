@@ -13,6 +13,9 @@ const Navbar = () => {
         navigate('/login');
     }
 
+    const { isLandUsagePlanner } = useContext(MainContext);
+
+
     return (
         <nav className="flex justify-between items-center">
             {/* main nav - centered */}
