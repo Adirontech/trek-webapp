@@ -5,6 +5,7 @@
 
  import '../assets/stylesheets/App.css'; // Importing the CSS file for styling
  import Navbar from '../components/Navbar'; // Importing the Navbar component for navigation
+ import POIDataFilter from '../components/POIDataFilter';
  
  
  import { useNavigate } from 'react-router-dom';
@@ -36,20 +37,25 @@
          <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
              {/* Rendering the navigation bar */}
              <Navbar />
+             <POIDataFilter />
+             {/**
              <div className='flex flex-col items-center justify-center h-full'>
-                 {/* Title for the home page */}
                  <div className='text-5xl text-white font-semibold'>
                      Adirondack Mountains
                  </div>
-                 {/* Subtitle for the home page */}
                  <div className='text-9xl text-white font-bold'>
                      T.R.E.K.
                  </div>
+<<<<<<< Updated upstream
                  {/* Button to get started */}
                  <button className="text-white text-2xl font-bold py-2 px-4 border border-black rounded bg-green mt-20" onClick={navigateToLogin}>
+=======
+                 <button className="text-white text-2xl font-bold py-2 px-4 border border-black rounded bg-green mt-20">
+>>>>>>> Stashed changes
                      Get Started
                  </button>
              </div>
+            */}
          </div>
      );
  }
