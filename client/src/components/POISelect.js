@@ -29,30 +29,17 @@
                  <label className="text-sm">Points Of Interest</label>
                  <div className="text-red">*</div>
              </div>
-<<<<<<< Updated upstream
-             {/* MultiSelect component for selecting POIs */}
-             <MultiSelect
-                 options={props.pois} // Options for POIs
-                 labelledBy="Points of Interest" // Accessibility label
-                 onChange={setSelected} // Function to handle change in selection
-                 hasSelectAll={false} // Disable select all option
-                 value={selected} // Selected values
-                 showCheckbox={true} // Show checkboxes
-                 className="multiSelect" // Custom CSS class
-             />
-=======
             }
             {/* MultiSelect component for selecting POIs */}
             <MultiSelect
-                options={points} // Options for POIs
-                placeholder="Select Points of Interest" // Placeholder text
+                options={props.pois} // Options for POIs
+                displayValue="Select Points of Interest" // Placeholder text
                 onChange={setSelected} // Function to handle change in selection
                 hasSelectAll={false} // Disable select all option
                 value={selected} // Selected values
                 showCheckbox={true} // Show checkboxes
                 className="multiSelect" // Custom CSS class
             />
->>>>>>> Stashed changes
          </div>
      );
  };

@@ -46,15 +46,11 @@
                  <div className='text-9xl text-white font-bold'>
                      T.R.E.K.
                  </div>
-<<<<<<< Updated upstream
-                 {/* Button to get started */}
-                 <button className="text-white text-2xl font-bold py-2 px-4 border border-black rounded bg-green mt-20" onClick={navigateToLogin}>
-=======
-                 <button className="text-white text-2xl font-bold py-2 px-4 border border-black rounded bg-green mt-20">
->>>>>>> Stashed changes
+                 {/* Button to get started */
+                 /* <button className="text-white text-2xl font-bold py-2 px-4 border border-black rounded bg-green mt-20" onClick={navigateToLogin}>
                      Get Started
                  </button>
-             </div>
+             </div> 
             */}
          </div>
      );
