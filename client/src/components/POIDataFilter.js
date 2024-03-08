@@ -22,6 +22,13 @@ const POIDataFilter = (props) => {
     //     props.handleChange(selected); // Calling handleChange function with selected POIs
     // }, [selected]);
 
+     const pois = [
+        { label: "POI 1", value: "poi1" },
+        { label: "POI 2", value: "poi2" },
+        { label: "POI 3", value: "poi3"},
+        { label: "POI 4", value: "poi4"}
+     ];
+
     const chnage = (selected) => { // Function to handle change in selected POIs
         console.log(selected)// Calling handleChange function with selected POIs
     };
@@ -31,18 +38,37 @@ const POIDataFilter = (props) => {
         <div className="bg-white p-6 rounded-lg shadow-md w-3/5">
             <div className="flex flex-col w-full">
                 <div className="inline-flex justify-center w-full h-9">
-                    <POISelect registerForm={false} handleChange={chnage}/>
+                    <POISelect pois={pois} registerForm={false} handleChange={chnage}/>
                 </div>
-                <div className="flex flex-row justify-between w-11/12 h-9">
+                <div className="flex flex-row justify-between items-center w-full h-9">
                     <div className="flex flex-col w-1/4">
-                        <div>
+                        <div className="w-full">
                             <label className="text-sm">From</label>
                             <input type="date" className="h-9 border-2 rounded-md" />
                         </div>
                     </div>
                     <div className="flex flex-col w-3/4">
                         <div className="flex flex-row w-full justify-between">
-                            
+                            <div className="flex flex-row items-center">
+                                <label className="text-sm pr-2">Trailhead</label>
+                                <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <label className="text-sm pr-2">Peak</label>
+                                <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <label className="text-sm pr-2">Scenic</label>
+                                <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <label className="text-sm pr-2">Lodge</label>
+                                <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <label className="text-sm pr-2">Leanto</label>
+                                <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
+                            </div>
                         </div>
                     </div>
                 </div>
