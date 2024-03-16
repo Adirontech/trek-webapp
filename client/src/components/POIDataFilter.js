@@ -42,9 +42,9 @@ const POIDataFilter = (props) => {
                 </div>
                 <div className="flex flex-row justify-between items-center w-full h-9">
                     <div className="flex flex-col w-1/4">
-                        <div className="w-full">
-                            <label className="text-sm">From</label>
-                            <input type="date" className="h-9 border-2 rounded-md" />
+                        <div className="flex flex-row justify-between w-full pr-12 border-r-2">
+                            <label className="text-md">From: </label>
+                            <input type="date" className="h-8 border-2 rounded-md" />
                         </div>
                     </div>
                     <div className="flex flex-col w-3/4">
@@ -72,11 +72,19 @@ const POIDataFilter = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className="flex flex-row justify-between w-11/12 h-9">
-                    <div className="flex flex-row justify-between">
-                        <label className="text-sm">To</label>
-                        <input type="date" className="w-full h-9 border-2 border-gray-200 rounded-md" />
+                <div className="flex flex-row justify-between w-full h-9">
+                    <div className="flex flex-col w-1/4">
+                        <div className="flex flex-row justify-between w-full pr-12 border-r-2">
+                            <label className="text-md">To: </label>
+                            <input type="date" className="h-8 border-2 rounded-md" />
+                        </div>
                     </div>
+                    <div className="flex flex-col w-2/4">
+
+                    </div>
+                    <div className="flex flex-col w-1/4">
+
+                    </div>  
                 </div>
             </div>
         </div>
