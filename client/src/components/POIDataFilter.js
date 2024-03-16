@@ -43,12 +43,12 @@ const POIDataFilter = (props) => {
                 <div className="flex flex-row justify-between items-center w-full h-9">
                     <div className="flex flex-col w-1/4">
                         <div className="flex flex-row justify-between w-full pr-12 border-r-2">
-                            <label className="text-md">From: </label>
+                            <label className="text-md" style={{ alignSelf: "center" }}>From: </label>
                             <input type="date" className="h-8 border-2 rounded-md" />
                         </div>
                     </div>
                     <div className="flex flex-col w-3/4">
-                        <div className="flex flex-row w-full justify-between">
+                        <div className="flex flex-row w-full justify-between border">
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Trailhead</label>
                                 <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
@@ -75,15 +75,24 @@ const POIDataFilter = (props) => {
                 <div className="flex flex-row justify-between w-full h-9">
                     <div className="flex flex-col w-1/4">
                         <div className="flex flex-row justify-between w-full pr-12 border-r-2">
-                            <label className="text-md">To: </label>
+                            <label className="text-md" style={{ alignSelf: "center" }}>To: </label>
                             <input type="date" className="h-8 border-2 rounded-md" />
                         </div>
                     </div>
-                    <div className="flex flex-col w-2/4">
-
+                    <div className="flex flex-row w-2/4">
+                        <div className="flex flex-row justify-between w-full pr-12">
+                            <label className="text-md" style={{ alignSelf: "center" }}>Min Encounters: </label>
+                            <input type="number" className="h-8 border-2 rounded-md w-2/4" />
+                        </div>
+                        <div className="flex flex-row justify-between w-full pr-12 border-r-2">
+                            <label className="text-md" style={{ alignSelf: "center" }}>Max Encounters: </label>
+                            <input type="number" className="h-8 border-2 rounded-md w-2/4" />
+                        </div>
                     </div>
-                    <div className="flex flex-col w-1/4">
-
+                    <div className="flex flex-row justify-center w-1/4">
+                        <button className="bg-green font-bold w-20 h-8 rounded">
+                            Apply
+                        </button>
                     </div>  
                 </div>
             </div>
