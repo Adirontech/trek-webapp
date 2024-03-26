@@ -47,24 +47,24 @@ const POIDataFilter = (props) => {
     }
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-md xl:w-2/4 lg:w-7/12 md:w-4/5">
+        <div className="bg-white pt-4 pl-2 sm:pl-4 pr-2 sm:pr-4 pb-3 rounded-lg shadow-md xl:w-2/4 lg:w-7/12 md:w-4/5 w-full">
             <div className="flex flex-col w-full">
                 <div className="inline-flex justify-center w-full h-9">
                     <POISelect pois={pois} registerForm={false} handleChange={poiChange}/>
                 </div>
-                <div className="flex flex-row justify-between items-center w-full h-20">
-                    <div className="flex flex-col justify-between items-center w-1/4 2xl:pr-4 pr-1">
-                        <div className="flex flex-row w-full justify-between">
+                <div className="flex flex-col sm:flex-row justify-between items-center w-full sm:h-20">
+                    <div className="flex flex-row sm:flex-col justify-between items-center w-full sm:w-1/4 md:pr-2 pr-5">
+                        <div className="flex flex-row w-full justify-around sm:justify-between">
                             <label className="text-lg self-end font-bold">From: </label>
-                            <input type="date" className="h-8 border-2 rounded-md 2xl:w-32 lg:w-20 md:w-6" />
+                            <input type="date" className="h-8 border-2 rounded-md 2xl:w-32 sm:w-20" />
                         </div>
-                        <div className="flex flex-row w-full justify-between pt-2   ">
+                        <div className="flex flex-row w-full justify-around sm:justify-between">
                             <label className="text-lg self-end font-bold">To: </label>
-                            <input type="date" className="h-8 border-2 rounded-md 2xl:w-32 lg:w-20 md:w-6" />
+                            <input type="date" className="h-8 border-2 rounded-md 2xl:w-32 sm:w-20" />
                         </div>
                     </div>
-                    <div className="flex flex-col w-3/4">
-                        <div className="flex flex-col md:flex-row w-full justify-between">
+                    <div className="flex flex-col w-full sm:w-3/4 pt-2 sm:pt-0">
+                        <div className="flex flex-row w-full justify-between md:pl-6">
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Trailhead</label>
                                 <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
@@ -86,8 +86,8 @@ const POIDataFilter = (props) => {
                                 <button type="radio" className="border-2 w-6 h-6 rounded-md"></button>
                             </div>
                         </div>
-                        <div className="flex flex-row justify-between items-center w-full h-9">
-                            <div className="flex flex-col w-1/2 pl-6">
+                        <div className="flex flex-row justify-between items-center w-full h-9 mt-3">
+                            <div className="flex flex-col w-1/2 md:pl-6">
                                 <Slider
                                     range
                                     min={0}
@@ -98,14 +98,14 @@ const POIDataFilter = (props) => {
                                     pushable
                                     onChange={handleSliderChange}
                                 />
-                                <label className="text-sm text-center ">Number of Encounters</label>
+                                <label className="text-xs sm:text-sm text-center ">Number of Encounters</label>
                             </div>
-                            <div className="flex flex-row w-1/2 pl-8">
-                                <label className="text-lg">Min: {min}</label>
-                                <label className="text-lg">Max: {max}</label>
+                            <div className="flex flex-row w-1/2 md:pl-0 lg:pl-4 xl:pl-8 justify-around">
+                                <label className="text-md sm:text-lg font-bold">Min: {min}</label>
+                                <label className="text-md sm:text-lg font-bold">Max: {max}</label>
                             </div>
                             <div className="flex flex-row justify-end w-1/4">
-                                <button className="bg-green font-bold w-24 h-8 relative top-2 rounded">
+                                <button className="bg-green font-bold w-24 h-8 relative rounded">
                                     Apply
                                 </button>
                             </div>  
