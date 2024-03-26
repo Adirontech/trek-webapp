@@ -53,7 +53,7 @@ const POIDataFilter = (props) => {
                     <POISelect pois={pois} registerForm={false} handleChange={poiChange}/>
                 </div>
                 <div className="flex flex-col sm:flex-row justify-between items-center w-full sm:h-20">
-                    <div className="flex flex-row sm:flex-col justify-between items-center w-full sm:w-1/4 md:pr-2 pr-5">
+                    <div className="flex flex-row sm:flex-col justify-between items-center w-full sm:w-1/4 md:pr-2 pr-5 sm:h-20">
                         <div className="flex flex-row w-full justify-around sm:justify-between">
                             <label className="text-lg self-end font-bold">From: </label>
                             <input type="date" className="h-8 border-2 rounded-md 2xl:w-32 sm:w-20" />
