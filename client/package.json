@@ -13,6 +13,7 @@
     "react-multi-select-component": "^4.3.4",
     "react-router-dom": "^6.18.0",
     "react-scripts": "5.0.1",
+    "react-test-renderer": "^18.2.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -40,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "tailwindcss": "^3.3.3"
