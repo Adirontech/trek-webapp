@@ -20,13 +20,18 @@ const POIDataFilter = (props) => {
     const [filter, setFilter] = useState({
         min: 0,
         max: 100,
-        trailhead: '',
-        peak: '',
-        scenic: '',
-        lodge: '',
-        leanto: '',
+        trailhead: false,
+        peak: false,
+        scenic: false,
+        lodge: false,
+        leanto: false,
         from: '',
         to: '',
+        daily: false,
+        weekly: false,
+        monthly: false,
+        yearly: false,
+        average: false,
         selected: []
     }); // State for filter options
 
@@ -48,19 +53,28 @@ const POIDataFilter = (props) => {
     };
 
     const poiChange = (selected) => { // Function to handle change in selected POIs
-        console.log(selected)// Calling handleChange function with selected POIs
+        const selectedPOIs = selected.map((poi) => poi.value); // Extracting values of selected POIs
+        setFilter({ ...filter, selected: selectedPOIs }); // Updating selected POIs in state
+    };
+
+    const handleSliderChange = (values) => { // Function to handle change in slider value
+        setFilter({ ...filter, min: values[0], max: values[1] });
     };
 
     const handleChange = (e) => { // Function to handle change in filter options 
+        console.log(e);
         const { name, value, checked, id } = e.target;
-        console.log(name, value);
-        if(name === "slider") {
-            setFilter({ ...filter, min: value[0], max: value[1] });
-            return;
-        } else if(name === "area") {
-            console.log("area", value);
+        if(name === "area" || name === "average") {
             setFilter({ ...filter, [id]: checked });
-        } else {
+        } else if (name === "increment") {
+            const increment = ["daily", "weekly", "monthly", "yearly"];
+            increment.forEach((i) => {
+                if(i !== id) {
+                    setFilter({ ...filter, [i]: false });
+                }
+            });
+            setFilter({ ...filter, [id]: checked });
+        }else {
             setFilter({ ...filter, [name]: value });
         }
     };
@@ -82,11 +96,11 @@ const POIDataFilter = (props) => {
                             <input type="date" onChange={handleChange} name="to" value={filter.to} className="h-8 border-2 rounded-md 2xl:w-32 sm:w-20" />
                         </div>
                     </div>
-                    <div className="flex flex-col w-full sm:w-3/4 pt-2 sm:pt-0">
-                        <fieldset className="flex flex-row w-full justify-between md:pl-6">
+                    <div className="flex flex-col justify-between w-full sm:w-3/4 pt-2 sm:pt-0 sm:h-20">
+                        <fieldset className="flex flex-row w-full justify-between md:pl-6 sm:pt-2">
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Trailhead</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="trailhead" className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="trailhead" value={filter.trailhead} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Peak</label>
@@ -105,34 +119,56 @@ const POIDataFilter = (props) => {
                                 <input type="checkbox" onChange={handleChange} name="area" id="leanto" value={filter.leanto} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                         </fieldset>
-                        <div className="flex flex-row justify-between items-center w-full h-9 pt-6">
-                            <div className="flex flex-col w-1/2 md:pl-6">
-                                <Slider
-                                    range
-                                    min={0}
-                                    max={100}
-                                    marks={marks}
-                                    name="slider"
-                                    defaultValue={[0, 100]}
-                                    value={[filter.min, filter.max]}
-                                    pushable
-                                    onChange={handleChange}
-                                />
-                                <label className="text-xs sm:text-sm text-center ">Number of Encounters</label>
+                        <div className="flex flex-row w-full justify-between md:pl-6 sm:pb-1">
+                            <fieldset className="flex flex-row sm:w-5/6 justify-between 2xl:pr-24 xl:pr-12 md:pr-6 sm:pb-1">
+                                <div className="flex flex-row items-center">
+                                    <label className="text-sm pr-2">Daily</label>
+                                    <input type="radio" onChange={handleChange} name="increment" id="daily" value={filter.daily} className="border-2 w-6 h-6 rounded-md"></input>
+                                </div>
+                                <div className="flex flex-row items-center">
+                                    <label className="text-sm pr-2">Weekly</label>
+                                    <input type="radio" onChange={handleChange} name="increment" id="weekly" value={filter.weekly} className="border-2 w-6 h-6 rounded-md"></input>
+                                </div>
+                                <div className="flex flex-row items-center">
+                                    <label className="text-sm pr-2">Monthly</label>
+                                    <input type="radio" onChange={handleChange} name="increment" id="monthly" value={filter.monthly} className="border-2 w-6 h-6 rounded-md"></input>
+                                </div>
+                                <div className="flex flex-row items-center">
+                                    <label className="text-sm pr-2">Yearly</label>
+                                    <input type="radio" onChange={handleChange} name="increment" id="yearly" value={filter.yearly} className="border-2 w-6 h-6 rounded-md"></input>
+                                </div>
+                            </fieldset>
+                            <div className="flex flex-row justify-end items-center sm:w-1/6">
+                                <label className="text-sm pr-2">Average</label>
+                                <input type="checkbox" onChange={handleChange} name="average" id="average" value={filter.average} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
-                            <div className="flex flex-row w-1/2 md:pl-0 lg:pl-4 xl:pl-8 justify-around">
-                                <label className="text-md sm:text-lg font-bold">Min: {filter.min}</label>
-                                <label className="text-md sm:text-lg font-bold">Max: {filter.max}</label>
-                            </div>
-                            <div className="flex flex-row justify-end w-1/4">
-                                <button className="bg-green font-bold w-24 h-8 relative rounded">
-                                    Apply
-                                </button>
-                            </div>  
+                        </div>
                     </div>
                 </div>
+                <div className="flex flex-row justify-end w-full h-9 pt-3 mb-1">
+                    <div className="flex flex-col w-3/6 md:pl-6">
+                        <Slider
+                            range
+                            min={0}
+                            max={100}
+                            marks={marks}
+                            defaultValue={[0, 100]}
+                            value={[filter.min, filter.max]}
+                            pushable
+                            onChange={handleSliderChange}
+                        />
+                        <label className="text-xs sm:text-sm text-center ">Number of Encounters</label>
+                    </div>
+                    <div className="flex flex-row w-2/6 md:pl-0 lg:pl-4 xl:pl-8 justify-around">
+                        <label className="text-md sm:text-lg font-bold">Min: {filter.min}</label>
+                        <label className="text-md sm:text-lg font-bold">Max: {filter.max}</label>
+                    </div>
+                    <div className="flex flex-row justify-end w-1/6">
+                        <button className="bg-green font-bold w-24 h-8 sm:left-1 relative rounded">
+                            Apply
+                        </button>
+                    </div> 
                 </div>
-                
             </div>
         </div>
     );
