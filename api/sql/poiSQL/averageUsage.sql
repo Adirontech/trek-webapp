@@ -1,19 +1,37 @@
-Select p.name AS POI, DATE_TRUNC($1, t.date) AS Start_Date, AVG(t.id) AS Average_Trips, AVG(t.party_size) AS Average_Visitors
-FROM POIs p
-INNER JOIN TripDestinations td ON p.id = td.destination
-INNER JOIN Trips t ON td.trip_id = t.id
-WHERE 
-    (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
-        AND p.type IN (
-            SELECT CAST(value AS poi_type_enum)
-                FROM UNNEST(string_to_array($4, ',')) AS value
-            )
-            AND Average_Visitors BETWEEN $5 AND $6)
-    OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
-        AND p.id IN (
-            SELECT CAST(value AS INTEGER)
-                FROM UNNEST(string_to_array($7, ',')) AS value
-            )
-            AND Average_Visitors BETWEEN $5 AND $6)
-GROUP BY p.name, DATE_TRUNC($1, t.date)
+/**
+This query returns the average usage of POI(s) over a given time period (second and third params).
+It returns the POI name, ID, type, average trip count, and average visitor count for the POI.
+Filters the results based on the POI type (fourth param), POI ID (fifth param), and average visitor count (sixth and seventh params).
+Groups the results by the step indicated by the first param. i.e. day, month, year, etc.
+Orders the results by the start date.
+*/
+WITH Stats AS (
+    SELECT 	p.name AS POI,
+			p.id AS POI_ID,
+			p.type AS type,
+           	DATE_TRUNC($1, t.date) AS Start_Date, 
+           	COUNT(t.id) AS Trip_Count, 
+           	SUM(t.party_size) AS Visitors
+    FROM POIs p
+    INNER JOIN TripDestinations td ON p.id = td.destination
+    INNER JOIN Trips t ON td.trip_id = t.id
+    WHERE 
+        (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
+            AND p.type IN (
+                SELECT CAST(value AS poi_type_enum)
+                    FROM UNNEST(string_to_array($4, ',')) AS value
+                ))
+        OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
+            AND p.id IN (
+                SELECT CAST(value AS INTEGER)
+                    FROM UNNEST(string_to_array($5, ',')) AS value
+                ))
+    GROUP BY p.name, p.id, DATE_TRUNC($1, t.date)
+)
+SELECT POI, POI_ID, type,
+       AVG(Trip_Count) AS Avg_Trip_Count,
+       AVG(Visitors) AS Avg_Visitors
+FROM Stats
+GROUP BY POI, POI_ID, type
+HAVING AVG(Visitors) BETWEEN $6 AND $7
 ORDER BY Start_Date;
