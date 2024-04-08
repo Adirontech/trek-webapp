@@ -59,6 +59,18 @@ async function signInUser(userData) {
 }
 
 /**
+ * Checks validity session key.
+ * @param {string} key - The session key to be checked.
+ * @returns {Promise<boolean>} Whether the session key is valid.
+ */
+async function validSessionKey(key) {
+    console.log(key);
+    const result = await db.oneOrNone('SELECT * FROM UserSessions WHERE session_key = $1', [key]);
+    console.log(result);
+    return result !== null;
+}
+
+/**
  * Hashes the given password using SHA-512 algorithm.
  * @param {string} pw - The password to be hashed.
  * @returns {string} The hashed password.
@@ -72,5 +84,6 @@ function hashPW(pw) {
 module.exports = {
     createUser,
     signInUser,
-    getUserInfo
+    getUserInfo,
+    validSessionKey
 };
