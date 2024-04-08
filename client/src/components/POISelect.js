@@ -33,7 +33,6 @@
             {/* MultiSelect component for selecting POIs */}
             <MultiSelect
                 options={props.pois} // Options for POIs
-                displayValue="Select Points of Interest" // Placeholder text
                 onChange={setSelected} // Function to handle change in selection
                 hasSelectAll={false} // Disable select all option
                 value={selected} // Selected values

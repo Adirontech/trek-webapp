@@ -7,5 +7,5 @@ Select p.name AS POI, p.id AS POI_ID, p.type AS type, t.date AS Date, COUNT(t.id
 FROM POIs p
 INNER JOIN TripDestinations td ON p.id = td.destination
 INNER JOIN Trips t ON td.trip_id = t.id
-GROUP BY p.name, p.id, DATE_TRUNC('day', t.date)
-ORDER BY Start_Date;
+GROUP BY p.name, p.id, DATE_TRUNC('day', t.date), t.date
+ORDER BY t.date;
