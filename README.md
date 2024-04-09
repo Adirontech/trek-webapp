@@ -13,8 +13,7 @@ The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react w
     - [For Developers](#for-developers)
       - [Step 1) Project Prerequisites](#step-1-project-prerequisites)
       - [Step 2) Clone \& Configure Project](#step-2-clone--configure-project)
-        - [Environment Variables Setup](#environment-variables-setup)
-        - [Configuring the Project](#configuring-the-project)
+        - [Environment Variables Setup \& Configuration](#environment-variables-setup--configuration)
       - [Step 3) Setup Docker Database](#step-3-setup-docker-database)
       - [Step 4) Setup Web \& API Clients](#step-4-setup-web--api-clients)
         - [Setup Web Client](#setup-web-client)
@@ -69,20 +68,22 @@ Open a terminal and navigate to the path you copied. Once you have navigated the
 
 Once cloned, navigate into the `trek-webapp` directory, and complete the following steps:
 
-##### Environment Variables Setup
+##### Environment Variables Setup & Configuration
 
-In the root of the project, create an `.env` file in the root directory of your repository and add a line `DB_PASSWORD=<your_password_here>`. This will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password.
+In the root of the project, create an `.env` file in the root directory of your repository and add the following lines to it:
+`API_URL=<your_api_URL_here>`
+`DB_USERNAME=<your_database_username_here>`
+`DB_PASSWORD=<your_database_password_here>`
+`DB_PORT=<your_database_port_here>`
+`DB_NAME=<your_database_name_here>`
 
-##### Configuring the Project
+- `API_URL` will determine the URL that the client frontend process will use to communicate with the project's API. By default, replace `<your_api_URL_here>` with `http://localhost/5000`.
+- `DB_USERNAME` will determine the username you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. By default, make sure you replace `<your_database_username_here>` with `adirontech`.
+- `DB_PASSWORD` will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password (it is your choice).
+- `DB_PORT` will determine the port that the API backend process will use construct & access the URL to the project's database. By default, make sure you replace `<your_database_port_here>` with `5432`.
+- `DB_NAME` will determine the name of the database that the API backend process will use construct & access the URL to that same database. By default, make sure you replace `<your_database_name_here>` with `trek-db`.
 
-The TREK web application contains two config directories in the following locations:
-
-- `api/config/`
-- `client/src/config/`
-
-Each of these directories contains a template file named `config.template.js`. In both config directories, create a new file called `config.js` that contains everything in this template file. The values in the template must be changed to match the values found in the `docker-compose.yml` for creating the Postgres database.
-
-Remember that the template config files different / unique to each directory! Your config files will not look the same once you fill them out.
+If you want to run the project quickly at this point, run of the `demo_quick_start` files in the root of the project!!!!!!!!!!!!! : D
 
 #### Step 3) Setup Docker Database
 
