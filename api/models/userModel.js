@@ -14,7 +14,8 @@ const userQueries = {
     createUser: new QueryFile(path.join(__dirname, '../sql/userSQL/create.sql')),
     createUserData: new QueryFile(path.join(__dirname, '../sql/userDataSQL/create.sql')),
     signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
-    getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql'))
+    getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
+    setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql'))
 };
 
 /**
@@ -53,6 +54,16 @@ async function signInUser(userData) {
     return res;
 }
 
+async function changePassword(key, oldPassword, newPassword) {
+    console.log(key);
+    console.log(oldPassword);
+    const hashedOldPW = hashPW(oldPassword);
+    const hashedNewPW = hashPW(newPassword);
+    console.log(hashedNewPW);
+
+    return db.one(userQueries.setPassword, [key, hashedOldPW, hashedNewPW]);
+}
+
 /**
  * Hashes the given password using SHA-512 algorithm.
  * @param {string} pw - The password to be hashed.
@@ -67,5 +78,6 @@ function hashPW(pw) {
 module.exports = {
     createUser,
     signInUser,
-    getUserInfo
+    getUserInfo,
+    changePassword
 };

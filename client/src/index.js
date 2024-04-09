@@ -11,6 +11,7 @@ import Home from './pages/Home'; // Import Home component
 import Ranger from './pages/Ranger'; // Import Ranger component
 import Register from './pages/Register'; // Import Register component
 import Profile from './pages/Profile'; // Import Profile component
+import ChangePassword from './pages/ChangePassword'; // Import ChangePassword component
 import reportWebVitals from './reportWebVitals'; // Import utility for measuring web vitals
 import { BrowserRouter, Routes, Route } from "react-router-dom"; // Import React Router components for routing
 
@@ -30,6 +31,7 @@ root.render(
         <Route path='' element={<Home/>} /> {/* Render Home component for default route '/' */}
         <Route path='register' element={<Register />} /> {/* Render Register component for '/register' route */}
         <Route path='profile' element={<Profile />} /> {/* Render Profile component for '/profile' route */}
+        <Route path='change-password' element={<ChangePassword />} /> {/* Render ChangePassword component for '/change-password' route */}
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
