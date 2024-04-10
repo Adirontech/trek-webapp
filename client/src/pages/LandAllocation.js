@@ -14,7 +14,7 @@ const LandAllocation = () => {
         types: '',
         pois: '',
         min: '',
-        max: '0'
+        max: ''
     });
 
     useEffect(() => {
@@ -28,6 +28,7 @@ const LandAllocation = () => {
      * Function to get all POI usage data
      */
     const getPOIUsageData = async () => {
+        let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
             return console.error('No session key found');
         }else{
@@ -35,8 +36,13 @@ const LandAllocation = () => {
                 const response = await fetch(`${config.apiURL}/poi/allUsage?session_key=${sessionStorage.getItem('sessionKey')}`);
                 if(response.status === 200){
                     const data = await response.json();
-                    console.log(data);
+                    data.forEach(row => {
+                        if(row.visitors > max){
+                            max = row.visitors;
+                        }
+                    });
                     setData(data);
+                    setFilterOptions({...filterOptions, max: max});
                 }else{
                     console.error('Failed to get data');
                 }
@@ -53,7 +59,7 @@ const LandAllocation = () => {
             <div className='flex flex-col items-center w-full'>
                 <div className="flex flex-row mt-9 w-full justify-center">
                     <POIDataFilter
-                    
+                        filterOptions = {filterOptions}
                     />
                 </div>
             </div>
