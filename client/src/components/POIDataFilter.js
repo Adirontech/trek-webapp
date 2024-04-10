@@ -24,19 +24,19 @@ const POIDataFilter = (props) => {
     const [shownTypes, setShownTypes] = useState([]); // State for POIs to be shown based off area type selected
     const [isFirstRender, setIsFirstRender] = useState(true); // State for first render
     const [filter, setFilter] = useState({
-        min: 0,
-        max: 100,
+        min: props.filterOptions.min,
+        max: props.filterOptions.max,
         trailhead: false,
         peak: false,
         scenic: false,
         lodge: false,
         leanto: false,
-        from: '',
-        to: '',
-        daily: false,
-        weekly: false,
-        monthly: false,
-        yearly: false,
+        from: props.filterOptions.from,
+        to: props.filterOptions.to,
+        day: false,
+        week: false,
+        month: false,
+        year: false,
         average: false,
         selected: []
     }); // State for filter options
@@ -46,6 +46,17 @@ const POIDataFilter = (props) => {
             setIsFirstRender(false);
             getPois();
         }
+        setFilter({ ...filter, 
+            [props.filterOptions.step]: true,
+            min: props.filterOptions.min,
+            max: props.filterOptions.max,
+            from: props.filterOptions.from,
+            to: props.filterOptions.to
+            [props.filterOptions.types].forEach((type) => {
+                setFilter({ ...filter, [type]: true });
+            })
+        });
+
         document.getElementsByClassName('gray')[0].innerHTML = 'Select Points of Interest';
     });
 
@@ -98,7 +109,7 @@ const POIDataFilter = (props) => {
                 setShownTypes(shownTypes.filter((type) => type !== id));
             }
         } else if (name === "step") {
-            const increment = ["daily", "weekly", "monthly", "yearly"];
+            const increment = ["day", "week", "month", "year"];
             increment.forEach((i) => {
                 if(i !== id) {
                     setFilter({ ...filter, [i]: false });
@@ -154,19 +165,19 @@ const POIDataFilter = (props) => {
                             <fieldset className="flex flex-row sm:w-5/6 justify-between 2xl:pr-24 xl:pr-12 md:pr-6 sm:pb-1">
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Daily</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="daily" value={filter.daily} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="day" value={filter.day} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Weekly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="weekly" value={filter.weekly} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="week" value={filter.week} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Monthly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="monthly" value={filter.monthly} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="month" value={filter.month} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Yearly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="yearly" value={filter.yearly} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="year" value={filter.year} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                             </fieldset>
                             <div className="flex flex-row justify-end items-center sm:w-1/6">
