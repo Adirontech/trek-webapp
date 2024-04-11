@@ -3,7 +3,7 @@
  * This component provides a multi-select dropdown menu for selecting POIs.
  */
 
-import React, { useState, useEffect } from "react"; // Importing React and necessary hooks
+import React, { useState, useEffect, useRef } from "react"; // Importing React and necessary hooks
 import  Slider  from 'rc-slider'; // Importing Quantity Slider component
 import '../assets/stylesheets/POISelect.css'; // Importing component-specific CSS
 import 'rc-slider/assets/index.css'; // Importing CSS for Quantity Slider
@@ -19,18 +19,17 @@ const config = require("../config/config"); // Importing configuration variables
  * @returns {JSX.Element} - Rendered component
  */
 const POIDataFilter = (props) => {
-    const [selected, setSelected] = useState([]); // State for selected POIs
     const [pois, setPois] = useState([]); // State for POIs
     const [shownTypes, setShownTypes] = useState([]); // State for POIs to be shown based off area type selected
-    const [isFirstRender, setIsFirstRender] = useState(true); // State for first render
+    const isFirstRender = useRef(true); // State for first render
     const [filter, setFilter] = useState({
         min: props.filterOptions.min,
         max: props.filterOptions.max,
-        trailhead: false,
-        peak: false,
-        scenic: false,
-        lodge: false,
-        leanto: false,
+        trailhead:true,
+        peak: true,
+        scenic: true,
+        lodge: true,
+        leanto: true,
         from: props.filterOptions.from,
         to: props.filterOptions.to,
         day: false,
@@ -42,23 +41,38 @@ const POIDataFilter = (props) => {
     }); // State for filter options
 
     useEffect(() => {
-        if(isFirstRender){
-            setIsFirstRender(false);
+        if(isFirstRender.current){
+            isFirstRender.current = false;
             getPois();
-        }
-        setFilter({ ...filter, 
-            [props.filterOptions.step]: true,
-            min: props.filterOptions.min,
-            max: props.filterOptions.max,
-            from: props.filterOptions.from,
-            to: props.filterOptions.to
-            [props.filterOptions.types].forEach((type) => {
-                setFilter({ ...filter, [type]: true });
-            })
-        });
 
-        document.getElementsByClassName('gray')[0].innerHTML = 'Select Points of Interest';
-    });
+            let types = {
+                "trailhead": true,
+                "peak": true,
+                "scenic": true,
+                "lodge": true,
+                "leanto": true
+            };
+            for (const type in types) {
+                if (!props.filterOptions.types.includes(type)) {
+                    types[type] = false;
+                }
+            }
+            setFilter({ ...filter, 
+                [props.filterOptions.step]: true,
+                min: props.filterOptions.min,
+                max: props.filterOptions.max,
+                from: props.filterOptions.from,
+                to: props.filterOptions.to,
+                trailhead: types.trailhead,
+                peak: types.peak,
+                scenic: types.scenic,
+                lodge: types.lodge,
+                leanto: types.leanto
+            });
+            document.getElementsByClassName('gray')[0].innerHTML = 'Select Points of Interest';
+        }
+    }, [filter, pois, props.filterOptions.min, props.filterOptions.max, props.filterOptions.from,
+        props.filterOptions.to, props.filterOptions.step, props.filterOptions.types]);
 
     const marks = {
         0: '0',
@@ -98,15 +112,17 @@ const POIDataFilter = (props) => {
         setFilter({ ...filter, min: values[0], max: values[1] });
     };
 
-    const handleChange = (e) => { // Function to handle change in filter options 
+    const handleChange = (e) => { // Function to handle change in filter options that are not selected pois or min/max
         console.log(e);
         const { name, value, checked, id } = e.target;
         if(name === "area" || name === "average") {
             setFilter({ ...filter, [id]: checked });
             if(name === "area" && checked){
-                setShownTypes(shownTypes.push(id));
+                shownTypes.push(id)
+                setShownTypes(shownTypes);
             }else if(name === "area" && !checked){
-                setShownTypes(shownTypes.filter((type) => type !== id));
+                let types = shownTypes.filter((type) => type !== id);
+                setShownTypes(types);
             }
         } else if (name === "step") {
             const increment = ["day", "week", "month", "year"];
@@ -119,6 +135,10 @@ const POIDataFilter = (props) => {
         }else {
             setFilter({ ...filter, [name]: value });
         }
+    };
+
+    const apply = () => { // Function to apply filter options
+        props.handleFilterChange(filter);
     };
 
     return (
@@ -142,23 +162,23 @@ const POIDataFilter = (props) => {
                         <fieldset className="flex flex-row w-full justify-between md:pl-6 sm:pt-2">
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Trailhead</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="Trailhead" value={filter.trailhead} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="trailhead" checked={filter.trailhead} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Peak</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="Peak" value={filter.peak} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="peak" checked={filter.peak} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Scenic</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="Scenic" value={filter.scenic} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="scenic" checked={filter.scenic} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Lodge</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="Lodge" value={filter.lodge} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="lodge" checked={filter.lodge} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                             <div className="flex flex-row items-center">
                                 <label className="text-sm pr-2">Leanto</label>
-                                <input type="checkbox" onChange={handleChange} name="area" id="Leanto" value={filter.leanto} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="area" id="leanto" checked={filter.leanto} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                         </fieldset>
                         <div className="flex flex-row w-full justify-between md:pl-6 sm:pb-1">
@@ -191,8 +211,8 @@ const POIDataFilter = (props) => {
                     <div className="flex flex-col w-3/6 md:pl-6">
                         <Slider
                             range
-                            min={0}
-                            max={100}
+                            min={filter.min}
+                            max={filter.max}
                             marks={marks}
                             defaultValue={[0, 100]}
                             value={[filter.min, filter.max]}
@@ -206,7 +226,7 @@ const POIDataFilter = (props) => {
                         <label className="text-md sm:text-lg font-bold">Max: {filter.max}</label>
                     </div>
                     <div className="flex flex-row justify-end w-1/6">
-                        <button className="bg-green font-bold w-24 h-8 sm:left-1 relative rounded">
+                        <button className="bg-green font-bold w-24 h-8 sm:left-1 relative rounded" onClick={apply}>
                             Apply
                         </button>
                     </div> 
