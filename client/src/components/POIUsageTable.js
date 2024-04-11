@@ -52,7 +52,7 @@ const POIUsageTable = (props) => {
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())} className="border rounded-lg">
+              <th {...column.getHeaderProps(column.getSortByToggleProps())} className=" rounded-lg">
                 {column.render('Header')}
                 <span>
                   {column.isSorted ? (column.isSortedDesc ? ' 🔽' : ' 🔼') : ''}

@@ -12,7 +12,11 @@ const LandAllocation = () => {
         step: 'day',
         from: '',
         to: '',
-        types: 'trailhead, peak, scenic, lodge, leanto',
+        Trailhead: true,
+        Peak: true,
+        Scenic: true,
+        Lodge: true,
+        Leanto: true,
         pois: '',
         min: 0,
         max: 0,
@@ -26,7 +30,56 @@ const LandAllocation = () => {
         }
     }, [data, filterOptions]);
 
+    /**
+     * Function to handle changes in the filter options
+     *  @param {object} e - filter options from POIDataFilter component
+     */
     const handleFilterChange = (e) => {
+        let types = '';
+        let step = '';
+        let pois = '';
+        let poiTypes = {
+            Trailhead: false,
+            Peak: false,
+            Scenic: false,
+            Lodge: false,
+            Leanto: false
+        }
+        for(const [key, value] of Object.entries(e.target.types)){
+            if(value){
+                types += key + ',';
+            }
+            poiTypes[key] = value;
+        }
+        for(const [key, value] of Object.entries(e.target.steps)){
+            if(value){
+                step = key;
+            }
+        }
+        e.target.select.forEach(poi => {
+            pois += poi + ',';
+        });
+
+        setFilterOptions({
+            ...filterOptions, 
+            from: e.target.from,
+            to: e.target.to,
+            min: e.target.min,
+            max: e.target.max,
+            average: e.target.average,
+            step: step,
+            Trailhead: poiTypes.Trailhead,
+            Peak: poiTypes.Peak,
+            Scenic: poiTypes.Scenic,
+            Lodge: poiTypes.Lodge,
+            Leanto: poiTypes.Leanto,
+            pois: pois
+        });
+        if(e.target.average){
+            getFilteredData('average', types);
+        }else{
+            getFilteredData('total', types);
+        }
         console.log(e);
     };
 
@@ -44,7 +97,7 @@ const LandAllocation = () => {
                     const data = await response.json();
                     data.forEach(row => {
                         if(Number(row.visitors) > max){
-                            max = row.visitors;
+                            max = Number(row.visitors);
                         }
                         row.date = row.date.split('T')[0];
                     });
@@ -64,7 +117,7 @@ const LandAllocation = () => {
      * Function to get filtered POI usage data
      * @param {string} type - average or total(daily)
      */
-    const getFilteredData = async (type) => {
+    const getFilteredData = async (type, types) => {
         let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
             return console.error('No session key found');
@@ -75,7 +128,7 @@ const LandAllocation = () => {
                 &step=${filterOptions.step}
                 &from=${filterOptions.from}
                 &to=${filterOptions.to}
-                &types=${filterOptions.types}
+                &types=${types}
                 &pois=${filterOptions.pois}
                 &min=${filterOptions.min}
                 &max=${filterOptions.max}`);
