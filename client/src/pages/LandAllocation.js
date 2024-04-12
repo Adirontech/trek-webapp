@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef} from "react";
 import POIDataFilter from "../components/POIDataFilter";
 import Navbar from "../components/Navbar";
 import POIUsageTable from "../components/POIUsageTable";
+import { useNavigate } from 'react-router-dom';
 
 const config = require("../config/config");
 
@@ -22,6 +23,7 @@ const LandAllocation = () => {
         max: 0,
         average: false
     });
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(isFirstRender.current){
@@ -41,7 +43,6 @@ const LandAllocation = () => {
         console.log(options);
         let types = '';
         let type = '';
-        let step = '';
         let pois = '';
         let poiTypes = {
             Trailhead: false,
@@ -50,33 +51,28 @@ const LandAllocation = () => {
             Lodge: false,
             Leanto: false
         }
-        for(const [key, value] of Object.entries(options.target.types)){
+        for(const [key, value] of Object.entries(options.types)){
             if(value){
                 types += key + ',';
             }
             poiTypes[key] = value;
         }
-        for(const [key, value] of Object.entries(options.target.steps)){
-            if(value){
-                step = key;
-            }
-        }
-        options.target.select.forEach(poi => {
+        options.selected.forEach(poi => {
             pois += poi + ',';
         });
-        if(options.target.average){
+        if(options.average){
             type = 'average';
         }else{
             type = 'total';
         }
         setFilterOptions({
             ...filterOptions, 
-            from: options.target.from,
-            to: options.target.to,
-            min: options.target.min,
-            max: options.target.max,
-            average: options.target.average,
-            step: step,
+            from: options.from,
+            to: options.to,
+            min: options.min,
+            max: options.max,
+            average: options.average,
+            step: options.step,
             Trailhead: poiTypes.Trailhead,
             Peak: poiTypes.Peak,
             Scenic: poiTypes.Scenic,
@@ -84,17 +80,8 @@ const LandAllocation = () => {
             Leanto: poiTypes.Leanto,
             pois: pois
         });
-        const url = `${config.apiURL}/poi/${type}Usage?
-                session_key=${sessionStorage.getItem('sessionKey')}
-                &step=${step}
-                &from=${options.target.from}
-                &to=${options.target.to}
-                &types=${types}
-                &pois=${pois}
-                &min=${options.target.min}
-                &max=${options.target.max}`
+        const url = `${config.apiURL}/poi/${type}Usage?session_key=${sessionStorage.getItem('sessionKey')}&step=${options.step}&from=${options.from}&to=${options.to}&types=${types}&pois=${pois}&min=${options.minVal}&max=${options.maxVal}`
         getFilteredData(url);
-        console.log(e);
     };
 
     /**
@@ -103,7 +90,8 @@ const LandAllocation = () => {
     const getPOIData = async () => {
         let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
-            return console.error('No session key found');
+            console.error('No session key found');
+            navigate('/login');
         }else{
             try{
                 const response = await fetch(`${config.apiURL}/poi/allUsage?session_key=${sessionStorage.getItem('sessionKey')}`);
@@ -134,7 +122,8 @@ const LandAllocation = () => {
     const getFilteredData = async (url) => {
         let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
-            return console.error('No session key found');
+            console.error('No session key found');
+            navigate('/login');
         }else{
             try{
                 const response = await fetch(url);
