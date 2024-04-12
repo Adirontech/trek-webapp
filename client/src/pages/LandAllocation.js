@@ -31,11 +31,16 @@ const LandAllocation = () => {
     }, [data, filterOptions]);
 
     /**
-     * Function to handle changes in the filter options
-     *  @param {object} e - filter options from POIDataFilter component
+     * Function to apply filter options
+     * Puts options into the correct format that the API expects
+     * Creates a URL with the filter options as query parameters
+     * Calls getFilteredData with the URL
+     *  @param {object} options - filter options from POIDataFilter component
      */
-    const handleFilterChange = (e) => {
+    const handleFilterChange = (options) => {
+        console.log(options);
         let types = '';
+        let type = '';
         let step = '';
         let pois = '';
         let poiTypes = {
@@ -45,28 +50,32 @@ const LandAllocation = () => {
             Lodge: false,
             Leanto: false
         }
-        for(const [key, value] of Object.entries(e.target.types)){
+        for(const [key, value] of Object.entries(options.target.types)){
             if(value){
                 types += key + ',';
             }
             poiTypes[key] = value;
         }
-        for(const [key, value] of Object.entries(e.target.steps)){
+        for(const [key, value] of Object.entries(options.target.steps)){
             if(value){
                 step = key;
             }
         }
-        e.target.select.forEach(poi => {
+        options.target.select.forEach(poi => {
             pois += poi + ',';
         });
-
+        if(options.target.average){
+            type = 'average';
+        }else{
+            type = 'total';
+        }
         setFilterOptions({
             ...filterOptions, 
-            from: e.target.from,
-            to: e.target.to,
-            min: e.target.min,
-            max: e.target.max,
-            average: e.target.average,
+            from: options.target.from,
+            to: options.target.to,
+            min: options.target.min,
+            max: options.target.max,
+            average: options.target.average,
             step: step,
             Trailhead: poiTypes.Trailhead,
             Peak: poiTypes.Peak,
@@ -75,11 +84,16 @@ const LandAllocation = () => {
             Leanto: poiTypes.Leanto,
             pois: pois
         });
-        if(e.target.average){
-            getFilteredData('average', types);
-        }else{
-            getFilteredData('total', types);
-        }
+        const url = `${config.apiURL}/poi/${type}Usage?
+                session_key=${sessionStorage.getItem('sessionKey')}
+                &step=${step}
+                &from=${options.target.from}
+                &to=${options.target.to}
+                &types=${types}
+                &pois=${pois}
+                &min=${options.target.min}
+                &max=${options.target.max}`
+        getFilteredData(url);
         console.log(e);
     };
 
@@ -117,21 +131,13 @@ const LandAllocation = () => {
      * Function to get filtered POI usage data
      * @param {string} type - average or total(daily)
      */
-    const getFilteredData = async (type, types) => {
+    const getFilteredData = async (url) => {
         let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
             return console.error('No session key found');
         }else{
             try{
-                const response = await fetch(`${config.apiURL}/poi/${type}Usage?
-                session_key=${sessionStorage.getItem('sessionKey')}
-                &step=${filterOptions.step}
-                &from=${filterOptions.from}
-                &to=${filterOptions.to}
-                &types=${types}
-                &pois=${filterOptions.pois}
-                &min=${filterOptions.min}
-                &max=${filterOptions.max}`);
+                const response = await fetch(url);
                 if(response.status === 200){
                     const data = await response.json();
                     data.forEach(row => {
