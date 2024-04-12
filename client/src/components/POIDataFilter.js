@@ -23,7 +23,7 @@ const POIDataFilter = (props) => {
     const [shownTypes, setShownTypes] = useState(['Trailhead', 'Peak', 'Scenic', 'Lodge', 'Leanto']); // State for POIs to be shown based off area type selected
     const isFirstRender = useRef(true); // State for first render
     const [filter, setFilter] = useState({
-        minVal: props.filterOptions.min,
+        minVal: props.filterOptions.min ? props.filterOptions.min : 0,
         maxVal: props.filterOptions.max,
         absMax: props.filterOptions.max,
         types: {
@@ -35,17 +35,12 @@ const POIDataFilter = (props) => {
         },
         from: props.filterOptions.from,
         to: props.filterOptions.to,
-        steps: {
-            day: false,
-            week: false,
-            month: false,
-            year: false
-        },
+        step: 'day',
         average: false,
         selected: []
     }); // State for filter options
     const [marks, setMarks] = useState({
-        [props.filterOptions.min]:  `${props.filterOptions.min}`,
+        [props.filterOptions.min ? props.filterOptions.min : 0]:  `${props.filterOptions.min ? props.filterOptions.min : 0}`,
         [props.filterOptions.max]: `${props.filterOptions.max}`
     });
 
@@ -71,14 +66,11 @@ const POIDataFilter = (props) => {
             },
             from: props.filterOptions.from,
             to: props.filterOptions.to,
-            steps: {
-                ...filter.steps,
-                [props.filterOptions.step]: true
-            },
+            step: props.filterOptions.step,
             average: props.filterOptions.average
         });
         setMarks({
-            [props.filterOptions.min]:  `${props.filterOptions.min}`,
+            [props.filterOptions.min ? props.filterOptions.min : 0]:  `${props.filterOptions.min ? props.filterOptions.min : 0}`,
             [props.filterOptions.max]: `${props.filterOptions.max}`
         });
         let types = [];
@@ -153,26 +145,7 @@ const POIDataFilter = (props) => {
                 setShownTypes(types);
             }
         } else if (name === "step") {
-            const increment = ["day", "week", "month", "year"];
-            increment.forEach((i) => {
-                if(i !== id) {
-                    setFilter({ 
-                        ...filter,
-                        steps: {
-                            ...filter.steps,
-                            [i]: false
-                        }
-                    });
-                }else {
-                    setFilter({ 
-                        ...filter,
-                        steps: {
-                            ...filter.steps,
-                            [id]: checked
-                        }
-                    });
-                }
-            });
+            setFilter({ ...filter, step: id });
         }else {
             setFilter({ ...filter, [name]: value });
         }
@@ -183,7 +156,6 @@ const POIDataFilter = (props) => {
     };
 
     return (
-        console.log(pois),
         <div className="bg-white pt-4 pl-2 sm:pl-4 pr-2 sm:pr-4 pb-3 rounded-lg shadow-md xl:w-2/4 lg:w-7/12 md:w-4/5 w-full">
             <div className="flex flex-col w-full">
                 <div className="inline-flex justify-center w-full h-9">
@@ -227,19 +199,19 @@ const POIDataFilter = (props) => {
                             <fieldset className="flex flex-row sm:w-5/6 justify-between 2xl:pr-24 xl:pr-12 md:pr-6 sm:pb-1">
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Daily</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="day" checked={filter.day} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="day" checked={filter.step === "day"} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Weekly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="week" checked={filter.week} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="week" checked={filter.step === "week"} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Monthly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="month" checked={filter.month} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="month" checked={filter.step === "month"} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                                 <div className="flex flex-row items-center">
                                     <label className="text-sm pr-2">Yearly</label>
-                                    <input type="radio" onChange={handleChange} name="step" id="year" checked={filter.year} className="border-2 w-6 h-6 rounded-md"></input>
+                                    <input type="radio" onChange={handleChange} name="step" id="year" checked={filter.step === "year"} className="border-2 w-6 h-6 rounded-md"></input>
                                 </div>
                             </fieldset>
                             <div className="flex flex-row justify-end items-center sm:w-1/6">
@@ -263,7 +235,7 @@ const POIDataFilter = (props) => {
                         <label className="text-xs sm:text-sm text-center ">Number of Visitors</label>
                     </div>
                     <div className="flex flex-row w-2/6 md:pl-0 lg:pl-4 xl:pl-8 justify-around">
-                        <label className="text-md sm:text-lg font-bold">Min: {filter.minVal}</label>
+                        <label className="text-md sm:text-lg font-bold">Min: {filter.minVal ? filter.min : 0}</label>
                         <label className="text-md sm:text-lg font-bold">Max: {filter.maxVal}</label>
                     </div>
                     <div className="flex flex-row justify-end w-1/6">

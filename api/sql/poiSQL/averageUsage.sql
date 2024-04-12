@@ -18,7 +18,7 @@ WITH Stats AS (
     WHERE 
         (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND p.type IN (
-                SELECT trim(UNNEST(string_to_array($4, ',')))::poi_type_enum
+                SELECT UNNEST(string_to_array($4, ','))::poi_type_enum
             )
         )
         OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)

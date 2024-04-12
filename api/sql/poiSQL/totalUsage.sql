@@ -12,11 +12,12 @@ INNER JOIN Trips t ON td.trip_id = t.id
 WHERE 
     (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
         AND p.type IN (
-            SELECT trim(UNNEST(string_to_array($4, ',')))::poi_type_enum
+            SELECT value::poi_type_enum
+            FROM UNNEST(string_to_array($4, ',')) AS value
         )
     )
     OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
-            AND p.id IN (
+            AND ($5 = '' AND false) OR p.id IN (
                 SELECT CAST(value AS INTEGER)
                     FROM UNNEST(string_to_array($5, ',')) AS value
             )
