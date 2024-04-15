@@ -23,6 +23,30 @@ router.get('/all', async (req, res) => {
 });
 
 /**
+ * Route to get all trips for a specific user (from a session key)
+ */
+router.get('/from-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripsFromKey(req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/**
+ * Route to get all trip information for a specific user (from a session key)
+ */
+router.get('/info-from-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripsInfoFromKey(req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/**
  * Route to create a new trip.
  */
 router.post('/', async (req, res, next) => {

@@ -17,12 +17,12 @@ router.get('/user-info', async (req, res, next) => {
     try {
         if (req.query.key) {
             const user = await userModel.getUserInfo(req.query.key);
-            res.status(200).json({ data: user.getuserdata });
+            res.status(200).json({ success: true, data: user.getuserdata });
         } else {
-            res.status(400).json({ message: 'No key provided' });
+            res.status(400).json({ success: false, message: 'No key provided' });
         }
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ success: false, message: error.message });
     }
 });
 
@@ -48,6 +48,22 @@ router.post('/', async (req, res, next) => {
                 ". Missing required parameters to create user: " + missingCreateParams.join(', '));
         }
     } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+/***
+ * Route to update user password
+ */
+router.post('/change-password', async (req, res, next) => {
+    try {
+        if (req.body.key && req.body.oldPassword && req.body.newPassword) {
+            const result = await userModel.changePassword(req.body.key, req.body.oldPassword, req.body.newPassword);
+            res.status(200).json({ success: true, message: result });
+        } else {
+            res.status(400).json({ success: false, message: 'Missing required parameters' });
+        }
+    } catch(error) {
         res.status(500).json({ message: error.message });
     }
 });
