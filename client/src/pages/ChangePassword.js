@@ -65,7 +65,6 @@ const ChangePassword = () => {
         }
         const data = await response.json();
         
-        console.log(data);
         if(data.success && data.message.count != null && data.message.count > 0) {
             navigate('/profile');
             alert("Password changed successfully.");
