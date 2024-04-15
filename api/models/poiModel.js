@@ -50,7 +50,6 @@ async function getTrailheads(){
  */
 async function getDailyUsage(poi, date){
     var result = await db.oneOrNone(poiQueries.getDailyUsage, [poi, date]);
-    console.log(result);
     return result;
 }
 
