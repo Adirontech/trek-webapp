@@ -1,15 +1,7 @@
-/**
- * Login.js - Component for user authentication (login and account creation).
- * This component handles user authentication by allowing users to either log in or create an account.
- */
+import React, { useState, useContext} from "react";
+import { useNavigate } from 'react-router-dom';
+import MainContext from "../MainContext";
 
-import React, {useState} from "react"; // Importing React and useState hook
-import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook for navigation
-
- /**
-  * Functional component representing the login page.
-  * @returns {JSX.Element} - JSX element representing the login page.
-  */
 const Login = () => {
     const navigate = useNavigate(); // Hook for navigating to different routes
     const [passwordConf, setPasswordConf] = useState(""); // State variable for password confirmation
@@ -20,12 +12,16 @@ const Login = () => {
         password: '',
         first_name: '',
         last_name: '',
-        phone: ''
+        phone: '',
+        is_ranger: false,
     });
     const [signInData, setSignInData] = useState({ // State variable for login form data
         username: '',
         password: ''
     });
+    const {
+        setIsLandUsagePlanner
+    } = useContext(MainContext);
             
      /**
       * Function to switch between login and create account forms.
@@ -37,7 +33,8 @@ const Login = () => {
             password: '',
             first_name: '',
             last_name: '',
-            phone: ''
+            phone: '',
+            is_ranger: false,
         });
         setSignInData({
             username: '',
@@ -54,7 +51,17 @@ const Login = () => {
      * @param {*} e - Event object
      */
     const change = (e) => {
-        const {name, value} = e.target;
+        const {name} = e.target;
+        let value;
+
+        // check if 'e' has the checked property, indicating it's a checkbox (land usage planner)
+        if (e.target.hasOwnProperty('checked')) {
+            value = e.target.checked;
+        }
+        else {
+            value = e.target.value;
+        }
+
         let errors = {};
         // Sets entered data to createData or signInData depending on the 'createAccount' state value.
         if ( createAccount && (name !== "passwordConf") ){ // 'passwordConf' is not included in createData because it is not sent in the request.
@@ -180,10 +187,11 @@ const Login = () => {
                 };
                 const cResponse = await fetch('http://localhost:5000/user/', cOptions);
                 if ( !cResponse.ok ) {
-                    throw new Error(`HTTP error! Status: ${cResponse.status}`);
+                    throw new Error(`HTTP error (1)! Status: ${cResponse.status}`);
                 }
                 const cData = await cResponse.json(); // Await the create API response; a user ID should be returned
                 if( cData.user_id ) { // If a user is created & a user ID is returned, set the userID in the browsers session data.
+                    console.log(cData.user_id);
                     sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
@@ -192,7 +200,7 @@ const Login = () => {
                     };
                     const sResponse = await fetch('http://localhost:5000/user/', sOptions);
                     if ( !sResponse.ok ) {
-                        throw new Error(`HTTP error! Status: ${sResponse.status}`);
+                        throw new Error(`HTTP error (2)! Status: ${sResponse.status}`);
                     }
                     const sData = await sResponse.json(); // Await API response for setting the userID
                     if( sData.session_key ) { // Then makes a sign in API request which returns a sessionKey that is set in the browsers session data.
@@ -322,6 +330,19 @@ const Login = () => {
                                         />
                                         <div className=" text-xs text-red">{errors.passwordConf}</div>
                                         <div className=" text-xs text-red">{errors.match}</div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label className="block text-gray-600 text-sm">Are you a land allocation planner?</label>
+                                        <input
+                                            className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
+                                            type="checkbox"
+                                            name="is_ranger"
+                                            value={createData.is_ranger}
+                                            onChange={(e) => {
+                                                setIsLandUsagePlanner(e.target.checked);
+                                                change(e);
+                                            }}
+                                        />
                                     </div>
                                     <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>

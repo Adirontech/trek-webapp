@@ -1,11 +1,21 @@
-/**
- * Navbar.js - Component for the navigation bar.
- * This component renders a navigation bar with links to Home, About, and Trip Registration.
- * It also includes a profile icon on the right side.
- */
+import { useContext } from 'react';
+import MainContext from '../MainContext';
 import profileIcon from '../assets/images/profile-icon.png';
+import React, {useState} from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
+    const navigateToLogin = () => {
+        navigate('/login');
+    }
+
+    const { isLandUsagePlanner } = useContext(MainContext);
+
+
     return (
         <nav className="flex justify-between items-center">
             {/* main nav - centered */}
