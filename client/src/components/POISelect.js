@@ -16,21 +16,6 @@
  const POISelect = (props) => {
      const [selected, setSelected] = useState([]); // State for selected POIs
  
-     // Hardcoded points of interest data
-     const points = [
-         { label: '1', value: '1' },
-         { label: '2', value: '2' },
-         { label: '3', value: '3' },
-         { label: '4', value: '4' },
-         { label: '5', value: '5' },
-         { label: '6', value: '6' },
-         { label: '7', value: '7' },
-         { label: '4', value: '4' },
-         { label: '5', value: '5' },
-         { label: '6', value: '6' },
-         { label: '7', value: '7' }
-     ];
- 
      // useEffect hook to handle changes in selected POIs
      useEffect(() => {
          props.handleChange(selected); // Calling handleChange function with selected POIs
@@ -45,7 +30,7 @@
              </div>
              {/* MultiSelect component for selecting POIs */}
              <MultiSelect
-                 options={points} // Options for POIs
+                 options={props.pois} // Options for POIs
                  labelledBy="Points of Interest" // Accessibility label
                  onChange={setSelected} // Function to handle change in selection
                  hasSelectAll={false} // Disable select all option

@@ -13,7 +13,7 @@ import Register from './pages/Register'; // Import Register component
 import Profile from './pages/Profile'; // Import Profile component
 import ChangePassword from './pages/ChangePassword'; // Import ChangePassword component
 import reportWebVitals from './reportWebVitals'; // Import utility for measuring web vitals
-import { BrowserRouter, Routes, Route } from "react-router-dom"; // Import React Router components for routing
+import App from './App';
 
 // Create a root instance for rendering React components
 const root = ReactDOM.createRoot(document.getElementById('root'));

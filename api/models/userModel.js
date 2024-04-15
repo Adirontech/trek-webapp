@@ -8,6 +8,7 @@ const db = require('../db');
 const crypto = require('crypto');
 const { QueryFile } = require('pg-promise');
 const path = require('path');
+const rangerModel = require('../models/rangerModel');
 
 // Define queries for user operations
 const userQueries = {
@@ -39,7 +40,11 @@ async function createUser(userData) {
         userData.first_name, userData.last_name, userData.address, userData.city, userData.state,
         userData.zip, userData.phone
     ]);
-    return db.one(userQueries.createUser, [userData.username, hashedPW, result.id]);
+    const userResult = await db.one(userQueries.createUser, [userData.username, hashedPW, result.id]);
+    if (userData.is_ranger) {
+        await rangerModel.createRanger(userResult.id);
+    }
+    return userResult;
 }
 
 /**
