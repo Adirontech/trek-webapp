@@ -55,11 +55,8 @@ async function signInUser(userData) {
 }
 
 async function changePassword(key, oldPassword, newPassword) {
-    console.log(key);
-    console.log(oldPassword);
     const hashedOldPW = hashPW(oldPassword);
     const hashedNewPW = hashPW(newPassword);
-    console.log(hashedNewPW);
 
     return db.one(userQueries.setPassword, [key, hashedOldPW, hashedNewPW]);
 }

@@ -33,7 +33,6 @@ async function getGroupUsage(pois, from, to){
  */
 async function getDailyUsage(poi, date){
     var result = await db.oneOrNone(poiQueries.getDailyUsage, [poi, date]);
-    console.log(result);
     return result;
 }
 
