@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5432:5432"
+      - ${DB_PORT}:${DB_PORT}
     environment:
-      POSTGRES_DB: "trek-db"
-      POSTGRES_USER: "adirontech"
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}

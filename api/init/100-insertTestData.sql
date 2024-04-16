@@ -11,24 +11,24 @@ VALUES
     (2, 'bob', 'b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86', 2); -- password is 'password'
 
 INSERT INTO Trips
-    (creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size)
+    (confirm_code, creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size)
 VALUES
-    (1, 'Joe', 'Poe', '1 maple', 'lakewood', 'NY', '11111', '01-01-2023 12:00:00', 1, 'Test Data', '444-444-4444', 1, 2),
-    (2, 'Poe', 'Joe', '2 maple', 'lakewood', 'NY', '22222', '01-05-2023 12:00:00', 3, 'Test Data', '333-333-3333', 2, 1),
-    (1, 'Shmoe', 'Lo', '3 maple', 'lakewood', 'NY', '11111', '01-01-2024 12:00:00', 2, 'Test Data', '444-444-4444', 1, 2),
-    (2, 'Flo', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 1),
-    (2, 'Cam', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-06-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 4),
-    (2, 'Johnny', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-07-2024 12:00:00', 5, 'Test Data', '333-333-3333', 2, 7),
-    (2, 'Jonah', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-08-2024 12:00:00', 3, 'Test Data', '333-333-3333', 2, 5),
-    (2, 'Heather', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-09-2024 12:00:00', 2, 'Test Data', '333-333-3333', 2, 1),
-    (2, 'Quincy', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-10-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 9),
-    (1, 'Craig', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-11-2024 12:00:00', 49, 'Test Data', '333-333-3333', 2, 20),
-    (1, 'Marc', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-12-2024 12:00:00', 49, 'Test Data', '333-333-3333', 2, 11),
-    (1, 'Elon', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-13-2024 12:00:00', 50, 'Test Data', '333-333-3333', 2, 3),
-    (1, 'Will', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 1, 'Test Data', '333-333-3333', 2, 4),
-    (1, 'Nicole', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 2, 'Test Data', '333-333-3333', 2, 5),
-    (2, 'Terry', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-06-2024 12:00:00', 3, 'Test Data', '333-333-3333', 2, 1),
-    (2, 'Pam', 'Harris', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 7);
+    ('AAAAAAA', 1, 'Joe', 'Poe', '1 maple', 'lakewood', 'NY', '11111', '01-01-2023 12:00:00', 1, 'Test Data', '444-444-4444', 1, 2),
+    ('BBBBBBB', 2, 'Poe', 'Joe', '2 maple', 'lakewood', 'NY', '22222', '01-05-2023 12:00:00', 3, 'Test Data', '333-333-3333', 2, 1),
+    ('CCCCCCC', 1, 'Shmoe', 'Lo', '3 maple', 'lakewood', 'NY', '11111', '01-01-2024 12:00:00', 2, 'Test Data', '444-444-4444', 1, 2),
+    ('DDDDDDD', 2, 'Flo', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 1),
+    ('amamama', 2, 'Cam', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-06-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 4),
+    ('lllllll', 2, 'Johnny', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-07-2024 12:00:00', 5, 'Test Data', '333-333-3333', 2, 7),
+    ('ppppppp', 2, 'Jonah', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-08-2024 12:00:00', 3, 'Test Data', '333-333-3333', 2, 5),
+    ('mlmlmll', 2, 'Heather', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-09-2024 12:00:00', 2, 'Test Data', '333-333-3333', 2, 1),
+    ('poppolp', 2, 'Quincy', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-10-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 9),
+    ('mnmsbvn', 1, 'Craig', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-11-2024 12:00:00', 49, 'Test Data', '333-333-3333', 2, 20),
+    ('asdfgfs', 1, 'Marc', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-12-2024 12:00:00', 49, 'Test Data', '333-333-3333', 2, 11),
+    ('polited', 1, 'Elon', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-13-2024 12:00:00', 50, 'Test Data', '333-333-3333', 2, 3),
+    ('wereted', 1, 'Will', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 1, 'Test Data', '333-333-3333', 2, 4),
+    ('ghdjncm', 1, 'Nicole', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 2, 'Test Data', '333-333-3333', 2, 5),
+    ('poltiye', 2, 'Terry', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-06-2024 12:00:00', 3, 'Test Data', '333-333-3333', 2, 1),
+    ('qweddns', 2, 'Pam', 'Harris', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 7);
 
 INSERT INTO TripDestinations
     (trip_id, destination)
