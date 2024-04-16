@@ -19,13 +19,13 @@ WITH Stats AS (
         (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND p.type IN (
                 SELECT UNNEST(string_to_array($4, ','))::poi_type_enum
-            )
+            ) AND t.checked_in = true
         )
         OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND p.id IN (
                 SELECT CAST(value AS INTEGER)
                     FROM UNNEST(string_to_array($5, ',')) AS value
-                )
+                ) AND t.checked_in = true
             )
     GROUP BY p.name, p.id, DATE_TRUNC($1, t.date)
 )

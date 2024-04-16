@@ -14,13 +14,13 @@ WHERE
         AND p.type IN (
             SELECT value::poi_type_enum
             FROM UNNEST(string_to_array($4, ',')) AS value
-        )
+        ) AND t.checked_in = true
     )
     OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND ($5 = '' AND false) OR p.id IN (
                 SELECT CAST(value AS INTEGER)
                     FROM UNNEST(string_to_array($5, ',')) AS value
-            )
+            ) AND t.checked_in = true
         )
 GROUP BY p.name, p.id, DATE_TRUNC($1, t.date)
 HAVING SUM(t.party_size) BETWEEN CAST($6 AS INTEGER) AND CAST($7 AS INTEGER)
