@@ -18,7 +18,8 @@ module.exports = {
       backgroundImage: {
         'login': "url('./assets/images/login-background.png')", // Alias for login background image
         'circle_logo': "url('./assets/images/circle_logo.png')", // Alias for circle logo background image
-        'home': "linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('./assets/images/homepage-hero.png')" // Alias for homepage hero background image with linear gradient overlay
+        'home': "linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('./assets/images/homepage-hero.png')", // Alias for homepage hero background image with linear gradient overlay
+        'checkin': "url('./assets/images/checkin-background.jpg')"
       }
     },
     // Customizing colors with aliases for easy usage

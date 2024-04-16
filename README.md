@@ -1,6 +1,8 @@
 # Adirontech T.R.E.K. Project
 
-The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react web-app, a kiosk system, and a postgreSQL database for the two. The web-app allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Trail managers from the Adirondack Wilderness Advocates organization will be able to use the web-app to view aggregate past and current trail usage information. 
+The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react web-app, a kiosk system, and a postgreSQL database for the two. The web-app allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Trail managers from the Adirondack Wilderness Advocates organization will be able to use the web-app to view aggregate past and current trail usage information.
+
+For more information on the problem domain and the project itself, refer to the [About](#about) section.
 
 ## Table of Contents
 
@@ -10,33 +12,128 @@ The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react w
     - [Web Application](#web-application)
     - [Kiosk System](#kiosk-system)
   - [Project Setup](#project-setup)
-    - [For Developers](#for-developers)
+    - [For Quick Setup \& Demoing](#for-quick-setup--demoing)
       - [Step 1) Project Prerequisites](#step-1-project-prerequisites)
       - [Step 2) Clone \& Configure Project](#step-2-clone--configure-project)
-        - [Environment Variables Setup](#environment-variables-setup)
-        - [Configuring the Project](#configuring-the-project)
-      - [Step 3) Setup Docker Database](#step-3-setup-docker-database)
+        - [Environment Variables Setup \& Configuration](#environment-variables-setup--configuration)
+      - [Step 3) Quick Start Project / Demo](#step-3-quick-start-project--demo)
+    - [For Developers](#for-developers)
+      - [Step 1) Project Prerequisites](#step-1-project-prerequisites-1)
+      - [Step 2) Clone \& Configure Project](#step-2-clone--configure-project-1)
+        - [Environment Variables Setup \& Configuration](#environment-variables-setup--configuration-1)
+          - [Quick Starting the Project](#quick-starting-the-project)
+      - [Step 3) Setup Docker Database \& PGAdmin4](#step-3-setup-docker-database--pgadmin4)
       - [Step 4) Setup Web \& API Clients](#step-4-setup-web--api-clients)
         - [Setup Web Client](#setup-web-client)
         - [Setup API Client](#setup-api-client)
 
 ## About
 
-### Web Application
+### Background and Domain
 
-The web-app allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Hikers will be able to view the trail districts as well as relevant information about the district and trails they plan on visiting.
+#### Our Sponsor
 
-Trail managers from the Adirondack Wilderness Advocates organization will be able to use the web-app to view aggregate past and current trail usage information. This will allow them to make accurate decisions when delegating resources to protecting the Adirondack Wilderness.
+Our sponsor is the Adirondack Wilderness Advocates, a non-profit organization committed to the betterment and enjoyment of the Adirondack Park. 
 
-### Kiosk System
+#### Problem Domain
 
-The kiosk system will consist of two different main functions. One will be connected to the internet while the other will be completely remote.
+For many years, trail usage at the Adirondack Park has been managed via paper trail logs. However, due to a recent increase in trail usage and difficulty in aggregating information from numerous paper trail logs around the Adirondack Park, there is an opportunity to improve the trail usage management system.
 
-Kiosks connected to the internet will be located at the top of the trailheads. Trailhead kiosks will allow users to check in to their pre-registered trips as well as to register on the spot if they had not done so prior. This data will be sent to the database where trial managers can access.
+#### Our Solution
 
-Remote kiosks will be scattered amongst the trails at junctions and popular areas. These will be equipped with Bluetooth pinging that will count passing by foot traffic of hikers whose Bluetooth is turned on. This data will be downloaded manually from trail managers and then uploaded to the database.
+The goal of this project is to address the challenges of paper/pen trail logging system and promote sustainable growth by implementing a digital trail log system to replace it. The digital trail log system will consist of two distinct parts, a Web App and a Kiosk System:
+
+##### Web Application
+
+The Web App allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Hikers will be able to view the trail districts as well as relevant information about the district and trails they plan on visiting. This information can include attributes of the trail such as typical weather conditions, hazards, trail difficulty, and trail length.
+
+Trail managers from the Adirondack Wilderness Advocates organization, as well as park Rangers, will be able to use the Web App to view aggregate statistical data concerning trail usage. This will include past and current trail usage information, as well as estimated patterns. This will allow them to make accurate decisions when delegating resources to trail upkeep, as well as protecting the Adirondack Wilderness.
+
+##### Kiosk System
+
+The Kiosk system will be set within a physical Kiosk device located at trailheads, and be connected to a power source and have WiFi/Cellular data access. These Kiosks will replace the existing paper trail logging books that currently reside at each trailhead in the Adirondack Mountains. Hikers will be able to check-in and check-out via the trailhead kiosk.
+
+Kiosks connected to the internet will be located at the top of the trailheads. Trailhead kiosks will allow users to check in to their pre-registered trips as well as to register on the spot if they had not done so prior. This data will be sent to the database, where the Web App, which trail managers and park Rangers can access, will aggregate it into a viewable format.
+
+Together, these two components/tools will enable the Adirondack Park community to safely manage trail usage and better enjoy the park experience with a modern upgrade.
+
+
+
+
+
+
+## Architecture
+
+### Domain Model
+
+![SimplifiedDomainModel](./images/SimplifiedDomainModel.png)
 
 ## Project Setup
+
+### For Quick Setup & Demoing
+
+Follow the instructions below to set up the project on your local machine quickly; No developer-specific setup, and a simple way to start up the project as well.
+
+#### Step 1) Project Prerequisites
+
+Ensure the following is installed on your machine:
+
+- Git
+  - For instructions for all platforms (Windows, Linux, Mac, & from Source), use this link:
+    - <https://github.com/git-guides/install-git>
+  - If for some reason the instructions in the bove link don't work, this link's instructions should also work:
+    - <https://git-scm.com/book/en/v2/Getting-Started-Installing-Git>
+- Node.js
+  - <https://nodejs.org/en/download/current>
+- Docker + Docker Desktop
+  - <https://www.docker.com/get-started/>
+- An IDE (code editor) of your choice (VScode is a good recommendation)
+
+Once Docker Desktop is installed, launch it. On the left hand side, navigate to "Extensions", and once you find the Extensions Marketplace, search for `Open Source management tool for PostgreSQL`. Your window should look something like this:
+![Extensions_Marketplace_Setup_Image_01](./images/Extensions_Marketplace_Setup_Image_01.png)
+Install this extension; once it is installed, "PGAdmin4" should be a selectable extension on the left-hand side of your Docker Desktop application.
+
+#### Step 2) Clone & Configure Project
+
+On your machine, create a folder directory for the project to be stored in. Copy the path to that directory.
+
+Open a terminal and navigate to the path you copied. Once you have navigated there, run `git clone https://github.com/Adirontech/trek-webapp.git`. The project should be pulled from GitHub to your directory, stored in a single directory called `trek-webapp`.
+
+Once cloned, navigate into the `trek-webapp` directory, and complete the following steps:
+
+##### Environment Variables Setup & Configuration
+
+In the root of the project, create an `.env` file in the root directory of your repository and add the following lines to it:
+
+```text
+API_URL=http://localhost/5000
+DB_USERNAME=adirontech
+DB_PASSWORD=password
+DB_PORT=5432
+DB_NAME=trek-db
+```
+
+<br/><br/>
+
+Environment Variables' Descriptions:
+
+- `API_URL` will determine the URL that the client frontend process will use to communicate with the project's API. For default Demos, this is `http://localhost/5000`.
+- `DB_USERNAME` will determine the username you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. For default Demos, this is `adirontech`.
+- `DB_PASSWORD` will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. For default Demos, this is `password`
+- `DB_PORT` will determine the port that the API backend process will use construct & access the URL to the project's database. For default Demos, this is `5432`.
+- `DB_NAME` will determine the name of the database that the API backend process will use construct & access the URL to that same database. For default Demos, this is `trek-db`.
+
+
+#### Step 3) Quick Start Project / Demo
+
+At this point, your project is set up and ready to be run. in your native file explorer or terminal:
+
+- Navigate to the root directory of the project.
+- Start up the project using one of the project's demo start files, depending on the type of machine you are using:
+  - If you are using a Microsoft Windows machine, double click on/execute `Demo Start (Windows).bat`
+  - If you are using an Apple Mac machine, double click on/execute `Demo Start (Mac).sh`
+
+Launching one of the quick start demo files will cause three command terminal windows to open, one for the project's Docker container, one for the backend API, and one for the frontend client. Wait up to a few minutes as each windows installs prerequisite dependencies, and the project will automatically open up in a tab within your computer's default internet browser.
 
 ### For Developers
 
@@ -69,24 +166,38 @@ Open a terminal and navigate to the path you copied. Once you have navigated the
 
 Once cloned, navigate into the `trek-webapp` directory, and complete the following steps:
 
-##### Environment Variables Setup
+##### Environment Variables Setup & Configuration
 
-In the root of the project, create an `.env` file in the root directory of your repository and add a line `DB_PASSWORD=<your_password_here>`. This will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password.
+In the root of the project, create an `.env` file in the root directory of your repository and add the following lines to it:
 
-##### Configuring the Project
+```text
+API_URL=<your_api_URL_here>
+DB_USERNAME=<your_database_username_here>
+DB_PASSWORD=<your_database_password_here>
+DB_PORT=<your_database_port_here>
+DB_NAME=<your_database_name_here>
+```
 
-The TREK web application contains two config directories in the following locations:
+- `API_URL` will determine the URL that the client frontend process will use to communicate with the project's API. By default, replace `<your_api_URL_here>` with `http://localhost/5000`.
+- `DB_USERNAME` will determine the username you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. By default, make sure you replace `<your_database_username_here>` with `adirontech`.
+- `DB_PASSWORD` will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password (it is your choice).
+- `DB_PORT` will determine the port that the API backend process will use construct & access the URL to the project's database. By default, make sure you replace `<your_database_port_here>` with `5432`.
+- `DB_NAME` will determine the name of the database that the API backend process will use construct & access the URL to that same database. By default, make sure you replace `<your_database_name_here>` with `trek-db`.
 
-- `api/config/`
-- `client/src/config/`
+###### Quick Starting the Project
 
-Each of these directories contains a template file named `config.template.js`. In both config directories, create a new file called `config.js` that contains everything in this template file. The values in the template must be changed to match the values found in the `docker-compose.yml` for creating the Postgres database.
+While the developer setup is not yet complete, at this point your project is technically set up and ready to be run. If you wish to check that it works, in your native file explorer or terminal:
 
-Remember that the template config files different / unique to each directory! Your config files will not look the same once you fill them out.
+- Navigate to the root directory of the project.
+- Start up the project using one of the project's demo start files, depending on the type of machine you are using:
+  - If you are using a Microsoft Windows machine, double click on/execute `Demo Start (Windows).bat`
+  - If you are using an Apple Mac machine, double click on/execute `Demo Start (Mac).sh`
 
-#### Step 3) Setup Docker Database
+Launching one of the quick start demo files will cause three command terminal windows to open, one for the project's Docker container, one for the backend API, and one for the frontend client (the manual launching of these is coverd below in [Step 3) Setup Docker Database \& PGAdmin4](#step-3-setup-docker-database--pgadmin4) and [Step 4) Setup Web \& API Clients](#step-4-setup-web--api-clients)). Wait up to a few minutes as each windows installs prerequisite dependencies, and the project will automatically open up in a tab within your computer's default internet browser.
 
-With your project is fully-configured, it is time to set up your Docker PostgreSQL Database. First, start a new terminal. In that terminal, navigate to the project directory (`trek-webapp`) in execute the command `docker-compose up`. Once you see a message with the LOG statement "database system is ready to acdept connections" in the terminal, your Database is now running.
+#### Step 3) Setup Docker Database & PGAdmin4
+
+With your project is fully-configured, it is time to set up your Docker PostgreSQL Database. First, start a new terminal. In that terminal, navigate to the project directory (`trek-webapp`) in execute the command `docker-compose up` (Note that this is done automatically if the project is started up using one of its Demo Start files). Once you see a message with the LOG statement "database system is ready to acdept connections" in the terminal, your Database is now running.
 
 To connect to the running PostgreSQL container via pgAdmin4, open the PGAdmin4 extension in your docker desktop. Click "Add New Server", and a smaller window will appear. Use it to set the following:
 
@@ -110,8 +221,8 @@ Once the database docker container is running as shown above, the web client and
 
 ##### Setup Web Client
 
-In a new terminal, navigate to the `client` directory and run `npm start`. The web client will start running.
+In a new terminal, navigate to the `client` directory and run `npm start`. The web client will start running. (Note that this is done automatically if the project is started up using one of its Demo Start files)
 
 ##### Setup API Client
 
-In a new terminal (this will be the third), navigate to the `api` directory and run `npm start`. The API process will default to running on port 5000, while the client process will default to port 3000.
+In a new terminal (this will be the third), navigate to the `api` directory and run `npm start`. The API process will default to running on port 5000, while the client process will default to port 3000. (Note that this is done automatically if the project is started up using one of its Demo Start files).

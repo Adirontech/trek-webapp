@@ -15,6 +15,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // Render the main application component
 root.render(
   <React.StrictMode>
+    {/* Wrap the application in StrictMode for enhanced error detection */}
     <App />
   </React.StrictMode>
 );
