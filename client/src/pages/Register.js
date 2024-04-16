@@ -222,7 +222,7 @@
                      headers: { 'Content-Type': 'application/json' },
                      body: JSON.stringify(registerData)
                  };
-                 const response = await fetch('http://172.27.48.1:5000/trips/', options);
+                 const response = await fetch('http://localhost:5000/trips/', options);
                  if ( !response.ok ) {
                      throw new Error(`HTTP error! Status: ${response.status}`);
                  }
