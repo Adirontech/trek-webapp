@@ -2,6 +2,8 @@
 
 The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react web-app, a kiosk system, and a postgreSQL database for the two. The web-app allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Trail managers from the Adirondack Wilderness Advocates organization will be able to use the web-app to view aggregate past and current trail usage information.
 
+For more information on the problem domain and the project itself, refer to the [About](#about) section.
+
 ## Table of Contents
 
 - [Adirontech T.R.E.K. Project](#adirontech-trek-project)
@@ -27,19 +29,44 @@ The T.R.E.K., Trail Registration Electronic Kiosk, project consists of a react w
 
 ## About
 
-### Web Application
+### Background and Domain
 
-The web-app allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Hikers will be able to view the trail districts as well as relevant information about the district and trails they plan on visiting.
+#### Our Sponsor
 
-Trail managers from the Adirondack Wilderness Advocates organization will be able to use the web-app to view aggregate past and current trail usage information. This will allow them to make accurate decisions when delegating resources to protecting the Adirondack Wilderness.
+Our sponsor is the Adirondack Wilderness Advocates, a non-profit organization committed to the betterment and enjoyment of the Adirondack Park. 
 
-### Kiosk System
+#### Problem Domain
 
-The kiosk system will consist of two different main functions. One will be connected to the internet while the other will be completely remote.
+For many years, trail usage at the Adirondack Park has been managed via paper trail logs. However, due to a recent increase in trail usage and difficulty in aggregating information from numerous paper trail logs around the Adirondack Park, there is an opportunity to improve the trail usage management system.
 
-Kiosks connected to the internet will be located at the top of the trailheads. Trailhead kiosks will allow users to check in to their pre-registered trips as well as to register on the spot if they had not done so prior. This data will be sent to the database where trial managers can access.
+#### Our Solution
 
-Remote kiosks will be scattered amongst the trails at junctions and popular areas. These will be equipped with Bluetooth pinging that will count passing by foot traffic of hikers whose Bluetooth is turned on. This data will be downloaded manually from trail managers and then uploaded to the database.
+The goal of this project is to address the challenges of paper/pen trail logging system and promote sustainable growth by implementing a digital trail log system to replace it. The digital trail log system will consist of two distinct parts, a Web App and a Kiosk System:
+
+##### Web Application
+
+The Web App allows users to pre-register and plan their intended trips to the Adirondack Mountain trails. Hikers will be able to view the trail districts as well as relevant information about the district and trails they plan on visiting. This information can include attributes of the trail such as typical weather conditions, hazards, trail difficulty, and trail length.
+
+Trail managers from the Adirondack Wilderness Advocates organization, as well as park Rangers, will be able to use the Web App to view aggregate statistical data concerning trail usage. This will include past and current trail usage information, as well as estimated patterns. This will allow them to make accurate decisions when delegating resources to trail upkeep, as well as protecting the Adirondack Wilderness.
+
+##### Kiosk System
+
+The Kiosk system will be set within a physical Kiosk device located at trailheads, and be connected to a power source and have WiFi/Cellular data access. These Kiosks will replace the existing paper trail logging books that currently reside at each trailhead in the Adirondack Mountains. Hikers will be able to check-in and check-out via the trailhead kiosk.
+
+Kiosks connected to the internet will be located at the top of the trailheads. Trailhead kiosks will allow users to check in to their pre-registered trips as well as to register on the spot if they had not done so prior. This data will be sent to the database, where the Web App, which trail managers and park Rangers can access, will aggregate it into a viewable format.
+
+Together, these two components/tools will enable the Adirondack Park community to safely manage trail usage and better enjoy the park experience with a modern upgrade.
+
+
+
+
+
+
+## Architecture
+
+### Domain Model
+
+![SimplifiedDomainModel](./images/SimplifiedDomainModel.png)
 
 ## Project Setup
 
