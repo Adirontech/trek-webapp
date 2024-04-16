@@ -20,7 +20,8 @@ CREATE OR REPLACE FUNCTION create_trip(
     p_phone TEXT,
     p_duration INT,
     p_party_size INT,
-    p_session_key VARCHAR
+    p_session_key VARCHAR,
+    p_confirm_code CHAR(7)
 ) RETURNS VOID AS $$
 DECLARE
     v_session_key VARCHAR;
@@ -35,8 +36,8 @@ BEGIN
 
     -- Checking if a session key was found
     IF FOUND THEN
-        INSERT INTO Trips (creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size) VALUES(
-            v_creator_id, p_first_name, p_last_name, p_street, p_city, p_state, p_zip_code, p_date, p_start, p_purpose, p_phone, p_duration, p_party_size
+        INSERT INTO Trips (confirm_code, creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size) VALUES(
+            p_confirm_code, v_creator_id, p_first_name, p_last_name, p_street, p_city, p_state, p_zip_code, p_date, p_start, p_purpose, p_phone, p_duration, p_party_size
         )
         RETURNING id INTO v_trip_id;
 
@@ -58,4 +59,4 @@ BEGIN
     END IF;
 END $$ LANGUAGE PLPGSQL;
 
-SELECT create_trip($1, $2, $3, $4, $5, $6, CAST($7 AS DATE), CAST($8 AS INT), string_to_array($9, ','), $10, $11, CAST($12 AS INT), CAST($13 AS INT), $14);
+SELECT create_trip($1, $2, $3, $4, $5, $6, CAST($7 AS DATE), CAST($8 AS INT), string_to_array($9, ','), $10, $11, CAST($12 AS INT), CAST($13 AS INT), $14, $15);

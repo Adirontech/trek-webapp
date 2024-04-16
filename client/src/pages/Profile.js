@@ -86,7 +86,7 @@ const Profile = () => {
             <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
                 {/* Rendering the navigation bar */}
                 <Navbar />
-                <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-9/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
+                <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-11/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
                     <div className='flex flex-row items-start w-full'>
                         <div className="w-1/3">
                             <div className="bg-gray bg-opacity-50 m-1 rounded-md">
@@ -153,7 +153,7 @@ const Profile = () => {
                                     <tbody>
                                         {userTrips.map((trip, index) => (
                                             <tr key={index} className={index % 2 === 0 ? 'bg-gray bg-opacity-80' : ''}>
-                                                <td className="w-1/12 text-center border-r border-black">{trip.id}</td>
+                                                <td className="w-1/12 text-center border-r border-black">{trip.confirm_code}</td>
                                                 <td className="w-1/4 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
                                                 <td className="w-1/6 text-center border-r border-black">{trip.start}</td>
                                                 <td className="w-1/2 text-center">{trip.destinations}</td>
