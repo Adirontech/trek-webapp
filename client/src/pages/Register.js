@@ -10,12 +10,14 @@
  import Navbar from "../components/Navbar"; // Importing Navbar component
  import StateSelect from "../components/StateSelect"; // Importing StateSelect component
  import POISelect from "../components/POISelect"; // Importing POISelect component
+ import { useNavigate } from 'react-router-dom';
  
  /**
   * Register - Functional component for registering trip leader information.
   * @returns {JSX.Element} - Rendered component
   */
  const Register = () => {
+     const navigate = useNavigate(); // Hook for navigating to different routes
      // State variables for error handling, creation status, POI key, phone hover state, and form data
      const [error, setError] = useState(false);
      const [created, setCreated] = useState(false);
@@ -228,6 +230,8 @@
                  if(data.message === 'Trip Created'){
                      setCreated(true);
                      clearForm();
+                    //  navigate to the profile page
+                    navigate('/profile');
                  }
              } catch ( error ) {
                  console.log('Error:', error);
