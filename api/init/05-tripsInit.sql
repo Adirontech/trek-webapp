@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS Trips CASCADE;
 CREATE TABLE Trips (
     id SERIAL PRIMARY KEY,
     confirm_code CHAR(7) NOT NULL,
-    creator INT NOT NULL,
+    creator INT,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     street VARCHAR(100) NOT NULL,
