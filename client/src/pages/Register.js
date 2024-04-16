@@ -80,7 +80,6 @@
             if (existingTripData) {
                 
                 function formatTimestamp(timestamp) {
-                    console.log(timestamp);
                     const date = new Date(timestamp);
                     const formattedDate = date.toISOString().slice(0,10);
                     return formattedDate;
@@ -108,11 +107,6 @@
            codeAccessValidate();
         }
     }, [tripConfirmCode]);
-
-    // Effect hook to print out when registerData.pois changes
-    useEffect(() => {
-        console.log(registerData.pois);
-    }, [registerData.pois]);
 
      // Effect hook to fetch user info and update session key
      useEffect(() => {

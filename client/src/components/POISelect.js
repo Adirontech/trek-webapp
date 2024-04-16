@@ -18,11 +18,6 @@
      const isFirstRender = useRef(true);
 
      useEffect(() => {
-        console.log(props.preselected);
-     }, [props.preselected]);
-
-
-     useEffect(() => {
         if(isFirstRender.current && props.pois.length > 0 && props.preselected.length > 0) {
             let selectionValues = props.pois.filter(poi => props.preselected.includes(poi.value));
             setSelected(selectionValues);
