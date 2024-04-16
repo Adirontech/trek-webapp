@@ -3,13 +3,43 @@ import awaLogo from "../assets/images/awa-logo.png";
 
 const CheckIn = () => {
     const [checkinCode, setCheckinCode] = useState("");
-    async function checkIn() {
-      // TODO make checkin function
+    const [alertText, setAlertText] = useState('');
+    const [alertColor, setAlertColor] = useState('text-red');
+    
+    async function checkIn(event) {
+        event.preventDefault();
+
+        const response = await fetch('http://localhost:5000/trips/check-in', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'confirm_code': checkinCode })
+        });
+
+        const checkinResponse = await response.json();
 
 
-    // returns null if doesnt exist
-    // returns false if already checked in
-    // returns true for check in
+        if (checkinResponse.message.confirm_trip === true) {
+            setAlertText('Checked in!');
+            setAlertColor('text-green');
+        }
+        else if(checkinResponse.message.confirm_trip === false){
+            setAlertText('Already checked in.');
+            setAlertColor('text-red');
+        }
+        else {
+            setAlertText(`Invalid confirmation code: '${checkinCode}'`);
+            setAlertColor('text-red');
+        }
+
+        setCheckinCode('');
+        setTimeout(() => {
+            setAlertText('');
+            setAlertColor('text-red');
+        }, 4000);
+        
+        return false;
     }
 
     return (
@@ -30,6 +60,10 @@ const CheckIn = () => {
                                     value={checkinCode}
                                     onChange={(e) => setCheckinCode(e.target.value)}
                                 />
+                            </div>
+
+                            <div className="flex flex-row">
+                                <div className={`z-20 text-s ${alertColor} font-bold pb-4`}>{alertText}</div>
                             </div>
 
                             {/* display info about how to get checkin/confirmation code */}
