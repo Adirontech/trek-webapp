@@ -46,6 +46,27 @@ router.get('/info-from-key', async (req, res) => {
     }
 });
 
+/**
+ * Route to get specific trip information for a specific user (from a session key and trip code)
+ */
+router.get('/info-from-code-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripInfoFromCodeKey(req.query.code, req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/belongs-to-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripBelongsToKey(req.query.code, req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 router.post('/check-in', async (req, res) => {
     try {
         const response = await tripsModel.confirmTrip(req.body.confirm_code);

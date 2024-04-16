@@ -166,10 +166,11 @@ const Profile = () => {
                                     <thead className="bg-gray">
                                         <tr className="border border-b-1 border-black">
                                             {/* Add table headers as needed */}
-                                            <th>ID</th>
+                                            <th>Code</th>
                                             <th>Date</th>
                                             <th>Start</th>
                                             <th>Destinations</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -178,13 +179,13 @@ const Profile = () => {
                                                 <td className="w-1/12 text-center border-r border-black">{trip.confirm_code}</td>
                                                 <td className="w-1/4 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
                                                 <td className="w-1/6 text-center border-r border-black">{trip.start}</td>
-                                                <td className="w-1/2 text-center">{trip.destinations}</td>
+                                                <td className="w-1/2 text-center border-r border-black">{trip.destinations}</td>
+                                                <td>Edit</td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             }
-                            {/* {userTrips && <pre>{JSON.stringify(userTrips, null, 2)}</pre>} */}
                         </div>
                     </div>
                 </div>
