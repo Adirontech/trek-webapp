@@ -16,7 +16,8 @@ const userQueries = {
     createUserData: new QueryFile(path.join(__dirname, '../sql/userDataSQL/create.sql')),
     signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
     getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
-    setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql'))
+    setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql')),
+    signOut: new QueryFile(path.join(__dirname, '../sql/userSQL/signOut.sql'))
 };
 
 /**
@@ -57,6 +58,11 @@ async function signInUser(userData) {
     const sessionKey = crypto.randomBytes(32).toString('hex');
     const res = await db.one(userQueries.signInUser, [userData.username, hashedPW, sessionKey]);
     return res;
+}
+
+async function signOut(key){
+    return db.none(userQueries.signOut, [key]);
+    
 }
 
 async function changePassword(key, oldPassword, newPassword) {
