@@ -4,14 +4,12 @@ import { Link, Navigate } from "react-router-dom";
 import '../assets/stylesheets/App.css'; // Importing the CSS file for styling
 import Navbar from '../components/Navbar'; // Importing the Navbar component for navigation
 
-const config = require("../config/config");
-
 const Profile = () => {
     async function getUserInfo() {
         const key = sessionStorage.getItem('sessionKey');
         try {
             if(key != null) {
-                const loggedInResponse = await fetch(`${config.apiURL}/user/user-info?key=${encodeURIComponent(key)}`);
+                const loggedInResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/user-info?key=${encodeURIComponent(key)}`);
                 return loggedInResponse.json();
             }
             return { success: false, message: "No session key found"}
@@ -26,7 +24,7 @@ const Profile = () => {
         const key = sessionStorage.getItem('sessionKey');
         try {
             if(key != null) {
-                const loggedInResponse = await fetch(`${config.apiURL}/trips/info-from-key?key=${encodeURIComponent(key)}`);
+                const loggedInResponse = await fetch(`${process.env.REACT_APP_API_URL}/trips/info-from-key?key=${encodeURIComponent(key)}`);
                 return loggedInResponse.json();
             }
             return { success: false, message: "No session key found"}
