@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
 
 import '../assets/stylesheets/App.css'; // Importing the CSS file for styling
 import { useNavigate } from 'react-router-dom'; // Importing useNavigate hook for navigation
-import Navbar from '../components/Navbar'; // Importing the Navbar component for navigation
 
 const config = require("../config/config");
 
