@@ -35,11 +35,12 @@ const POIDataFilter = (props) => {
         },
         from: props.filterOptions.from,
         to: props.filterOptions.to,
-        step: 'day',
+        step: props.step,
         average: false,
         selected: []
     }); // State for filter options
     const [marks, setMarks] = useState({
+        0: '0',
         [props.filterOptions.min ? props.filterOptions.min : 0]:  `${props.filterOptions.min ? props.filterOptions.min : 0}`,
         [props.filterOptions.max]: `${props.filterOptions.max}`
     });
@@ -54,7 +55,7 @@ const POIDataFilter = (props) => {
     
     useEffect(() => {
         setFilter({...filter,
-            minVal: props.filterOptions.min,
+            minVal: props.filterOptions.min ? props.filterOptions.min : 0,
             maxVal: props.filterOptions.max,
             absMax: props.filterOptions.max,
             types: {
@@ -66,10 +67,11 @@ const POIDataFilter = (props) => {
             },
             from: props.filterOptions.from,
             to: props.filterOptions.to,
-            step: props.filterOptions.step,
+            step: props.step,
             average: props.filterOptions.average
         });
         setMarks({
+            0: '0',
             [props.filterOptions.min ? props.filterOptions.min : 0]:  `${props.filterOptions.min ? props.filterOptions.min : 0}`,
             [props.filterOptions.max]: `${props.filterOptions.max}`
         });
@@ -124,7 +126,7 @@ const POIDataFilter = (props) => {
 
     const handleChange = (e) => { // Function to handle change in filter options that are not selected pois or min/max
         const { name, value, checked, id } = e.target;
-        if(name === "area" || name === "average") {
+        if(name === "area") {
             setFilter({
                 ...filter, 
                 types: {
@@ -145,14 +147,38 @@ const POIDataFilter = (props) => {
                 setShownTypes(types);
             }
         } else if (name === "step") {
-            setFilter({ ...filter, step: id });
+            setFilter({ 
+                ...filter,
+                step: id,
+                maxVal: 1000,
+                absMax: 1000});
+            setMarks({
+                0: '0',
+                1000: '1000'
+            });
+        }else if (name === "average") {
+            setFilter({
+                ...filter,
+                average: checked
+            });
         }else {
             setFilter({ ...filter, [name]: value });
         }
     };
 
+    const validateForm = () => { // Function to validate filter options
+        if (filter.from === "" || filter.to === "") {
+            return false;
+        }return true;
+    };
+
     const apply = () => { // Function to apply filter options
-        props.handleFilterChange(filter);
+        if (!validateForm()) {
+            alert("Please fill out the 'From' and 'To' date fields.");
+            return;
+        }else{
+            props.handleFilterChange(filter);
+        }
     };
 
     return (
@@ -216,7 +242,7 @@ const POIDataFilter = (props) => {
                             </fieldset>
                             <div className="flex flex-row justify-end items-center sm:w-1/6">
                                 <label className="text-sm pr-2">Average</label>
-                                <input type="checkbox" onChange={handleChange} name="average" id="average" value={filter.average} className="border-2 w-6 h-6 rounded-md"></input>
+                                <input type="checkbox" onChange={handleChange} name="average" id="average" checked={filter.average} className="border-2 w-6 h-6 rounded-md"></input>
                             </div>
                         </div>
                     </div>
@@ -235,7 +261,7 @@ const POIDataFilter = (props) => {
                         <label className="text-xs sm:text-sm text-center ">Number of Visitors</label>
                     </div>
                     <div className="flex flex-row w-2/6 md:pl-0 lg:pl-4 xl:pl-8 justify-around">
-                        <label className="text-md sm:text-lg font-bold">Min: {filter.minVal ? filter.min : 0}</label>
+                        <label className="text-md sm:text-lg font-bold">Min: {filter.minVal ? filter.minVal : 0}</label>
                         <label className="text-md sm:text-lg font-bold">Max: {filter.maxVal}</label>
                     </div>
                     <div className="flex flex-row justify-end w-1/6">
