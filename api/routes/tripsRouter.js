@@ -48,7 +48,6 @@ router.get('/info-from-key', async (req, res) => {
 
 router.post('/check-in', async (req, res) => {
     try {
-        console.log(req.body.confirm_code);
         const response = await tripsModel.confirmTrip(req.body.confirm_code);
         res.status(200).json({ message: response });
     } catch (error) {
