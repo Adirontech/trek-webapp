@@ -5,6 +5,11 @@ const CheckIn = () => {
     const [checkinCode, setCheckinCode] = useState("");
     async function checkIn() {
       // TODO make checkin function
+
+
+    // returns null if doesnt exist
+    // returns false if already checked in
+    // returns true for check in
     }
 
     return (
