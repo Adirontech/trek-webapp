@@ -46,10 +46,16 @@ async function getTripsInfoFromKey(key) {
  * @returns {Promise<Object>} The newly created trip.
  */
 async function createTrip(tripData) {
+    let legal_chars = "ABCDEFGHJKLMNPQRTUVWXY346789";
+    let confirm_code = "";
+    for (let i = 0; i < 7; i++) {
+        confirm_code += legal_chars[Math.floor(Math.random() * legal_chars.length)];
+    }
+    
     return db.one(tripQueries.createTrip, [
         tripData.first_name, tripData.last_name, tripData.street, tripData.city, tripData.state,
         tripData.zip_code, tripData.date, tripData.start, tripData.pois, tripData.purpose,
-        tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
+        tripData.phone, tripData.duration, tripData.party_size, tripData.session_key, confirm_code
     ]);
 }
 
@@ -65,6 +71,7 @@ async function editTrip(tripData) {
         tripData.purpose, tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
     ]);
 }
+
 
 module.exports = {
     getAllTrips,
