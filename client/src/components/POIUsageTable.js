@@ -2,7 +2,7 @@ import React from 'react';
 import { useTable, useSortBy } from 'react-table';
 
 const POIUsageTable = (props) => {
-  const columns = React.useMemo(
+  const totalColumns = React.useMemo(
     () => [
       {
         Header: 'POI_ID',
@@ -31,7 +31,38 @@ const POIUsageTable = (props) => {
     ],
     []
   );
+  const averageColumns = React.useMemo(
+    () => [
+      {
+        Header: 'POI_ID',
+        accessor: 'poi_id',
+      },
+      {
+        Header: 'POI_Name',
+        accessor: 'poi',
+      },
+      {
+        Header: 'Type',
+        accessor: 'type',
+      },
+      {
+        Header: 'Average Trips',
+        accessor: 'avg_trip_count',
+      },
+      {
+        Header: 'Average Visitors',
+        accessor: 'avg_visitors',
+      },
+    ],
+    []
+  );
   const data = props.data;
+  let columns;
+  if (props.average) {
+    columns = averageColumns;
+  } else {
+    columns = totalColumns;
+  }  
   const {
     getTableProps,
     getTableBodyProps,

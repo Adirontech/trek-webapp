@@ -30,9 +30,9 @@ WITH Stats AS (
     GROUP BY p.name, p.id, DATE_TRUNC($1, t.date)
 )
 SELECT POI, POI_ID, type,
-       AVG(Trip_Count) AS Avg_Trip_Count,
-       AVG(Visitors) AS Avg_Visitors
+       CAST(AVG(Trip_Count) AS INTEGER) AS Avg_Trip_Count,
+       CAST(AVG(Visitors) AS INTEGER) AS Avg_Visitors
 FROM Stats
 GROUP BY POI, POI_ID, type
 HAVING AVG(Visitors) BETWEEN $6 AND $7
-ORDER BY Start_Date;
+ORDER BY POI_ID;

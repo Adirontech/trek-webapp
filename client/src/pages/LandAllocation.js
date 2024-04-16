@@ -9,8 +9,9 @@ const config = require("../config/config");
 const LandAllocation = () => {
     const [data, setData] = useState([]);
     const isFirstRender = useRef(true);
+    const step = useRef('day');
     const [filterOptions, setFilterOptions] = useState({
-        step: 'day',
+        step: step.current,
         from: '',
         to: '',
         Trailhead: true,
@@ -44,44 +45,30 @@ const LandAllocation = () => {
         let types = '';
         let type = '';
         let pois = '';
-        let poiTypes = {
-            Trailhead: false,
-            Peak: false,
-            Scenic: false,
-            Lodge: false,
-            Leanto: false
-        }
         for(const [key, value] of Object.entries(options.types)){
-            if(value){
-                types += key + ',';
+            if(types === '' && value){
+                types += key;
             }
-            poiTypes[key] = value;
+            else if(value){
+                types += ',' + key;
+            }
         }
         options.selected.forEach(poi => {
-            pois += poi + ',';
+            if(pois === '' && poi){
+                pois += poi;
+            }
+            else{
+                pois += ',' + poi;
+            }
         });
         if(options.average){
             type = 'average';
         }else{
             type = 'total';
         }
-        setFilterOptions({
-            ...filterOptions, 
-            from: options.from,
-            to: options.to,
-            min: options.min,
-            max: options.max,
-            average: options.average,
-            step: options.step,
-            Trailhead: poiTypes.Trailhead,
-            Peak: poiTypes.Peak,
-            Scenic: poiTypes.Scenic,
-            Lodge: poiTypes.Lodge,
-            Leanto: poiTypes.Leanto,
-            pois: pois
-        });
+        step.current = options.step;
         const url = `${config.apiURL}/poi/${type}Usage?session_key=${sessionStorage.getItem('sessionKey')}&step=${options.step}&from=${options.from}&to=${options.to}&types=${types}&pois=${pois}&min=${options.minVal}&max=${options.maxVal}`
-        getFilteredData(url);
+        getFilteredData(url, options, pois);
     };
 
     /**
@@ -119,7 +106,7 @@ const LandAllocation = () => {
      * Function to get filtered POI usage data
      * @param {string} type - average or total(daily)
      */
-    const getFilteredData = async (url) => {
+    const getFilteredData = async (url, options, pois) => {
         let max = 0;
         if(!sessionStorage.getItem('sessionKey')){
             console.error('No session key found');
@@ -129,14 +116,39 @@ const LandAllocation = () => {
                 const response = await fetch(url);
                 if(response.status === 200){
                     const data = await response.json();
+                    if(data.length === 0){
+                        console.error('No data found');
+                        alert('No data found');
+                        return;
+                    }
                     data.forEach(row => {
-                        if(row.visitors > max){
-                            max = row.visitors;
+                        if(!options.average){
+                            if(Number(row.visitors) > max){
+                                max = Number(row.visitors);
+                            }
+                            row.date = row.start_date.split('T')[0];
+                        }else{
+                            if(Number(row.avg_visitors) > max){
+                                max = Number(row.avg_visitors);
+                            }
                         }
-                        row.date = row.date.split('T')[0];
                     });
                     setData(data);
-                    setFilterOptions({...filterOptions, max: max});
+                    setFilterOptions({
+                        ...filterOptions, 
+                        from: options.from,
+                        to: options.to,
+                        min: options.minVal,
+                        max: max,
+                        average: options.average,
+                        step: options.step,
+                        Trailhead: options.types.Trailhead,
+                        Peak: options.types.Peak,
+                        Scenic: options.types.Scenic,
+                        Lodge: options.types.Lodge,
+                        Leanto: options.types.Leanto,
+                        pois: pois
+                    });
                 }else{
                     console.error('Failed to get data');
                 }
@@ -154,11 +166,13 @@ const LandAllocation = () => {
                 <div className="flex flex-row mt-8 mb-4 w-full justify-center">
                     <POIDataFilter
                         filterOptions = {filterOptions}
+                        step = {step.current}
                         handleFilterChange = {handleFilterChange}
                     />
                 </div>
                 <POIUsageTable
                     data = {data}
+                    average = {filterOptions.average}
                 />
             </div>
         </div>
