@@ -46,13 +46,22 @@ router.get('/info-from-key', async (req, res) => {
     }
 });
 
+router.post('/check-in', async (req, res) => {
+    try {
+        const response = await tripsModel.confirmTrip(req.body.confirm_code);
+        res.status(200).json({ message: response });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 /**
  * Route to create a new trip.
  */
 router.post('/', async (req, res, next) => {
     try {
         const requiredCreateParams = ['first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
-
+        
         const missingCreateParams = requiredCreateParams.filter(param => !(param in req.body));
         if (missingCreateParams.length === 0) {
             const trip = await tripsModel.createTrip(req.body);
