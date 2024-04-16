@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import '../assets/stylesheets/App.css'; // Importing the CSS file for styling
 import Navbar from '../components/Navbar'; // Importing the Navbar component for navigation
 
 const Profile = () => {
+    const navigate = useNavigate(); // Hook for navigating to different routes
+
     async function getUserInfo() {
         const key = sessionStorage.getItem('sessionKey');
         try {
@@ -33,6 +35,10 @@ const Profile = () => {
             console.error("Error: " + error);
             return { success: false, message: error.message };
         }
+    }
+
+    async function editTrip(confirm_code) {
+        navigate(`/register?trip=${confirm_code}`);
     }
 
     async function updateProfile(event) {
@@ -75,7 +81,7 @@ const Profile = () => {
     }, []);
 
     function formatTimestamp(timestamp) {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true };
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         const date = new Date(timestamp);
         const formattedDate = date.toLocaleString('en-US', options).replace(',', '');
     
@@ -176,11 +182,11 @@ const Profile = () => {
                                     <tbody>
                                         {userTrips.map((trip, index) => (
                                             <tr key={index} className={index % 2 === 0 ? 'bg-gray bg-opacity-80' : ''}>
-                                                <td className="w-1/12 text-center border-r border-black">{trip.confirm_code}</td>
-                                                <td className="w-1/4 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
+                                                <td className="w-1/6 text-center border-r border-black">{trip.confirm_code}</td>
+                                                <td className="w-1/6 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
                                                 <td className="w-1/6 text-center border-r border-black">{trip.start}</td>
-                                                <td className="w-1/2 text-center border-r border-black">{trip.destinations}</td>
-                                                <td>Edit</td>
+                                                <td className="w-1/2 text-center">{trip.destinations}</td>
+                                                <td><button className="mx-auto ml-2 block bg-green pl-3 pr-3 rounded-md text-white" type="submit" onClick={() => {editTrip(trip.confirm_code)}}>Edit</button></td>
                                             </tr>
                                         ))}
                                     </tbody>
