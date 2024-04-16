@@ -25,7 +25,7 @@ const App = () => {
                     <Route path='ranger' element={<Ranger/>} />
                     <Route path='profile' element={<Profile/>} />
                     <Route path='change-password' element={<ChangePassword/>} />
-                    <Route path='checkin' element={<CheckIn/>} />
+                    <Route path='check-in' element={<CheckIn/>} />
                 </Routes>
             </BrowserRouter>
         </MainContext.Provider>
