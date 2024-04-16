@@ -16,6 +16,7 @@ CREATE TABLE Trips (
     phone TEXT,
     duration INT NOT NULL,
     party_size INT NOT NULL,
+    checked_in BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (creator) REFERENCES Users(id),
     FOREIGN KEY (start) REFERENCES POIs(id)
 );

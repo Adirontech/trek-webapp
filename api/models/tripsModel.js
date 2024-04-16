@@ -15,7 +15,8 @@ const tripQueries = {
     getTripsFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getFromKey.sql')),
     getTripsInfoFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getInfoFromKey.sql')),
     createTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/create.sql')),
-    editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql'))
+    editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql')),
+    confirmTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/confirm.sql'))
 };
 
 /**
@@ -72,11 +73,18 @@ async function editTrip(tripData) {
     ]);
 }
 
+/**
+ * Confirms a trip for check-in
+ */
+async function confirmTrip(confirmCode) {
+    return await db.one(tripQueries.confirmTrip, confirmCode);
+}
 
 module.exports = {
     getAllTrips,
     getTripsFromKey,
     getTripsInfoFromKey,
     createTrip,
-    editTrip
+    editTrip,
+    confirmTrip
 };
