@@ -35,6 +35,30 @@ const Profile = () => {
         }
     }
 
+    async function updateProfile(event) {
+        const key = sessionStorage.getItem('sessionKey');
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'key': key,
+                'first_name': event.target[0].value,
+                'last_name': event.target[1].value,
+                'address': event.target[2].value,
+                'city': event.target[3].value,
+                'state': event.target[4].value,
+                'zip': event.target[5].value,
+                'phone': event.target[6].value
+            })
+        });
+
+        const updateResponse = await response.json();
+
+        console.log(updateResponse);
+    }
+
     const [userInfo, setUserInfo] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
 
@@ -92,7 +116,7 @@ const Profile = () => {
                                 {userData && userData['first_name'] && userData['last_name'] && `${userData['first_name']} ${userData['last_name']}`}
                                 </h1>
                                 {userData && 
-                                    <form className="w-11/12 m-2 pb-2">
+                                    <form className="w-11/12 m-2 pb-2" onSubmit={updateProfile}>
                                         <div className="flex w-full m-1">
                                             <label className="w-1/2 mr-auto text-center">First Name</label>
                                             <input className="w-1/2 ml-auto" defaultValue={userData['first_name']} />
