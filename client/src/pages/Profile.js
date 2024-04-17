@@ -41,17 +41,17 @@ const Profile = () => {
 
     const logOutUser = () => {
         
-        const response = fetch(`${process.env.REACT_APP_API_URL}/user/logout}`, 
-        {
+        const options = {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'}, 
             body: 
-            {
-                'key': sessionStorage.getItem('sessionKey')
-            }
+            JSON.stringify({
+                "key": sessionStorage.getItem('sessionKey')
+            })
 
         }
-        );
+        console.log(options);
+        fetch(`${process.env.REACT_APP_API_URL}/user/logout`, options);
         sessionStorage.removeItem('sessionKey'); 
 
 
