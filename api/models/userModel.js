@@ -16,7 +16,8 @@ const userQueries = {
     createUserData: new QueryFile(path.join(__dirname, '../sql/userDataSQL/create.sql')),
     signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
     getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
-    setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql'))
+    setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql')),
+    isAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/isAllocator.sql'))
 };
 
 /**
@@ -79,6 +80,16 @@ async function validSessionKey(key) {
 }
 
 /**
+ * Checks if the user is an allocator.
+ * @param {string} key - The session key to be checked.
+ * @returns {Promise<boolean>} Whether the user is an allocator.
+ */
+async function isAllocator(key) {
+    const result = await db.one(userQueries.isAllocator, [key]);
+    return result;
+}
+
+/**
  * Hashes the given password using SHA-512 algorithm.
  * @param {string} pw - The password to be hashed.
  * @returns {string} The hashed password.
@@ -94,5 +105,6 @@ module.exports = {
     signInUser,
     getUserInfo,
     changePassword,
-    validSessionKey
+    validSessionKey,
+    isAllocator
 };
