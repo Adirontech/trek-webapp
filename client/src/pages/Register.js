@@ -305,13 +305,14 @@
                     }
                  }
                  else {
-                    const key = sessionStorage.getItem('sessionKey');
+                    registerData.confirm_code = tripConfirmCode;
                     const options = {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(registerData)
                     }
-                    const response = await fetch(`${process.env.REACT_APP_API_URL}/trips?code=${tripConfirmCode}&key=${key}`, options);
+                    console.log(options.body);
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/trips`, options);
                     if ( !response.ok ) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }

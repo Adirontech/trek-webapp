@@ -100,7 +100,7 @@ router.post('/', async (req, res, next) => {
  */
 router.put('/', async (req, res, next) => {
     try {
-        const requiredEditParams = ['id', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
+        const requiredEditParams = ['confirm_code', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
 
         const missingEditParams = requiredEditParams.filter(param => !(param in req.body));
         if (missingEditParams.length === 0) {

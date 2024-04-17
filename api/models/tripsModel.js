@@ -79,7 +79,7 @@ async function createTrip(tripData) {
  */
 async function editTrip(tripData) {
     return db.one(tripQueries.editTrip, [
-        tripData.id, tripData.first_name, tripData.last_name, tripData.street, tripData.city,
+        tripData.confirm_code, tripData.first_name, tripData.last_name, tripData.street, tripData.city,
         tripData.state, tripData.zip_code, tripData.date, tripData.start, tripData.pois,
         tripData.purpose, tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
     ]);
