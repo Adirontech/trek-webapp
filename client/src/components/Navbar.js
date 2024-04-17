@@ -1,20 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import MainContext from '../MainContext';
 import profileIcon from '../assets/images/profile-icon.png';
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 
+const config = require("../config/config");
 
 const Navbar = () => {
-
+    const isFirstRender = useRef(true);
+    const [allocator, setAllocator] = useState(false);
     const navigate = useNavigate();
 
     const navigateToLogin = () => {
         navigate('/login');
     }
 
-    const { isLandUsagePlanner } = useContext(MainContext);
+    useEffect(() => {
+        isAllocator();
+        if(isFirstRender.current){
+            isFirstRender.current = false;  
+            isAllocator();
+        }
+    }, []);
 
+    const isAllocator = async () => {
+        const key = sessionStorage.getItem('sessionKey');
+        if(key === null){
+            navigateToLogin();
+            return false;
+        }else{
+            const result = await fetch(`${config.apiURL}/user/isAllocator?key=${key}`);
+            const res = await result.json();
+            setAllocator(res.data.is_allocator);
+        }
+    }
 
     return (
         <nav className="flex justify-between items-center">
@@ -23,6 +42,7 @@ const Navbar = () => {
                 <a className="mr-8" href="/">Home</a>
                 <a className="mr-8" href="/">About</a>
                 <a href="http://localhost:3000/register">Trip Registration</a>
+                {allocator && <a className="ml-8" href="http://localhost:3000/landAllocation">Land Allocation</a>}
             </div>
             {/* profile - right */}
             <div className=''>
