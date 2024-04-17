@@ -61,6 +61,7 @@ async function signInUser(userData) {
 }
 
 async function signOut(key){
+    console.log(key);
     return db.none(userQueries.signOut, [key]);
     
 }
@@ -87,5 +88,6 @@ module.exports = {
     createUser,
     signInUser,
     getUserInfo,
-    changePassword
+    changePassword,
+    signOut
 };
