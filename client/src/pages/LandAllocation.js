@@ -84,9 +84,10 @@ const LandAllocation = () => {
                 const response = await fetch(`${config.apiURL}/poi/allUsage?session_key=${sessionStorage.getItem('sessionKey')}`);
                 if(response.status === 200){
                     const data = await response.json();
+                    console.log(data);
                     data.forEach(row => {
-                        if(Number(row.visitors) > max){
-                            max = Number(row.visitors);
+                        if(Number(row.registered_visitors) > max){
+                            max = Number(row.registered_visitors);
                         }
                         row.date = row.date.split('T')[0];
                     });
@@ -123,13 +124,13 @@ const LandAllocation = () => {
                     }
                     data.forEach(row => {
                         if(!options.average){
-                            if(Number(row.visitors) > max){
-                                max = Number(row.visitors);
+                            if(Number(row.registered_visitors) > max){
+                                max = Number(row.registered_visitors);
                             }
                             row.date = row.start_date.split('T')[0];
                         }else{
-                            if(Number(row.avg_visitors) > max){
-                                max = Number(row.avg_visitors);
+                            if(Number(row.avg_registered_visitors) > max){
+                                max = Number(row.avg_registered_visitors);
                             }
                         }
                     });

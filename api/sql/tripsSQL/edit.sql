@@ -69,4 +69,4 @@ BEGIN
     END IF;
 END $$ LANGUAGE PLPGSQL;
 
-SELECT edit_trip(CAST($1 AS INT), $2, $3, $4, $5, $6, $7, CAST($8 AS DATE), CAST($9 AS INT), string_to_array($10, ','), $11, $12, CAST($13 AS INT), CAST($14 AS INT), $15);
+SELECT edit_trip(CAST($1 AS INT), $2, $3, $4, $5, $6, $7, CAST($8 AS DATE), CAST($9 AS INT), string_to_array(CAST($10, VARCHAR), ','), $11, $12, CAST($13 AS INT), CAST($14 AS INT), $15);
