@@ -25,8 +25,12 @@ const POIUsageTable = (props) => {
         accessor: 'trip_count',
       },
       {
-        Header: 'Visitors',
-        accessor: 'visitors',
+        Header: 'Registered Visitors',
+        accessor: 'registered_visitors',
+      },
+      {
+        Header: 'Checked-In Visitors',
+        accessor: 'checked_in_visitors',
       },
     ],
     []
@@ -50,8 +54,12 @@ const POIUsageTable = (props) => {
         accessor: 'avg_trip_count',
       },
       {
-        Header: 'Average Visitors',
-        accessor: 'avg_visitors',
+        Header: 'Average Registered Visitors',
+        accessor: 'avg_registered_visitors',
+      },
+      {
+        Header: 'Average Checked-In Visitors',
+        accessor: 'avg_checked_in_visitors',
       },
     ],
     []

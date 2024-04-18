@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import awaLogo from "../assets/images/awa-logo.png";
 
+const config = require('../config/config.js');
+
 const CheckIn = () => {
     const [checkinCode, setCheckinCode] = useState("");
     const [alertText, setAlertText] = useState('');
@@ -9,7 +11,7 @@ const CheckIn = () => {
     async function checkIn(event) {
         event.preventDefault();
 
-        const response = await fetch('http://localhost:5000/trips/check-in', {
+        const response = await fetch(config.apiURL + `/trips/check-in`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

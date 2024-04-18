@@ -57,7 +57,7 @@ const ChangePassword = () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({"key": sessionStorage.getItem('sessionKey'), "oldPassword": oldPassword, "newPassword": newPassword})
         };
-        const response = await fetch('http://localhost:5000/user/change-password', options);
+        const response = await fetch(config.apiURL + `/user/change-password`, options);
         if ( !response.ok ) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }

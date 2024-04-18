@@ -12,6 +12,7 @@
  import POISelect from "../components/POISelect"; // Importing POISelect component
  import { useNavigate } from 'react-router-dom';
  
+const config = require('../config/config.js');
  /**
   * Register - Functional component for registering trip leader information.
   * @returns {JSX.Element} - Rendered component
@@ -148,7 +149,7 @@
      async function getUserInfo() {
          const key = sessionStorage.getItem('sessionKey');
          try{
-             const response = await fetch(`http://localhost:5000/user/user-info?key=${encodeURIComponent(key)}`);
+             const response = await fetch(config.apiURL + `/user/user-info?key=${encodeURIComponent(key)}`);
              if ( !response.ok ) {
                  throw new Error(`HTTP error! Status: ${response.status}`);
              }
@@ -180,7 +181,8 @@
      //Function to retrieve POIs
      async function getPois() {
         try {
-            const response = await fetch('http://localhost:5000/poi');
+            const key = sessionStorage.getItem('sessionKey');
+            const response = await fetch(config.apiURL + `/poi?key=${encodeURIComponent(key)}`);
             if (!response.ok){
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
@@ -217,22 +219,23 @@
          e.preventDefault();
          if( validateRegister() ){
              try{
-                 const options = {
-                     method: 'POST',
-                     headers: { 'Content-Type': 'application/json' },
-                     body: JSON.stringify(registerData)
-                 };
-                 const response = await fetch('http://localhost:5000/trips/', options);
-                 if ( !response.ok ) {
-                     throw new Error(`HTTP error! Status: ${response.status}`);
-                 }
-                 const data = await response.json();
-                 if(data.message === 'Trip Created'){
-                     setCreated(true);
-                     clearForm();
-                    //  navigate to the profile page
-                    navigate('/profile');
-                 }
+                const key = sessionStorage.getItem('sessionKey');
+                const options = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(registerData)
+                };
+                const response = await fetch(config.apiURL + `/trips`, options);
+                if ( !response.ok ) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                if(data.message === 'Trip Created'){
+                    setCreated(true);
+                    clearForm();
+                //  navigate to the profile page
+                navigate('/profile');
+                }
              } catch ( error ) {
                  console.log('Error:', error);
              }
@@ -359,7 +362,7 @@
                                  <div className="flex flex-row justify-start my-2 w-full">
                                      <div key={poiKey} className=" md:w-3/5 w-full md:mr-4">
                                          {/* POI selection component */}
-                                         <POISelect pois={pois} handleChange={POIChange}/>
+                                         <POISelect registerForm={true} pois={pois} handleChange={POIChange}/>
                                      </div>
                                      <div className="flex flex-col md:w-2/5 w-full">
                                          <div className="flex flex-row justify-between">

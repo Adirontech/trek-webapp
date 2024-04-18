@@ -11,7 +11,8 @@ WITH Stats AS (
 			p.type AS type,
            	DATE_TRUNC($1, t.date) AS Start_Date, 
            	COUNT(t.id) AS Trip_Count, 
-           	SUM(t.party_size) AS Visitors
+           	SUM(t.party_size) AS Registered_Visitors,
+            SUM(CASE WHEN t.checked_in THEN t.party_size ELSE 0 END) AS Checked_In_Visitors
     FROM POIs p
     INNER JOIN TripDestinations td ON p.id = td.destination
     INNER JOIN Trips t ON td.trip_id = t.id
@@ -19,20 +20,21 @@ WITH Stats AS (
         (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND p.type IN (
                 SELECT UNNEST(string_to_array($4, ','))::poi_type_enum
-            ) AND t.checked_in = true
+            )
         )
         OR (t.date BETWEEN CAST($2 AS DATE) AND CAST($3 AS DATE)
             AND p.id IN (
                 SELECT CAST(value AS INTEGER)
-                    FROM UNNEST(string_to_array($5, ',')) AS value
-                ) AND t.checked_in = true
+                    FROM UNNEST(string_to_array(CAST($5 AS VARCHAR), ',')) AS value
+                )
             )
     GROUP BY p.name, p.id, DATE_TRUNC($1, t.date)
 )
 SELECT POI, POI_ID, type,
-       CAST(AVG(Trip_Count) AS INTEGER) AS Avg_Trip_Count,
-       CAST(AVG(Visitors) AS INTEGER) AS Avg_Visitors
+        CAST(AVG(Trip_Count) AS INTEGER) AS Avg_Trip_Count,
+        CAST(AVG(Registered_Visitors) AS INTEGER) AS Avg_Registered_Visitors,
+        CAST(AVG(Checked_In_Visitors) AS INTEGER) AS Avg_Checked_In_Visitors
 FROM Stats
 GROUP BY POI, POI_ID, type
-HAVING AVG(Visitors) BETWEEN $6 AND $7
+HAVING AVG(Registered_Visitors) BETWEEN $6 AND $7
 ORDER BY POI_ID;
