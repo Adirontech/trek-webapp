@@ -4,6 +4,7 @@
  */
 
 // Import required modules
+const { request } = require('express');
 const express = require('express');
 const userModel = require('../models/userModel');
 
@@ -90,6 +91,24 @@ router.post('/change-password', async (req, res, next) => {
  */
 router.put('/', (req, res, next) => {
     // Implement update user logic here
+
+});
+
+router.put('/logout', async (req, res, next) => {
+    try {
+        console.log("1");
+        if(req.body.key){
+            console.log("2");
+            const result = await userModel.signOut(req.body.key);
+            console.log("4");
+            res.status(200).json({ success: true, message: result });
+        }
+        else {
+            res.status(400).json({ success: false, message: 'Missing required parameters' });
+        }
+    } catch(error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 /**
@@ -98,5 +117,7 @@ router.put('/', (req, res, next) => {
 router.delete('/', (req, res, next) => {
     // Implement delete user logic here
 });
+
+
 
 module.exports = router;
