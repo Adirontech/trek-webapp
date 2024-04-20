@@ -37,6 +37,25 @@ const Profile = () => {
 
     const [userInfo, setUserInfo] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
+    
+
+    const logOutUser = () => {
+        
+        const options = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}, 
+            body: 
+            JSON.stringify({
+                "key": sessionStorage.getItem('sessionKey')
+            })
+
+        }
+        console.log(options);
+        fetch(`${process.env.REACT_APP_API_URL}/user/logout`, options);
+        sessionStorage.removeItem('sessionKey'); 
+
+
+    }
 
     useEffect(() => {
         getUserInfo()
@@ -132,6 +151,11 @@ const Profile = () => {
                                 <Link to='/change-password'>
                                     <button className="mx-auto mt-3 block bg-green pl-3 pr-3 rounded-md text-white" type="submit">
                                         Change Password
+                                    </button>
+                                </Link>
+                                <Link to= '/login'>
+                                    <button className="mx-auto mt-3 block bg-green pl-3 pr-3 rounded-md text-white" type="submit" onClick={logOutUser}>
+                                        Logout
                                     </button>
                                 </Link>
                             </div>
