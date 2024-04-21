@@ -79,7 +79,6 @@ Once cloned, navigate into the `trek-webapp` directory, and complete the followi
 In the root of the project, create an `.env` file in the root directory of your repository and add the following lines to it:
 
 ```text
-API_URL=http://localhost/5000
 DB_USERNAME=adirontech
 DB_PASSWORD=password
 DB_PORT=5432
@@ -96,6 +95,11 @@ Environment Variables' Descriptions:
 - `DB_PORT` will determine the port that the API backend process will use construct & access the URL to the project's database. For default Demos, this is `5432`.
 - `DB_NAME` will determine the name of the database that the API backend process will use construct & access the URL to that same database. For default Demos, this is `trek-db`.
 
+Next, Navigate to the `client` directory. Create another `.env` file here, and add the following line to it:
+
+```
+API_URL=http://localhost/5000
+```
 
 #### Step 3) Quick Start Project / Demo
 
@@ -144,19 +148,24 @@ Once cloned, navigate into the `trek-webapp` directory, and complete the followi
 In the root of the project, create an `.env` file in the root directory of your repository and add the following lines to it:
 
 ```text
-API_URL=<your_api_URL_here>
 DB_USERNAME=<your_database_username_here>
 DB_PASSWORD=<your_database_password_here>
 DB_PORT=<your_database_port_here>
 DB_NAME=<your_database_name_here>
 ```
 
-- `API_URL` will determine the URL that the client frontend process will use to communicate with the project's API. By default, replace `<your_api_URL_here>` with `http://localhost/5000`.
 - `DB_USERNAME` will determine the username you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. By default, make sure you replace `<your_database_username_here>` with `adirontech`.
 - `DB_PASSWORD` will determine the password you use to access the Docker-hosted Database using pgAdmin 4 later in the setup. Make sure you replace `<your_password_here>` with your desired database password (it is your choice).
 - `DB_PORT` will determine the port that the API backend process will use construct & access the URL to the project's database. By default, make sure you replace `<your_database_port_here>` with `5432`.
 - `DB_NAME` will determine the name of the database that the API backend process will use construct & access the URL to that same database. By default, make sure you replace `<your_database_name_here>` with `trek-db`.
 
+Next, Navigate to the `client` directory. Create another `.env` file here, and add the following line to it:
+
+```
+API_URL=<your_api_URL_here>
+```
+
+- `API_URL` will determine the URL that the client frontend process will use to communicate with the project's API. By default, replace `<your_api_URL_here>` with `http://localhost/5000`.
 ###### Quick Starting the Project
 
 While the developer setup is not yet complete, at this point your project is technically set up and ready to be run. If you wish to check that it works, in your native file explorer or terminal:
