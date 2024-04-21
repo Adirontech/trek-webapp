@@ -96,11 +96,8 @@ router.put('/', (req, res, next) => {
 
 router.put('/logout', async (req, res, next) => {
     try {
-        console.log("1");
         if(req.body.key){
-            console.log("2");
             const result = await userModel.signOut(req.body.key);
-            console.log("4");
             res.status(200).json({ success: true, message: result });
         }
         else {

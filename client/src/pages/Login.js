@@ -194,7 +194,6 @@ const Login = () => {
                 }
                 const cData = await cResponse.json(); // Await the create API response; a user ID should be returned
                 if( cData.user_id ) { // If a user is created & a user ID is returned, set the userID in the browsers session data.
-                    console.log(cData.user_id);
                     sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',

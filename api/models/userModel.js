@@ -62,7 +62,6 @@ async function signInUser(userData) {
 }
 
 async function signOut(key){
-    console.log(key);
     return db.none(userQueries.signOut, [key]);
     
 }
@@ -80,9 +79,7 @@ async function changePassword(key, oldPassword, newPassword) {
  * @returns {Promise<boolean>} Whether the session key is valid.
  */
 async function validSessionKey(key) {
-    console.log(key);
     const result = await db.oneOrNone('SELECT * FROM UserSessions WHERE session_key = $1', [key]);
-    console.log(result);
     return result !== null;
 }
 
