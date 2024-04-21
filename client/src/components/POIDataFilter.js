@@ -134,16 +134,12 @@ const POIDataFilter = (props) => {
                     [id]: checked
                 }
             });
-            console.log(name, value, checked, id);
             if(name === "area" && checked){
                 let types = shownTypes;
                 types.push(id)
-                console.log('checked: ', id, types);
                 setShownTypes(types);
             }else if(name === "area" && !checked){
                 let types = shownTypes.filter((type) => type !== id);
-                console.log('unchecked: ', id, types);
-                console.log(id);
                 setShownTypes(types);
             }
         } else if (name === "step") {

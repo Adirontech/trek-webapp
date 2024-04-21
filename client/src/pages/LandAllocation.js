@@ -41,7 +41,6 @@ const LandAllocation = () => {
      *  @param {object} options - filter options from POIDataFilter component
      */
     const handleFilterChange = (options) => {
-        console.log(options);
         let types = '';
         let type = '';
         let pois = '';
@@ -84,7 +83,6 @@ const LandAllocation = () => {
                 const response = await fetch(`${config.apiURL}/poi/allUsage?session_key=${sessionStorage.getItem('sessionKey')}`);
                 if(response.status === 200){
                     const data = await response.json();
-                    console.log(data);
                     data.forEach(row => {
                         if(Number(row.registered_visitors) > max){
                             max = Number(row.registered_visitors);
