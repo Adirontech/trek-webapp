@@ -17,6 +17,7 @@ const userQueries = {
     signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
     getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
     setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql')),
+    isAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/isAllocator.sql')),
     signOut: new QueryFile(path.join(__dirname, '../sql/userSQL/signOut.sql'))
 };
 
@@ -61,7 +62,6 @@ async function signInUser(userData) {
 }
 
 async function signOut(key){
-    console.log(key);
     return db.none(userQueries.signOut, [key]);
     
 }
@@ -71,6 +71,26 @@ async function changePassword(key, oldPassword, newPassword) {
     const hashedNewPW = hashPW(newPassword);
 
     return db.one(userQueries.setPassword, [key, hashedOldPW, hashedNewPW]);
+}
+
+/**
+ * Checks validity session key.
+ * @param {string} key - The session key to be checked.
+ * @returns {Promise<boolean>} Whether the session key is valid.
+ */
+async function validSessionKey(key) {
+    const result = await db.oneOrNone('SELECT * FROM UserSessions WHERE session_key = $1', [key]);
+    return result !== null;
+}
+
+/**
+ * Checks if the user is an allocator.
+ * @param {string} key - The session key to be checked.
+ * @returns {Promise<boolean>} Whether the user is an allocator.
+ */
+async function isAllocator(key) {
+    const result = await db.one(userQueries.isAllocator, [key]);
+    return result;
 }
 
 /**
@@ -89,5 +109,7 @@ module.exports = {
     signInUser,
     getUserInfo,
     changePassword,
+    validSessionKey,
+    isAllocator,
     signOut
 };

@@ -50,7 +50,6 @@ const Profile = () => {
             })
 
         }
-        console.log(options);
         fetch(`${process.env.REACT_APP_API_URL}/user/logout`, options);
         sessionStorage.removeItem('sessionKey'); 
 

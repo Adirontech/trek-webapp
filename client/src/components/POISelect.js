@@ -24,20 +24,21 @@
      // Render the component
      return (
          <div className="flex flex-col w-full">
+            {props.registerForm &&
              <div className="flex flex-row justify-between">
                  <label className="text-sm">Points Of Interest</label>
                  <div className="text-red">*</div>
              </div>
-             {/* MultiSelect component for selecting POIs */}
-             <MultiSelect
-                 options={props.pois} // Options for POIs
-                 labelledBy="Points of Interest" // Accessibility label
-                 onChange={setSelected} // Function to handle change in selection
-                 hasSelectAll={false} // Disable select all option
-                 value={selected} // Selected values
-                 showCheckbox={true} // Show checkboxes
-                 className="multiSelect" // Custom CSS class
-             />
+            }
+            {/* MultiSelect component for selecting POIs */}
+            <MultiSelect
+                options={props.pois} // Options for POIs
+                onChange={setSelected} // Function to handle change in selection
+                hasSelectAll={false} // Disable select all option
+                value={selected} // Selected values
+                showCheckbox={true} // Show checkboxes
+                className="multiSelect" // Custom CSS class
+            />
          </div>
      );
  };

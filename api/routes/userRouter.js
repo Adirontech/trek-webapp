@@ -27,6 +27,23 @@ router.get('/user-info', async (req, res, next) => {
     }
 });
 
+router.get('/isAllocator', async (req, res, next) => {
+    try {
+        if (req.query.key) {
+            const allocator = await userModel.isAllocator(req.query.key);
+            if(allocator) {
+                res.status(200).json({ success: true, data: allocator });
+            } else {
+                res.status(200).json({ success: false, data: allocator });
+            }
+        } else {
+            res.status(400).json({ success: false, message: 'No key provided' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 /**
  * Route to create a new user or sign in existing user.
  */
@@ -79,11 +96,8 @@ router.put('/', (req, res, next) => {
 
 router.put('/logout', async (req, res, next) => {
     try {
-        console.log("1");
         if(req.body.key){
-            console.log("2");
             const result = await userModel.signOut(req.body.key);
-            console.log("4");
             res.status(200).json({ success: true, message: result });
         }
         else {
