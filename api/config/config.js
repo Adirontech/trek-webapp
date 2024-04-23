@@ -5,11 +5,12 @@ console.log(require('dotenv').config({path: path.resolve(__dirname, '../../.env'
 // Grab Necessary Config Information From Root .env file
 const username = process.env.DB_USERNAME // The database username
 const password = process.env.DB_PASSWORD // The database password
+const databaseURL = process.env.DB_URL // The database URL
 const port = process.env.DB_PORT // The database port
 const dbName = process.env.DB_NAME // The database name
 
 // Construct the full URL using the config information
-databaseURL = "postgres://" + username + ":" + password + "@localhost:" + port + "/" + dbName
+databaseURL = "postgres://" + username + ":" + password + "@" + databaseURL + ":" + port + "/" + dbName
 
 // Export completed database URL
 module.exports = {

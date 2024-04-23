@@ -41,12 +41,12 @@ const Navbar = () => {
             <div className='text-center text-xl text-white flex-1 font-medium'>
                 <a className="mr-8" href="/">Home</a>
                 <a className="mr-8" href="/">About</a>
-                <a href="http://localhost:3000/register">Trip Registration</a>
-                {allocator && <a className="ml-8" href="http://localhost:3000/landAllocation">Land Allocation</a>}
+                <a href={`${config.apiURL}/register`}>Trip Registration</a>
+                {allocator && <a className="ml-8" href={`${config.apiURL}/landAllocation`}>Land Allocation</a>}
             </div>
             {/* profile - right */}
             <div className=''>
-                <a href="http://localhost:3000/profile"><img src={profileIcon} height={40} width={40}/></a>
+                <a href={`${config.apiURL}/profile`}><img src={profileIcon} height={40} width={40}/></a>
             </div>
         </nav>
     )
