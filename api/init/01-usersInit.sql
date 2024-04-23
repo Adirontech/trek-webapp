@@ -1,5 +1,5 @@
 /**
- * usersInit.sql - SQL script for initializing the Users table.
+ * 01-usersInit.sql - SQL script for initializing the Users table.
  * This script drops the Users table if it already exists and then creates a new Users table.
  * The Users table stores user credentials, including username and password, along with a reference to the corresponding UserData entry.
  * It has an auto-incrementing primary key (id) and ensures that both username and password fields are not nullable.
