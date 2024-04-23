@@ -245,7 +245,7 @@ const config = require('../config/config.js');
      // Render the component
      return (
          <div>
-             <div className="md:h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+             <div className="md:h-screen bg-cover bg-BJW_3 bg-center bg-fixed bg-no-repeat hero p-8">
                  <Navbar />
                      <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-9/12 xl:w-5/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
                          <h1 className="text-xl mr-auto ml-auto relative bottom-1">Trip Leader Information</h1>

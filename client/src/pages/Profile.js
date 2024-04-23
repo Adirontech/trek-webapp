@@ -99,7 +99,7 @@ const Profile = () => {
         }
 
         return (
-            <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+            <div className="h-screen bg-cover bg-BJW_2 bg-center bg-fixed bg-no-repeat hero p-8">
                 {/* Rendering the navigation bar */}
                 <Navbar />
                 <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-11/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
