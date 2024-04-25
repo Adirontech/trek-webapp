@@ -20,14 +20,6 @@ const tripQueries = {
 };
 
 /**
- * Retrieves all trips from the database.
- * @returns {Promise<Array>} An array containing all trip records.
- */
-async function getAllTrips() {
-    return await db.any(tripQueries.getAllTrips);
-}
-
-/**
  * Retrieves all trips from the database for a specific user (from a session key)
  */
 async function getTripsFromKey(key) {
@@ -81,7 +73,6 @@ async function confirmTrip(confirmCode) {
 }
 
 module.exports = {
-    getAllTrips,
     getTripsFromKey,
     getTripsInfoFromKey,
     createTrip,
