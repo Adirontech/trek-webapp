@@ -11,9 +11,10 @@ const path = require('path');
 // Define queries for trip operations
 const tripQueries = {
     getAllTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getAll.sql')),
-    // getTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/get.sql')),
     getTripsFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getFromKey.sql')),
     getTripsInfoFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getInfoFromKey.sql')),
+    getTripInfoFromCodeKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getInfoFromCodeKey.sql')),
+    getTripBelongsToKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/belongsToKey.sql')),
     createTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/create.sql')),
     editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql')),
     confirmTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/confirm.sql'))
@@ -42,6 +43,17 @@ async function getTripsInfoFromKey(key) {
 }
 
 /**
+ * Retrieves readable trip info for a specific trip from the database for a specific user (from a session key and trip code)
+ */
+async function getTripInfoFromCodeKey(code, key) {
+    return await db.one(tripQueries.getTripInfoFromCodeKey, [code, key]);
+}
+
+async function getTripBelongsToKey(code, key) {
+    return await db.one(tripQueries.getTripBelongsToKey, [code, key]);
+}
+
+/**
  * Creates a new trip in the database.
  * @param {Object} tripData - Object containing trip data.
  * @returns {Promise<Object>} The newly created trip.
@@ -67,7 +79,7 @@ async function createTrip(tripData) {
  */
 async function editTrip(tripData) {
     return db.one(tripQueries.editTrip, [
-        tripData.id, tripData.first_name, tripData.last_name, tripData.street, tripData.city,
+        tripData.confirm_code, tripData.first_name, tripData.last_name, tripData.street, tripData.city,
         tripData.state, tripData.zip_code, tripData.date, tripData.start, tripData.pois,
         tripData.purpose, tripData.phone, tripData.duration, tripData.party_size, tripData.session_key
     ]);
@@ -84,6 +96,8 @@ module.exports = {
     getAllTrips,
     getTripsFromKey,
     getTripsInfoFromKey,
+    getTripInfoFromCodeKey,
+    getTripBelongsToKey,
     createTrip,
     editTrip,
     confirmTrip

@@ -47,7 +47,7 @@ CREATE TABLE Trips (
      * An integer column storing the ID of the user who created the trip.
      * This column cannot be null and references the 'id' column of the 'Users' table.
      */
-    creator INT NOT NULL,
+    creator INT,
     
     /**
      * A variable character column for storing the first name of the trip creator.
