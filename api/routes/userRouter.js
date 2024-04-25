@@ -86,11 +86,36 @@ router.post('/change-password', async (req, res, next) => {
     }
 });
 
+router.post('/make-allocator', async (req, res, next) => {
+    try {
+        if (req.body.key && req.body.allocatorUser) {
+            const result = await userModel.makeAllocator(req.body.key, req.body.allocatorUser);
+            res.status(200).json({ success: result.success });
+        } else {
+            res.status(400).json({ success: false, message: 'Missing required parameters' });
+        }
+    } catch(error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 /**
  * Route to update user information.
  */
 router.put('/', (req, res, next) => {
-    // Implement update user logic here
+    try {
+        const setParameters = ['key', 'first_name', 'last_name', 'address', 'city', 'state', 'zip', 'phone'];
+        const missingParams = setParameters.filter(param => !(param in req.body));
+
+        if (missingParams.length === 0) {
+            const result = userModel.updateUser(req.body);
+            res.status(200).json({ success: true, message: result });
+        } else {
+            throw new Error("Missing required parameters: " + missingParams.join(', '));
+        }
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 
 });
 

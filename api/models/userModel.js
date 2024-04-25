@@ -16,8 +16,10 @@ const userQueries = {
     createUserData: new QueryFile(path.join(__dirname, '../sql/userDataSQL/create.sql')),
     signInUser: new QueryFile(path.join(__dirname, '../sql/userSQL/signIn.sql')),
     getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
+    setUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/set.sql')),
     setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql')),
     isAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/isAllocator.sql')),
+    makeAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/makeAllocator.sql')),
     signOut: new QueryFile(path.join(__dirname, '../sql/userSQL/signOut.sql'))
 };
 
@@ -47,6 +49,13 @@ async function createUser(userData) {
         await rangerModel.createRanger(userResult.id);
     }
     return userResult;
+}
+
+async function updateUser(userData) {
+    return db.none(userQueries.setUserInfo, [
+        userData.key, userData.first_name, userData.last_name, userData.address, userData.city, userData.state,
+        userData.zip, userData.phone
+    ]);
 }
 
 /**
@@ -93,6 +102,16 @@ async function isAllocator(key) {
     return result;
 }
 
+async function makeAllocator(key, allocatorUser) {
+    try {
+        const result = await db.none(userQueries.makeAllocator, [allocatorUser, key]);
+        return {'success': true};
+    }
+    catch (error) {
+        return {'success': false};   
+    }
+}
+
 /**
  * Hashes the given password using SHA-512 algorithm.
  * @param {string} pw - The password to be hashed.
@@ -108,8 +127,10 @@ module.exports = {
     createUser,
     signInUser,
     getUserInfo,
+    updateUser,
     changePassword,
     validSessionKey,
     isAllocator,
+    makeAllocator,
     signOut
 };

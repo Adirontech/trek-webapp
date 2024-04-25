@@ -11,18 +11,6 @@ const tripsModel = require('../models/tripsModel');
 const router = express.Router();
 
 /**
- * Route to retrieve all trips.
- */
-router.get('/all', async (req, res) => {
-    try {
-        const trips = await tripsModel.getAllTrips();
-        res.status(200).json(trips);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-/**
  * Route to get all trips for a specific user (from a session key)
  */
 router.get('/from-key', async (req, res) => {
@@ -40,6 +28,27 @@ router.get('/from-key', async (req, res) => {
 router.get('/info-from-key', async (req, res) => {
     try {
         const trips = await tripsModel.getTripsInfoFromKey(req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+/**
+ * Route to get specific trip information for a specific user (from a session key and trip code)
+ */
+router.get('/info-from-code-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripInfoFromCodeKey(req.query.code, req.query.key);
+        res.status(200).json(trips);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.get('/belongs-to-key', async (req, res) => {
+    try {
+        const trips = await tripsModel.getTripBelongsToKey(req.query.code, req.query.key);
         res.status(200).json(trips);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -79,7 +88,7 @@ router.post('/', async (req, res, next) => {
  */
 router.put('/', async (req, res, next) => {
     try {
-        const requiredEditParams = ['id', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
+        const requiredEditParams = ['confirm_code', 'first_name', 'last_name', 'street', 'city', 'state', 'zip_code', 'date', 'start', 'pois', 'duration', 'party_size', 'session_key'];
 
         const missingEditParams = requiredEditParams.filter(param => !(param in req.body));
         if (missingEditParams.length === 0) {

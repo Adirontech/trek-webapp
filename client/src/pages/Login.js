@@ -22,9 +22,6 @@ const Login = () => {
         username: '',
         password: ''
     });
-    const {
-        setIsLandUsagePlanner
-    } = useContext(MainContext);
             
      /**
       * Function to switch between login and create account forms.
@@ -256,7 +253,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Create account form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-scroll bg-cover w-screen  2xl:h-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_8 bg-scroll bg-cover w-screen  2xl:h-screen">
                         <div className=" flex flex-col items-center justify-center pb-5">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
@@ -333,19 +330,6 @@ const Login = () => {
                                         <div className=" text-xs text-red">{errors.passwordConf}</div>
                                         <div className=" text-xs text-red">{errors.match}</div>
                                     </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-600 text-sm">Are you a land allocation planner?</label>
-                                        <input
-                                            className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
-                                            type="checkbox"
-                                            name="is_ranger"
-                                            value={createData.is_ranger}
-                                            onChange={(e) => {
-                                                setIsLandUsagePlanner(e.target.checked);
-                                                change(e);
-                                            }}
-                                        />
-                                    </div>
                                     <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>
                                 </form>
@@ -358,7 +342,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Login form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_17 bg-cover h-screen w-screen">
                         <div className=" flex flex-col items-center justify-center">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">

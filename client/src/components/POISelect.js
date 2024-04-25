@@ -3,7 +3,7 @@
  * This component provides a multi-select dropdown menu for selecting POIs.
  */
 
- import React, { useState, useEffect } from "react"; // Importing React and necessary hooks
+ import React, { useState, useEffect, useRef } from "react"; // Importing React and necessary hooks
  import { MultiSelect } from 'react-multi-select-component'; // Importing MultiSelect component
  import '../assets/stylesheets/POISelect.css'; // Importing component-specific CSS
  
@@ -15,7 +15,16 @@
   */
  const POISelect = (props) => {
      const [selected, setSelected] = useState([]); // State for selected POIs
- 
+     const isFirstRender = useRef(true);
+
+     useEffect(() => {
+        if(isFirstRender.current && props.pois.length > 0 && props.preselected.length > 0) {
+            let selectionValues = props.pois.filter(poi => props.preselected.includes(poi.value));
+            setSelected(selectionValues);
+            isFirstRender.current = false;
+        }
+     }, [props.preselected, props.pois]);
+
      // useEffect hook to handle changes in selected POIs
      useEffect(() => {
          props.handleChange(selected); // Calling handleChange function with selected POIs
@@ -43,5 +52,9 @@
      );
  };
  
+ POISelect.defaultProps = {
+    preselected: []
+  };
+
  export default POISelect; // Exporting POISelect component
  

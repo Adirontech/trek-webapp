@@ -34,7 +34,7 @@
         }
     }
      return (
-         <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero pt-8 pb-8 sm:p-8">
+         <div className="h-screen bg-cover bg-BJW_6 bg-center bg-fixed bg-no-repeat hero pt-8 pb-8 sm:p-8">
              {/* Rendering the navigation bar */}
              <Navbar />
              <div className='flex flex-col items-center justify-center h-full'>

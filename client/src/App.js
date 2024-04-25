@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Profile from "./pages/Profile";
 import ChangePassword from './pages/ChangePassword';
 import CheckIn from "./pages/CheckIn";
+import ProfilePerms from "./pages/ProfilePerms";
 import MainContext from "./MainContext";
 import { useState } from "react";
 import LandAllocation from "./pages/LandAllocation";
@@ -26,6 +27,7 @@ const App = () => {
                     <Route path='profile' element={<Profile/>} />
                     <Route path='change-password' element={<ChangePassword/>} />
                     <Route path='check-in' element={<CheckIn/>} />
+                    <Route path='permissions' element={<ProfilePerms/>} />
                 </Routes>
             </BrowserRouter>
         </MainContext.Provider>

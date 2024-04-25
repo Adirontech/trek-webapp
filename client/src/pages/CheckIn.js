@@ -46,7 +46,7 @@ const CheckIn = () => {
 
     return (
         <div className="bg-black w-full">
-            <div className=" flex items-center justify-center bg-black bg-checkin bg-cover h-screen w-screen">
+            <div className=" flex items-center justify-center bg-black bg-BJW_13 bg-cover h-screen w-screen">
                 <div className=" flex flex-col items-center justify-center">
                     <div className="bg-white p-6 rounded-lg shadow-md w-72">
                         <h1 className="text-2xl font-semibold mb-4 text-center">Check In</h1>

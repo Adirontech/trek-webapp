@@ -1,5 +1,5 @@
 /**
- * userDataInit.sql - SQL script for initializing the UserData table.
+ * 00-userDataInit.sql - SQL script for initializing the UserData table.
  * This script drops the UserData table if it already exists and then creates a new UserData table.
  * The UserData table stores user-specific data such as first name, last name, address, city, state, zip code, and phone number.
  * It has an auto-incrementing primary key (id) and ensures that certain fields like first name, last name, and phone number are not nullable.
