@@ -22,9 +22,6 @@ const Login = () => {
         username: '',
         password: ''
     });
-    const {
-        setIsLandUsagePlanner
-    } = useContext(MainContext);
             
      /**
       * Function to switch between login and create account forms.
@@ -332,19 +329,6 @@ const Login = () => {
                                         />
                                         <div className=" text-xs text-red">{errors.passwordConf}</div>
                                         <div className=" text-xs text-red">{errors.match}</div>
-                                    </div>
-                                    <div className="mb-4">
-                                        <label className="block text-gray-600 text-sm">Are you a land allocation planner?</label>
-                                        <input
-                                            className="w-full h-6 p-2 border border-gray rounded focus:outline-none focus:border-green-400"
-                                            type="checkbox"
-                                            name="is_ranger"
-                                            value={createData.is_ranger}
-                                            onChange={(e) => {
-                                                setIsLandUsagePlanner(e.target.checked);
-                                                change(e);
-                                            }}
-                                        />
                                     </div>
                                     <button className="w-full bg-green text-white p-2 rounded hover:bg-green" type="submit">Create Account</button>
                                     <button className="text-xs text-left hover:text-green relative top-2" onClick={changeForm}>Sign In</button>
