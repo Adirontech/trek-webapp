@@ -4,6 +4,7 @@
  */
 
 // Import required modules
+const { request } = require('express');
 const express = require('express');
 const userModel = require('../models/userModel');
 
@@ -18,6 +19,23 @@ router.get('/user-info', async (req, res, next) => {
         if (req.query.key) {
             const user = await userModel.getUserInfo(req.query.key);
             res.status(200).json({ success: true, data: user.getuserdata });
+        } else {
+            res.status(400).json({ success: false, message: 'No key provided' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, message: error.message });
+    }
+});
+
+router.get('/isAllocator', async (req, res, next) => {
+    try {
+        if (req.query.key) {
+            const allocator = await userModel.isAllocator(req.query.key);
+            if(allocator) {
+                res.status(200).json({ success: true, data: allocator });
+            } else {
+                res.status(200).json({ success: false, data: allocator });
+            }
         } else {
             res.status(400).json({ success: false, message: 'No key provided' });
         }
@@ -85,6 +103,21 @@ router.put('/', (req, res, next) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+
+});
+
+router.put('/logout', async (req, res, next) => {
+    try {
+        if(req.body.key){
+            const result = await userModel.signOut(req.body.key);
+            res.status(200).json({ success: true, message: result });
+        }
+        else {
+            res.status(400).json({ success: false, message: 'Missing required parameters' });
+        }
+    } catch(error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 /**
@@ -93,5 +126,7 @@ router.put('/', (req, res, next) => {
 router.delete('/', (req, res, next) => {
     // Implement delete user logic here
 });
+
+
 
 module.exports = router;

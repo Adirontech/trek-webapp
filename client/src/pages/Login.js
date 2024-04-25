@@ -2,6 +2,9 @@ import React, { useState, useContext} from "react";
 import { useNavigate } from 'react-router-dom';
 import MainContext from "../MainContext";
 
+const config = require("../config/config"); // Importing configuration variables
+
+
 const Login = () => {
     const navigate = useNavigate(); // Hook for navigating to different routes
     const [passwordConf, setPasswordConf] = useState(""); // State variable for password confirmation
@@ -185,20 +188,19 @@ const Login = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(createData)
                 };
-                const cResponse = await fetch('http://localhost:5000/user/', cOptions);
+                const cResponse = await fetch(config.apiURL + `/user/`, cOptions);
                 if ( !cResponse.ok ) {
                     throw new Error(`HTTP error (1)! Status: ${cResponse.status}`);
                 }
                 const cData = await cResponse.json(); // Await the create API response; a user ID should be returned
                 if( cData.user_id ) { // If a user is created & a user ID is returned, set the userID in the browsers session data.
-                    console.log(cData.user_id);
                     sessionStorage.setItem('userId', cData.user_id);
                     const sOptions = {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username: createData.username, password: createData.password })
                     };
-                    const sResponse = await fetch('http://localhost:5000/user/', sOptions);
+                    const sResponse = await fetch(config.apiURL + `/user/`, sOptions);
                     if ( !sResponse.ok ) {
                         throw new Error(`HTTP error (2)! Status: ${sResponse.status}`);
                     }
@@ -231,7 +233,7 @@ const Login = () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(signInData)
                 };
-                const response = await fetch('http://localhost:5000/user/', options);
+                const response = await fetch(config.apiURL + `/user/`, options);
                 if ( !response.ok ) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -254,7 +256,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Create account form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-scroll bg-cover w-screen  2xl:h-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_8 bg-scroll bg-cover w-screen  2xl:h-screen">
                         <div className=" flex flex-col items-center justify-center pb-5">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
@@ -356,7 +358,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Login form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_17 bg-cover h-screen w-screen">
                         <div className=" flex flex-col items-center justify-center">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">

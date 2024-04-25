@@ -19,7 +19,25 @@ module.exports = {
         'login': "url('./assets/images/login-background.png')", // Alias for login background image
         'circle_logo': "url('./assets/images/circle_logo.png')", // Alias for circle logo background image
         'home': "linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('./assets/images/homepage-hero.png')", // Alias for homepage hero background image with linear gradient overlay
-        'checkin': "url('./assets/images/checkin-background.jpg')"
+        'checkin': "url('./assets/images/checkin-background.jpg')",
+        'BJW_1': "url('./assets/images/BJW_1.jpg')",
+        'BJW_2': "url('./assets/images/BJW_2.jpg')",
+        'BJW_3': "url('./assets/images/BJW_3.jpg')",
+        'BJW_4': "url('./assets/images/BJW_4.jpg')",
+        'BJW_5': "url('./assets/images/BJW_5.jpg')",
+        'BJW_6': "url('./assets/images/BJW_6.jpg')",
+        'BJW_7': "url('./assets/images/BJW_7.jpg')",
+        'BJW_8': "url('./assets/images/BJW_8.jpg')",
+        'BJW_9': "url('./assets/images/BJW_9.jpg')",
+        'BJW_10': "url('./assets/images/BJW_10.jpg')",
+        'BJW_11': "url('./assets/images/BJW_11.jpg')",
+        'BJW_12': "url('./assets/images/BJW_12.jpg')",
+        'BJW_13': "url('./assets/images/BJW_13.jpg')",
+        'BJW_14': "url('./assets/images/BJW_14.jpg')",
+        'BJW_15': "url('./assets/images/BJW_15.jpg')",
+        'BJW_16': "url('./assets/images/BJW_16.jpg')",
+        'BJW_17': "url('./assets/images/BJW_17.jpg')",
+        'BJW_18': "url('./assets/images/BJW_18.jpg')"
       }
     },
     // Customizing colors with aliases for easy usage

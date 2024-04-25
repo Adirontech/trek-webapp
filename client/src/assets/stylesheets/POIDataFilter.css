@@ -1,0 +1,11 @@
+.dropdown-heading-value{
+    text-align: center;
+}
+
+.dropdown-content{
+    z-index: 3 !important;
+}
+
+.gray {
+    color: black !important;
+}

@@ -67,6 +67,24 @@ const Profile = () => {
 
     const [userInfo, setUserInfo] = useState(null);
     const [userTrips, setUserTrips] = useState(null);
+    
+
+    const logOutUser = () => {
+        
+        const options = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'}, 
+            body: 
+            JSON.stringify({
+                "key": sessionStorage.getItem('sessionKey')
+            })
+
+        }
+        fetch(`${process.env.REACT_APP_API_URL}/user/logout`, options);
+        sessionStorage.removeItem('sessionKey'); 
+
+
+    }
 
     useEffect(() => {
         getUserInfo()
@@ -111,7 +129,7 @@ const Profile = () => {
         }
 
         return (
-            <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+            <div className="h-screen bg-cover bg-BJW_2 bg-center bg-fixed bg-no-repeat hero p-8">
                 {/* Rendering the navigation bar */}
                 <Navbar />
                 <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-11/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
@@ -162,6 +180,11 @@ const Profile = () => {
                                 <Link to='/change-password'>
                                     <button className="mx-auto mt-3 block bg-green pl-3 pr-3 rounded-md text-white" type="submit">
                                         Change Password
+                                    </button>
+                                </Link>
+                                <Link to= '/login'>
+                                    <button className="mx-auto mt-3 block bg-green pl-3 pr-3 rounded-md text-white" type="submit" onClick={logOutUser}>
+                                        Logout
                                     </button>
                                 </Link>
                             </div>
