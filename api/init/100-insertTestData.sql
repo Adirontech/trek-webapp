@@ -1,3 +1,16 @@
+/**
+ * This SQL script inserts test data into various tables of the database, including UserData, Users, Rangers, Trips, and TripDestinations.
+ *
+ * The script includes the following operations:
+ * 1. Inserts records into the 'UserData' table, providing personal data for test users.
+ * 2. Inserts records into the 'Users' table, providing user credentials and linking them to corresponding UserData.
+ * 3. Inserts records into the 'Rangers' table, indicating that certain users are rangers.
+ * 4. Inserts records into the 'Trips' table, providing details of test trips, including trip creator, participants, and trip logistics.
+ * 5. Inserts records into the 'TripDestinations' table, specifying destinations for each trip.
+ *
+ * Note: The IDs used in the INSERT statements should correspond to existing IDs in the referenced tables.
+ *       Ensure that the referenced tables exist and have the required structure before executing this script.
+ */
 INSERT INTO UserData
     (id, first_name, last_name, phone, address, city, state, zip)
 VALUES
@@ -14,6 +27,9 @@ INSERT INTO Rangers (id)
 VALUES
     (1);
 
+/**
+ * Inserts data into the 'Trips' table, providing details of test trips.
+ */
 INSERT INTO Trips
     (confirm_code, creator, first_name, last_name, street, city, state, zip_code, date, start, purpose, phone, duration, party_size)
 VALUES
@@ -34,6 +50,9 @@ VALUES
     ('poltiye', 2, 'Terry', 'Jo', '4 maple', 'lakewood', 'NY', '22222', '01-06-2024 12:00:00', 3, 'Test Data', '333-333-3333', 2, 1),
     ('qweddns', 2, 'Pam', 'Harris', '4 maple', 'lakewood', 'NY', '22222', '01-05-2024 12:00:00', 4, 'Test Data', '333-333-3333', 2, 7);
 
+/**
+ * Inserts data into the 'TripDestinations' table, specifying destinations for each trip.
+ */
 INSERT INTO TripDestinations
     (trip_id, destination)
 VALUES

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 import '../assets/stylesheets/App.css'; // Importing the CSS file for styling
 import Navbar from '../components/Navbar'; // Importing the Navbar component for navigation
 
 const Profile = () => {
+    const navigate = useNavigate(); // Hook for navigating to different routes
+
     async function getUserInfo() {
         const key = sessionStorage.getItem('sessionKey');
         try {
@@ -33,6 +35,34 @@ const Profile = () => {
             console.error("Error: " + error);
             return { success: false, message: error.message };
         }
+    }
+
+    async function editTrip(confirm_code) {
+        navigate(`/register?trip=${confirm_code}`);
+    }
+
+    async function updateProfile(event) {
+        const key = sessionStorage.getItem('sessionKey');
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/user`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'key': key,
+                'first_name': event.target[0].value,
+                'last_name': event.target[1].value,
+                'address': event.target[2].value,
+                'city': event.target[3].value,
+                'state': event.target[4].value,
+                'zip': event.target[5].value,
+                'phone': event.target[6].value
+            })
+        });
+
+        const updateResponse = await response.json();
+
+        console.log(updateResponse);
     }
 
     const [userInfo, setUserInfo] = useState(null);
@@ -69,7 +99,7 @@ const Profile = () => {
     }, []);
 
     function formatTimestamp(timestamp) {
-        const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: true };
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         const date = new Date(timestamp);
         const formattedDate = date.toLocaleString('en-US', options).replace(',', '');
     
@@ -99,7 +129,7 @@ const Profile = () => {
         }
 
         return (
-            <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+            <div className="h-screen bg-cover bg-BJW_2 bg-center bg-fixed bg-no-repeat hero p-8">
                 {/* Rendering the navigation bar */}
                 <Navbar />
                 <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-11/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
@@ -110,7 +140,7 @@ const Profile = () => {
                                 {userData && userData['first_name'] && userData['last_name'] && `${userData['first_name']} ${userData['last_name']}`}
                                 </h1>
                                 {userData && 
-                                    <form className="w-11/12 m-2 pb-2">
+                                    <form className="w-11/12 m-2 pb-2" onSubmit={updateProfile}>
                                         <div className="flex w-full m-1">
                                             <label className="w-1/2 mr-auto text-center">First Name</label>
                                             <input className="w-1/2 ml-auto" defaultValue={userData['first_name']} />
@@ -165,25 +195,26 @@ const Profile = () => {
                                     <thead className="bg-gray">
                                         <tr className="border border-b-1 border-black">
                                             {/* Add table headers as needed */}
-                                            <th>ID</th>
+                                            <th>Code</th>
                                             <th>Date</th>
                                             <th>Start</th>
                                             <th>Destinations</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {userTrips.map((trip, index) => (
                                             <tr key={index} className={index % 2 === 0 ? 'bg-gray bg-opacity-80' : ''}>
-                                                <td className="w-1/12 text-center border-r border-black">{trip.confirm_code}</td>
-                                                <td className="w-1/4 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
+                                                <td className="w-1/6 text-center border-r border-black">{trip.confirm_code}</td>
+                                                <td className="w-1/6 text-center border-r border-black">{formatTimestamp(trip.date)}</td>
                                                 <td className="w-1/6 text-center border-r border-black">{trip.start}</td>
                                                 <td className="w-1/2 text-center">{trip.destinations}</td>
+                                                <td><button className="mx-auto ml-2 block bg-green pl-3 pr-3 rounded-md text-white" type="submit" onClick={() => {editTrip(trip.confirm_code)}}>Edit</button></td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             }
-                            {/* {userTrips && <pre>{JSON.stringify(userTrips, null, 2)}</pre>} */}
                         </div>
                     </div>
                 </div>
