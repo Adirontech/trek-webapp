@@ -18,6 +18,7 @@ const userQueries = {
     getUserInfo: new QueryFile(path.join(__dirname, '../sql/userDataSQL/get.sql')),
     setPassword: new QueryFile(path.join(__dirname, '../sql/userSQL/setPassword.sql')),
     isAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/isAllocator.sql')),
+    makeAllocator: new QueryFile(path.join(__dirname, '../sql/userSQL/makeAllocator.sql')),
     signOut: new QueryFile(path.join(__dirname, '../sql/userSQL/signOut.sql'))
 };
 
@@ -93,6 +94,16 @@ async function isAllocator(key) {
     return result;
 }
 
+async function makeAllocator(key, allocatorUser) {
+    try {
+        const result = await db.none(userQueries.makeAllocator, [allocatorUser, key]);
+        return {'success': true};
+    }
+    catch (error) {
+        return {'success': false};   
+    }
+}
+
 /**
  * Hashes the given password using SHA-512 algorithm.
  * @param {string} pw - The password to be hashed.
@@ -111,5 +122,6 @@ module.exports = {
     changePassword,
     validSessionKey,
     isAllocator,
+    makeAllocator,
     signOut
 };
