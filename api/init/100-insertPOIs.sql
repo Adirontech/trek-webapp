@@ -1,9 +1,32 @@
+/**
+ * This SQL script inserts data into the 'WildernessAreas' and 'POIs' tables, populating them with initial values.
+ *
+ * The script includes the following operations:
+ * 1. Inserts records into the 'WildernessAreas' table, providing IDs and names for wilderness areas.
+ * 2. Inserts records into the 'POIs' table, providing IDs, names, types, and wilderness area IDs for points of interest.
+ *
+ * The data inserted into the 'WildernessAreas' table includes:
+ * - ID: Unique identifier for each wilderness area.
+ * - Name: Name of the wilderness area.
+ *
+ * The data inserted into the 'POIs' table includes:
+ * - ID: Unique identifier for each point of interest.
+ * - Name: Name of the point of interest.
+ * - Type: Type of the point of interest (e.g., Trailhead, Peak, Scenic, Lodge, Leanto).
+ * - Wilderness_area: ID of the wilderness area to which the point of interest belongs.
+ *
+ * Note: The 'WildernessAreas' and 'POIs' tables must be created and exist in the database before executing this script.
+ *       Also, the IDs used in the INSERT statements should match the corresponding wilderness area IDs defined in the 'WildernessAreas' table.
+ */
 INSERT INTO WildernessAreas (id, name)
 VALUES
-(1, 'High Peaks'),
-(2, 'AMR'),
-(3, 'Five Ponds');
+    (1, 'High Peaks'),
+    (2, 'AMR'),
+    (3, 'Five Ponds');
 
+/**
+ * Inserts data into the 'POIs' table, populating it with initial points of interest.
+ */
 INSERT INTO POIs (id, name, type, wilderness_area)
 VALUES 
     (1, 'Heart Lake', 'Trailhead', 1),

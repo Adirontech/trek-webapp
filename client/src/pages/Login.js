@@ -253,7 +253,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Create account form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-scroll bg-cover w-screen  2xl:h-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_8 bg-scroll bg-cover w-screen  2xl:h-screen">
                         <div className=" flex flex-col items-center justify-center pb-5">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">
@@ -342,7 +342,7 @@ const Login = () => {
         return(
                 <div className="bg-black w-full">
                 {/* Login form */}
-                    <div className=" flex items-center justify-center bg-black bg-login bg-cover h-screen w-screen">
+                    <div className=" flex items-center justify-center bg-black bg-BJW_17 bg-cover h-screen w-screen">
                         <div className=" flex flex-col items-center justify-center">
                             <img className="w-60 py-5" alt="Logo" src="AWA-logo.png" /> 
                             <div className="bg-white p-6 rounded-lg shadow-md w-72">

@@ -10,7 +10,7 @@
  import Navbar from "../components/Navbar"; // Importing Navbar component
  import StateSelect from "../components/StateSelect"; // Importing StateSelect component
  import POISelect from "../components/POISelect"; // Importing POISelect component
- import { useNavigate } from 'react-router-dom';
+ import { useNavigate, useLocation } from 'react-router-dom';
  
 const config = require('../config/config.js');
  /**
@@ -19,6 +19,11 @@ const config = require('../config/config.js');
   */
  const Register = () => {
      const navigate = useNavigate(); // Hook for navigating to different routes
+     const location = useLocation(); // Hook for getting the current location
+
+     const searchParams = new URLSearchParams(location.search);
+     const tripConfirmCode = searchParams.get('trip');
+
      // State variables for error handling, creation status, POI key, phone hover state, and form data
      const [error, setError] = useState(false);
      const [created, setCreated] = useState(false);
@@ -34,7 +39,7 @@ const config = require('../config/config.js');
          zip_code: '',
          date: '',
          start: '',
-         pois: '',
+         pois: [],
          purpose: '',
          phone: '',
          duration: '',
@@ -45,6 +50,65 @@ const config = require('../config/config.js');
      const [trailHeads, setTrailHeads] = useState([]);
      const [showTrailHeads, setShownTrailHeads] = useState([]);
  
+     
+
+     // Effect hook to validate access to edit a currently existing trip
+     useEffect(() => {
+        const codeAccessValidate = async () => {
+            const key = sessionStorage.getItem('sessionKey');
+
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/trips/belongs-to-key?code=${tripConfirmCode}&key=${key}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+    
+            const tripAccessValidResponse = await response.json();
+            if (!tripAccessValidResponse.belongs_to) {
+               navigate('/');
+            }
+
+            /* Page has been loaded with proper access to edit a currently existing trip */
+            const tripDataResponse = await fetch(`${process.env.REACT_APP_API_URL}/trips/info-from-code-key?code=${tripConfirmCode}&key=${key}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const existingTripData = await tripDataResponse.json();
+            if (existingTripData) {
+                
+                function formatTimestamp(timestamp) {
+                    const date = new Date(timestamp);
+                    const formattedDate = date.toISOString().slice(0,10);
+                    return formattedDate;
+                }
+
+                setRegisterData({
+                    first_name: existingTripData.first_name,
+                    last_name: existingTripData.last_name,
+                    street: existingTripData.street,
+                    city: existingTripData.city,
+                    state: existingTripData.state,
+                    zip_code: existingTripData.zip_code,
+                    date: formatTimestamp(existingTripData.date),
+                    start: existingTripData.start,
+                    pois: (existingTripData.destinations.join(",")),
+                    purpose: existingTripData.purpose,
+                    phone: existingTripData.phone,
+                    duration: existingTripData.duration,
+                    party_size: existingTripData.party_size,
+                    session_key: key
+                });
+            }
+        }
+        if (tripConfirmCode != null) {
+           codeAccessValidate();
+        }
+    }, [tripConfirmCode]);
+
      // Effect hook to fetch user info and update session key
      useEffect(() => {
          const key = sessionStorage.getItem('sessionKey');
@@ -219,23 +283,49 @@ const config = require('../config/config.js');
          e.preventDefault();
          if( validateRegister() ){
              try{
-                const key = sessionStorage.getItem('sessionKey');
-                const options = {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(registerData)
-                };
-                const response = await fetch(config.apiURL + `/trips`, options);
-                if ( !response.ok ) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                const data = await response.json();
-                if(data.message === 'Trip Created'){
-                    setCreated(true);
-                    clearForm();
-                //  navigate to the profile page
-                navigate('/profile');
-                }
+                 if(tripConfirmCode == null){
+                    const options = {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(registerData)
+                    };
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/trips`, options);
+                    if ( !response.ok ) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if(data.message === 'Trip Created'){
+                        const key = sessionStorage.getItem('sessionKey');
+                        setCreated(true);
+                        clearForm();
+                        if (key != null) {
+                            navigate('/profile');
+                        }
+                        else {
+                            navigate('/');
+                        }
+                    }
+                 }
+                 else {
+                    registerData.confirm_code = tripConfirmCode;
+                    const options = {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(registerData)
+                    }
+                    console.log(options.body);
+                    const response = await fetch(`${process.env.REACT_APP_API_URL}/trips`, options);
+                    if ( !response.ok ) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    if(data.message === 'Trip Updated'){
+                        setCreated(true);
+                        clearForm();
+                        navigate('/profile');
+                    }
+                 }
+                 
              } catch ( error ) {
                  console.log('Error:', error);
              }
@@ -245,7 +335,7 @@ const config = require('../config/config.js');
      // Render the component
      return (
          <div>
-             <div className="md:h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero p-8">
+             <div className="md:h-screen bg-cover bg-BJW_3 bg-center bg-fixed bg-no-repeat hero p-8">
                  <Navbar />
                      <div className="flex flex-col items-start justify-center mt-10 w-full sm:w-9/12 xl:w-5/12 ml-auto mr-auto bg-white p-4 rounded-lg shadow-md">
                          <h1 className="text-xl mr-auto ml-auto relative bottom-1">Trip Leader Information</h1>
@@ -362,7 +452,7 @@ const config = require('../config/config.js');
                                  <div className="flex flex-row justify-start my-2 w-full">
                                      <div key={poiKey} className=" md:w-3/5 w-full md:mr-4">
                                          {/* POI selection component */}
-                                         <POISelect registerForm={true} pois={pois} handleChange={POIChange}/>
+                                         <POISelect registerForm={true} pois={pois} handleChange={POIChange} preselected={registerData.pois}/>
                                      </div>
                                      <div className="flex flex-col md:w-2/5 w-full">
                                          <div className="flex flex-row justify-between">

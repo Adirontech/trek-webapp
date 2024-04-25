@@ -159,7 +159,7 @@ const LandAllocation = () => {
     }
 
     return (
-        <div className="h-screen bg-cover bg-home bg-center bg-fixed bg-no-repeat hero pt-8 pb-8 sm:p-8 overflow-y-scroll">
+        <div className="h-screen bg-cover bg-BJW_9 bg-center bg-fixed bg-no-repeat hero pt-8 pb-8 sm:p-8 overflow-y-scroll">
             <Navbar />
             <div className='flex flex-col items-center w-full mb-1'>
                 <div className="flex flex-row mt-8 mb-4 w-full justify-center">

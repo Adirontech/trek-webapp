@@ -7,7 +7,7 @@
  */
 
 CREATE OR REPLACE FUNCTION edit_trip(
-    p_id INT,
+    p_confirm_code VARCHAR(7),
     p_first_name VARCHAR,
     p_last_name VARCHAR,
     p_street VARCHAR,
@@ -24,17 +24,24 @@ CREATE OR REPLACE FUNCTION edit_trip(
     p_session_key VARCHAR
 ) RETURNS VOID AS $$
 DECLARE
+    v_trip_id INT;
     v_session_key VARCHAR;
     v_creator_id INT;
     poi INT;
 BEGIN
     SELECT session_key, user_id
-    INTO v_session_keyt, v_creator_id
+    INTO v_session_key, v_creator_id
     FROM UserSessions
     WHERE session_key = p_session_key;
 
     -- Checking if a session key was found
     IF FOUND THEN
+        -- Querying the trip ID based on the provided confirm code
+        SELECT id
+        INTO v_trip_id
+        FROM Trips
+        WHERE confirm_code = p_confirm_code;
+
         -- Updating the trip details in the Trips table based on the provided trip ID
         UPDATE Trips
         SET creator = v_creator_id,
@@ -50,15 +57,15 @@ BEGIN
             phone = p_phone,
             duration = p_duration,
             party_size = p_party_size
-        WHERE id = p_id;
+        WHERE id = v_trip_id;
 
         DELETE FROM TripDestinations td
-        WHERE td.trip_id = p_id;
+        WHERE td.trip_id = v_trip_id;
 
         FOREACH poi IN ARRAY p_pois
         LOOP
             INSERT INTO TripDestinations (trip_id, destination) VALUES(
-                p_id, CAST(poi AS INT)
+                v_trip_id, CAST(poi AS INT)
             );
         END LOOP;
 
@@ -69,4 +76,4 @@ BEGIN
     END IF;
 END $$ LANGUAGE PLPGSQL;
 
-SELECT edit_trip(CAST($1 AS INT), $2, $3, $4, $5, $6, $7, CAST($8 AS DATE), CAST($9 AS INT), string_to_array(CAST($10, VARCHAR), ','), $11, $12, CAST($13 AS INT), CAST($14 AS INT), $15);
+SELECT edit_trip($1, $2, $3, $4, $5, $6, $7, CAST($8 AS DATE), CAST($9 AS INT), string_to_array($10, ','), $11, $12, CAST($13 AS INT), CAST($14 AS INT), $15);

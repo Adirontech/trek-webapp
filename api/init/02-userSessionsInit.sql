@@ -1,5 +1,5 @@
 /**
- * userSessionsInit.sql - SQL script for initializing the UserSessions table.
+ * 02-userSessionsInit.sql - SQL script for initializing the UserSessions table.
  * This script drops the UserSessions table if it already exists and then creates a new UserSessions table.
  * The UserSessions table stores session information for users, including session keys, user IDs, and expiration dates.
  * It has an auto-incrementing primary key (id) and ensures that the session_key and user_id fields are not nullable.
