@@ -11,18 +11,6 @@ const tripsModel = require('../models/tripsModel');
 const router = express.Router();
 
 /**
- * Route to retrieve all trips.
- */
-router.get('/all', async (req, res) => {
-    try {
-        const trips = await tripsModel.getAllTrips();
-        res.status(200).json(trips);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-});
-
-/**
  * Route to get all trips for a specific user (from a session key)
  */
 router.get('/from-key', async (req, res) => {

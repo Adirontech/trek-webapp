@@ -10,7 +10,6 @@ const path = require('path');
 
 // Define queries for trip operations
 const tripQueries = {
-    getAllTrips: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getAll.sql')),
     getTripsFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getFromKey.sql')),
     getTripsInfoFromKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getInfoFromKey.sql')),
     getTripInfoFromCodeKey: new QueryFile(path.join(__dirname, '../sql/tripsSQL/getInfoFromCodeKey.sql')),
@@ -19,14 +18,6 @@ const tripQueries = {
     editTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/edit.sql')),
     confirmTrip: new QueryFile(path.join(__dirname, '../sql/tripsSQL/confirm.sql'))
 };
-
-/**
- * Retrieves all trips from the database.
- * @returns {Promise<Array>} An array containing all trip records.
- */
-async function getAllTrips() {
-    return await db.any(tripQueries.getAllTrips);
-}
 
 /**
  * Retrieves all trips from the database for a specific user (from a session key)
@@ -93,7 +84,6 @@ async function confirmTrip(confirmCode) {
 }
 
 module.exports = {
-    getAllTrips,
     getTripsFromKey,
     getTripsInfoFromKey,
     getTripInfoFromCodeKey,
