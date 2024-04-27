@@ -46,7 +46,7 @@ const Navbar = () => {
             </div>
             {/* profile - right */}
             <div className=''>
-                <a href={`${config.apiURL}/profile`}><img src={profileIcon} height={40} width={40}/></a>
+                <Link to="/profile"><img src={profileIcon} height={40} width={40}/></Link>
             </div>
         </nav>
     )

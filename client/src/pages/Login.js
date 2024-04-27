@@ -197,7 +197,7 @@ const Login = () => {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ username: createData.username, password: createData.password })
                     };
-                    const sResponse = await fetch(config.apiURL + `/user/`, sOptions);
+                    const sResponse = await fetch(`${process.env.REACT_APP_API_URL}/user/`, sOptions);
                     if ( !sResponse.ok ) {
                         throw new Error(`HTTP error (2)! Status: ${sResponse.status}`);
                     }
